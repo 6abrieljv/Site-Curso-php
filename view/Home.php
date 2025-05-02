@@ -33,12 +33,16 @@ $fotoPerfil = $perfil['foto'] ?? 'default.png'; // Foto padrão se não houver f
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
-    <h1>Bem-vindo, <?php echo htmlspecialchars($nomeUsuario); ?>!</h1>
+    <h1 class="">Bem-vindo, <?php echo htmlspecialchars($nomeUsuario); ?>!</h1>
     <img src="<?php echo htmlspecialchars($fotoPerfil); ?>" alt="Foto de Perfil"
         style="width: 150px; height: 150px; border-radius: 50%;">
+    <a href="NoticiaCadastro.php">Cadastrar Perfil</a>
+    <a href="Noticia.php">Notícia</a>
 </body>
 
 </html>

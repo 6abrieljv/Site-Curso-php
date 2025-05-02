@@ -69,10 +69,11 @@ class UsuarioDao  {
         $stmt->execute();
         $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        // Verifica se o usuário foi encontrado e se a senha está correta
         if ($resultado && password_verify($usuarioLogin->getSenha(), $resultado['senha'])) {
-            return $resultado; // agora retorna os dados do usuário logado
+            return $resultado; // Retorna os dados do usuário
         } else {
-            return false;
+            return false; // Login inválido
         }
     }
 }

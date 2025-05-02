@@ -10,11 +10,11 @@ CREATE TABLE usuario (
 -- Tabela de perfil (1 para 1 com usuário)
 CREATE TABLE perfil (
     id BIGSERIAL PRIMARY KEY,
-    usuario_id BIGINT UNIQUE NOT NULL,
+    id_usuario BIGINT UNIQUE NOT NULL,
     bio TEXT,
     foto VARCHAR(255),
     CONSTRAINT fk_perfil_usuario
-        FOREIGN KEY (usuario_id)
+        FOREIGN KEY (id_usuario)
         REFERENCES usuario(id)
         ON DELETE CASCADE
 );
@@ -26,6 +26,7 @@ CREATE TABLE noticia (
     usuario_id BIGINT NOT NULL,
     titulo VARCHAR(200) NOT NULL,
     conteudo TEXT NOT NULL,
+    imagem VARCHAR(255),
     data_publicacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_noticia_usuario
         FOREIGN KEY (usuario_id)

@@ -31,7 +31,7 @@
             }
             ?>
 
-            <form method="POST" action="../script/Cadastro/processa_cadastro.php">
+            <form method="POST" action="../script/cadastro/processa_cadastro.php">
 
                 <div class="input-login">
                     <label for="nome_completo">Nome Completo:</label>
