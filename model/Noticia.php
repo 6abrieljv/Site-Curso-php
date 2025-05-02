@@ -3,52 +3,68 @@
 class Noticia {
     private $id;
     private $titulo;
-    private $texto;
-    private $data;
+    private $conteudo;
+    private $dataPublicacao;
     private $imagem;
     private $idAutor;
 
-
-    public function __construct( $titulo, $texto, $data, $imagem, $idAutor) {
+    /**
+     * Construtor da classe Noticia
+     * @param string $titulo Título da notícia
+     * @param string $texto Texto da notícia
+     * @param string|null $dataPublicacao Data de publicação (opcional, usa a data atual se não fornecida)
+     * @param string $imagem Caminho da imagem
+     * @param int $idAutor ID do autor da notícia
+     */
+    public function __construct($titulo, $conteudo, $dataPublicacao = null, $imagem, $idAutor) {
         $this->titulo = $titulo;
-        $this->texto = $texto;
-        $this->data = $dataPublicacao;
+        $this->conteudo = $conteudo;
+        $this->dataPublicacao = $dataPublicacao ?? date('Y-m-d H:i:s'); // Usa a data atual se não fornecida
         $this->imagem = $imagem;
         $this->idAutor = $idAutor;
     }
+
+    // Métodos getters e setters
     public function getId() {
         return $this->id;
     }   
     public function setId($id) {
         $this->id = $id;
     }
+
     public function getTitulo() {
         return $this->titulo;
     }
     public function setTitulo($titulo) {
         $this->titulo = $titulo;
     }
-    public function getTexto() {
-        return $this->texto;
+
+    public function getConteudo() {
+        return $this->conteudo;
     }   
-    public function setTexto($texto) {
-        $this->texto = $texto;
+    public function setConteudo($conteudo) {
+        $this->conteudo = $conteudo;
     }
-    public function getData() {
-        return $this->data;
+
+    public function getDataPublicacao() {
+        return $this->dataPublicacao;
     }
-    public function setData($data) {
-        $this->data = $data;    
-        
+    public function setDataPublicacao($dataPublicacao) {
+        $this->dataPublicacao = date('Y-m-d H:i:s', strtotime($dataPublicacao)); // Formata a data
     }
+
     public function getImagem() {
         return $this->imagem;
     }
     public function setImagem($imagem) {
         $this->imagem = $imagem;
     }
+
     public function getIdAutor() {
         return $this->idAutor;
     }
+    public function setIdAutor($idAutor) {
+        $this->idAutor = $idAutor;
+    }
 }
-    ?>
+?>
