@@ -11,12 +11,13 @@
         | 1
         | 
         | 1
-+----------------+
-|     Perfil     |
-+----------------+
-| - id: Long     |
-| - bio: String  |
-| - foto: String |
++--------------------+
+|       Perfil       |
++--------------------+
+| - id: Long         |
+| - bio: String      |
+| - foto: String     |
+| - id_usuario: Long |
 +----------------+
 
         |

@@ -19,11 +19,6 @@ CREATE TABLE perfil (
         ON DELETE CASCADE
 );
 
--- Tabela de categorias de notícias
-CREATE TABLE categoria (
-    id BIGSERIAL PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL
-);
 
 -- Tabela de notícias
 CREATE TABLE noticia (
@@ -38,17 +33,5 @@ CREATE TABLE noticia (
         ON DELETE CASCADE
 );
 
--- Tabela associativa para muitos-para-muitos entre notícia e categoria
-CREATE TABLE noticia_categoria (
-    noticia_id BIGINT NOT NULL,
-    categoria_id BIGINT NOT NULL,
-    PRIMARY KEY (noticia_id, categoria_id),
-    CONSTRAINT fk_noticia_categoria_noticia
-        FOREIGN KEY (noticia_id)
-        REFERENCES noticia(id)
-        ON DELETE CASCADE,
-    CONSTRAINT fk_noticia_categoria_categoria
-        FOREIGN KEY (categoria_id)
-        REFERENCES categoria(id)
-        ON DELETE CASCADE
-);
+
+

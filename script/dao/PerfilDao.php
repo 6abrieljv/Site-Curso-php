@@ -34,10 +34,10 @@ class PerfilDao {
     }
 
     public function atualizar() {
-        $query = "UPDATE perfil SET bio = :bio, imagem = :imagem WHERE id_usuario = :id_usuario";
+        $query = "UPDATE perfil SET bio = :bio, foto = :imagem WHERE id_usuario = :id_usuario";
         $stmt = $this->conexao->prepare($query);
         $stmt->bindValue(':bio', $this->perfil->getBio());
-        $stmt->bindValue(':imagem', $this->perfil->getImagem());
+        $stmt->bindValue(':foto', $this->perfil->getFoto());
         $stmt->bindValue(':id_usuario', $this->perfil->getIdUsuario());
         return $stmt->execute();
     }
