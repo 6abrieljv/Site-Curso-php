@@ -12,15 +12,19 @@ if (empty($email) || empty($senha)) {
     exit;
 }
 
-$usuario = new Usuario($email, $senha);
+$usuario = new Usuario('', '', '', $email, $senha); // Cria o objeto Usuario com os dados do login
+$usuario->setEmail($email); // Define o email do usuário
+$usuario->setSenha($senha); // Define a senha do usuário
 $conexao = new Conexao();
 $usuarioDao = new UsuarioDao($conexao->conectar(), $usuario);
 
 // Tentar autenticar o usuário
-if ($usuarioDao->login($usuario)) {
+$resultado = $usuarioDao->login($usuario);
+if ($resultado) {
     session_start();
-    $_SESSION['usuario'] = $usuario->getEmail(); // Armazena o email do usuário na sessão
-    header('Location: ../../view/Home.php?sucesso=login_realizado'); // Redireciona para a página inicial
+    $_SESSION['id_usuario'] = $resultado['id']; // Armazena o ID do usuário
+    $_SESSION['nome'] = $resultado['nome']; // Armazena o nome completo do usuário
+    header('Location: ../../view/Home.php'); // Redireciona para a página inicial
     exit;
 } else {
     header('Location: ../../index.php?erro=login_invalido'); // Redireciona para a página de login com erro

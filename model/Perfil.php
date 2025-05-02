@@ -1,23 +1,16 @@
-<?php 
+<?php
 
-class Perfil {  
+class Perfil {
     private $id;
-    private $nome;
-    private $periodo;
-    private $idade; 
     private $bio;
-    private $imagem;
-
-    private $idUsuario;
+    private $foto;
+    private $id_usuario;
     
 
-    public function __construct($nome, $periodo, $idade, $bio, $imagem , $idUsuario) {
-        $this->nome = $nome;
-        $this->periodo = $periodo;
-        $this->idade = $idade;
+    public function __construct($id_usuario, $bio, $foto) {
+        $this->id = $id_usuario;
         $this->bio = $bio;
-        $this->imagem = $imagem;
-        $this->idUsuario = $idUsuario;
+        $this->foto = $foto;
     }
 
     public function getId() {
@@ -28,42 +21,26 @@ class Perfil {
         $this->id = $id;
     }
 
-    public function getNome() {
-        return $this->nome;
-    }
-    public function setNome($nome) {
-        $this->nome = $nome;
-    }
-    public function getPeriodo() {
-        return $this->periodo;
-    }
-    public function setPeriodo($periodo) {
-        $this->periodo = $periodo;
-    }    
-    public function getIdade() {
-        return $this->idade;
-    }
-    public function setIdade($idade) {
-        $this->idade = $idade;
-    }
     public function getBio() {
         return $this->bio;
     }
+
     public function setBio($bio) {
         $this->bio = $bio;
     }
-    public function getImagem() {
-        return $this->imagem;
+
+    public function getFoto() {
+        return $this->foto;
     }
-    public function setImagem($imagem) {
-        $this->imagem = $imagem;
+
+    public function setFoto($foto) {
+        $this->foto = $foto;
     }
     public function getIdUsuario() {
-        return $this->idUsuario;
-    }    
-    public function setIdUsuario($idUsuario) {
-        $this->idUsuario = $idUsuario;
+        return $this->id_usuario;
     }
-    
+    public function setIdUsuario($id_usuario) {
+        $this->id_usuario = $id_usuario;
+    }
 }
-    ?>
+?>

@@ -17,7 +17,26 @@
             <h1>Bem-Vindo!</h1>
             <p>Faça seu Cadastro</p>
 
+            <?php
+            if (isset($_GET['erro'])) {
+                if ($_GET['erro'] == 'senhas_nao_coincidem') {
+                    echo "<p style='color: red;'>As senhas não coincidem.</p>";
+                } elseif ($_GET['erro'] == 'erro_ao_cadastrar') {
+                    echo "<p style='color: red;'>Erro ao cadastrar usuário.</p>";
+                }
+            }
+
+            if (isset($_GET['sucesso']) && $_GET['sucesso'] == 'cadastro_realizado') {
+                echo "<p style='color: green;'>Cadastro realizado com sucesso!</p>";
+            }
+            ?>
+
             <form method="POST" action="../script/Cadastro/processa_cadastro.php">
+
+                <div class="input-login">
+                    <label for="nome_completo">Nome Completo:</label>
+                    <input type="text" id="nome_completo" name="nome_completo">
+                </div>
 
 
                 <div class="input-login">

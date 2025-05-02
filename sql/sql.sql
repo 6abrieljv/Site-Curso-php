@@ -1,48 +1,54 @@
 	-- Tabela de usuários
-	CREATE TABLE usuario (
-	    id SERIAL PRIMARY KEY,
-	    email VARCHAR(255) NOT NULL UNIQUE,
-	    senha VARCHAR(255) NOT NULL
-	);
-	
-	-- Tabela de perfis (relacionada com usuário)
-	CREATE TABLE perfil (
-	    id SERIAL PRIMARY KEY,
-	    nome VARCHAR(100) NOT NULL,
-	    periodo VARCHAR(50),
-	    idade INTEGER,
-	    bio TEXT,
-	    imagem VARCHAR(255),
-	    id_usuario INTEGER NOT NULL,
-	    FOREIGN KEY (id_usuario) REFERENCES usuario(id) ON DELETE CASCADE
-	);
-	
-	-- Tabela de notícias (relacionada com usuário como autor)
-	CREATE TABLE noticia (
-	    id SERIAL PRIMARY KEY,
-	    titulo VARCHAR(255) NOT NULL,
-	    texto TEXT NOT NULL,
-	    data TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	    imagem VARCHAR(255),
-	    id_autor INTEGER NOT NULL,
-	    FOREIGN KEY (id_autor) REFERENCES usuario(id) ON DELETE CASCADE
-	);
-
--- Inserindo um usuário
-INSERT INTO usuario (email, senha)
-VALUES ('joao@example.com', 'senha123'); -- Lembre-se de criptografar senhas no sistema real
-
--- Vamos supor que o ID gerado foi 1 (você pode verificar com SELECT ou RETURNING id)
--- Inserindo perfil para o usuário
-INSERT INTO perfil (nome, periodo, idade, bio, imagem, id_usuario)
-VALUES ('João Silva', 'Noturno', 21, 'Estudante de Ciência da Computação.', 'joao.jpg', 1);
-
--- Inserindo notícia escrita por esse usuário
-INSERT INTO noticia (titulo, texto, imagem, id_autor)
-VALUES (
-    'Lançamento do novo sistema acadêmico',
-    'O sistema acadêmico foi atualizado com novas funcionalidades.',
-    'sistema.jpg',
-    1
+CREATE TABLE usuario (
+    id BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Tabela de perfil (1 para 1 com usuário)
+CREATE TABLE perfil (
+    id BIGSERIAL PRIMARY KEY,
+    usuario_id BIGINT UNIQUE NOT NULL,
+    bio TEXT,
+    foto VARCHAR(255),
+    CONSTRAINT fk_perfil_usuario
+        FOREIGN KEY (usuario_id)
+        REFERENCES usuario(id)
+        ON DELETE CASCADE
+);
+
+-- Tabela de categorias de notícias
+CREATE TABLE categoria (
+    id BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+);
+
+-- Tabela de notícias
+CREATE TABLE noticia (
+    id BIGSERIAL PRIMARY KEY,
+    usuario_id BIGINT NOT NULL,
+    titulo VARCHAR(200) NOT NULL,
+    conteudo TEXT NOT NULL,
+    data_publicacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_noticia_usuario
+        FOREIGN KEY (usuario_id)
+        REFERENCES usuario(id)
+        ON DELETE CASCADE
+);
+
+-- Tabela associativa para muitos-para-muitos entre notícia e categoria
+CREATE TABLE noticia_categoria (
+    noticia_id BIGINT NOT NULL,
+    categoria_id BIGINT NOT NULL,
+    PRIMARY KEY (noticia_id, categoria_id),
+    CONSTRAINT fk_noticia_categoria_noticia
+        FOREIGN KEY (noticia_id)
+        REFERENCES noticia(id)
+        ON DELETE CASCADE,
+    CONSTRAINT fk_noticia_categoria_categoria
+        FOREIGN KEY (categoria_id)
+        REFERENCES categoria(id)
+        ON DELETE CASCADE
+);
