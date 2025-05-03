@@ -8,64 +8,58 @@
     <link rel="stylesheet" href="../css/style.css">
     <title>Notícias</title>
     <style>
-    .noticia-card {
-        border: 1px solid #ccc;
-        border-radius: 12px;
-        /* Bordas arredondadas */
-        padding: 12px;
-        margin: 12px;
-        background-color: #fff;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 300px;
-        /* Largura fixa menor */
-        text-align: center;
-        /* Centraliza o conteúdo */
-    }
+        .noticia-card {
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            padding: 12px;
+            margin: 12px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
 
-    .noticia-card img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 8px;
-        /* Bordas arredondadas para a imagem */
-        margin-bottom: 8px;
-    }
+        .noticia-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
 
-    .noticia-card h2 {
-        font-size: 16px;
-        margin-bottom: 8px;
-        color: #333;
-    }
+        .noticia-card h2 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #333;
+        }
 
-    .noticia-card p {
-        font-size: 12px;
-        color: #555;
-        margin-bottom: 12px;
-    }
+        .noticia-card p {
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 12px;
+        }
 
-    .noticia-card a {
-        display: inline-block;
-        margin-top: 8px;
-        padding: 8px 12px;
-        background-color: #003366;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 6px;
-        /* Bordas arredondadas para o botão */
-        font-size: 12px;
-        transition: background-color 0.3s ease;
-    }
+        .noticia-card a {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 8px 12px;
+            background-color: #003366;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 12px;
+            transition: background-color 0.3s ease;
+        }
 
-    .noticia-card a:hover {
-        background-color: #002750;
-    }
+        .noticia-card a:hover {
+            background-color: #002750;
+        }
 
-    .noticias-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 16px;
-        /* Espaçamento entre os cards */
-    }
+        .noticias-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+        }
     </style>
 </head>
 
@@ -74,19 +68,7 @@
 
     <div class="noticias-container">
         <?php
-        require_once '../model/Conexao.php';
-        require_once '../model/Noticia.php';
-        require_once '../script/dao/NoticiaDao.php';
-
-        // Conexão com o banco de dados
-        $conexao = new Conexao();
-        $pdo = $conexao->conectar();
-
-        // Instância do DAO
-        $noticiaDao = new NoticiaDao($pdo, new Noticia('', '', '', '', ''));
-
-        // Busca todas as notícias
-        $noticias = $noticiaDao->listar();
+        require '../script/noticia/mostra_noticia.php'; // Inclui o arquivo PHP separado
 
         // Exibe as notícias
         if (!empty($noticias)) {
