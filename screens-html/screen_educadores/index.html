@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--TAILWIND-->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap">
+
+    <!--ICONS MENU HAMBURGUER-->
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+
+    <!--FAVICON-->
+    <link rel="shortcut icon" type="image/jpg" href="../assets/img/logos/favicon pato site.png"/>
+
+    <title>NerdHub - Educadores</title>
+</head>
+
+
+<body class="font-['Pixelify_Sans'] bg-[#F5F4F4] h-screen">
+    <!--HEADER-->
+    <header class="bg-[#001934]">
+        <nav class="flex justify-between items-center w-[95%] m-auto">
+            <div>
+                <a href=""><img class="w-16 p-1" src="../assets/img/logos/favicon pato site.png" alt="Logo"></a>
+            </div>
+            <div
+                class="nav-links duration-500 md:static absolute bg-[#001934] md:min-h-fit min-h-[40vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5">
+                <ul class="flex md:flex-row flex-col md:items-center md:gap-[6vw] gap-6 text-white text-lg p-4">
+                    <li><a class="hover:text-xl hover:underline duration-300" href="#">Home</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="#">LTD</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="#">Educadores</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="../screen_atletica/index.html">Atlética</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="#">Perfil</a></li>
+                </ul>
+            </div>
+            <div class="flex items-center gap-6">
+                <button
+                    class=" text-lg text-white px-5 py-2 rounded-3xl hover:text-xl cursor-pointer duration-300 ease-out hover:underline active:text-[#001934]">
+                    Entrar
+                </button>
+                <ion-icon onclick="onToggleMenu(this)" name="menu"
+                    class="text-3xl text-white cursor-pointer md:hidden"></ion-icon>
+            </div>
+        </nav>
+    </header>
+
+    <!--SECTION - PAGINA PRINCPAL-->
+    <main>
+        <section class="py-10">
+            <div class="flex flex-col  items-center w-[80%] mx-auto font-[Poppins] ">
+                <h1 class="text-[2.5rem] font-extralight max-sm:text-3xl max-md:text-3xl max-sm:text-center">Conheça nossos <span class="font-bold underline">educadores</span></h1>
+    
+                <!--PRIMEIRO CARD-->
+                <article class="flex bg-white border border-solid rounded-xl shadow-lg p-[20px] items-center gap-[20px] duration-300 hover:border-[#eeeded] hover:bg-[#eeeded] hover:shadow-[inset_1px_1px_5px_rgba(0,0,0,0.07)] hover:scale-[1.02] mt-10">
+                    <div class="max-md:block max-md:text-center flex items-center gap-4">
+
+                        <img class="shadow-[2px_2px_12px_rgba(0,0,0,0.35)] w-[220px] h-[220px] rounded-[50%] object-cover max-xl:w-[250px] max-xl:h-[250px] max-lg:w-[250px] max-lg:h-[250px] max-sm:w-[220px] max-sm:h-[220px] mx-auto md:mx-0" src="../assets/img/educadores/suzanecarvalho.jpg" alt="Foto de Suzane">
+    
+                        <div class="flex flex-col ml-3 gap-2 max-md:ml-0">
+                            <header>
+                                <p class="text-2xl font-bold max-lg:text-xl max-sm:pt-3">Suzane Carvalho</p>
+                                <p class="italic text-base font-light max-lg:text-sm">Coordenadora e Professora</p>
+                            </header>
+                            <p class="text-sm max-lg:text-xs">Suzane Carvalho dos Santos é professora e coordenadora do curso de Ciência da Computação no Centro
+                            Universitário Estácio São Luís. Com vasta experiência na área acadêmica, ela aplica metodologias ativas
+                            e tecnologias educacionais para garantir uma aprendizagem significativa aos seus alunos. Além de sua atuação
+                            docente, Suzane contribui para a Comissão Própria de Avaliação (CPA) da instituição.</p>
+                            <p class="text-sm max-lg:text-xs">Sua formação acadêmica e seu compromisso com a educação refletem seu empenho em oferecer um ensino de qualidade, focado no desenvolvimento de competências técnicas e práticas nos alunos. Com uma trajetória dedicada ao ensino superior, Suzane tem se destacado como uma profissional engajada no processo de inovação educacional. </p>
+                        </div>
+
+                    </div>
+                </article>
+    
+                <!--SEGUNDO CARD-->
+                <article class="flex bg-white border border-solid rounded-xl shadow-lg p-[20px] items-center gap-[20px] duration-300 hover:border-[#eeeded] hover:bg-[#eeeded] hover:shadow-[inset_1px_1px_5px_rgba(0,0,0,0.07)] hover:scale-[1.02] mt-10">
+
+                    <div class="max-md:block max-md:text-center flex items-center gap-4">
+                        <img class="shadow-[2px_2px_12px_rgba(0,0,0,0.35)] w-[220px] h-[220px] rounded-[50%] object-cover max-xl:w-[250px] max-xl:h-[250px] max-lg:w-[250px] max-lg:h-[250px] max-sm:w-[220px] max-sm:h-[220px] mx-auto md:mx-0" src="../assets/img/educadores/arlisonwady.jpg" alt="Foto de Arlison">
+    
+                        <div class="flex flex-col ml-3 gap-2 max-md:ml-0">
+                            <header>
+                                <p class="text-2xl font-bold max-lg:text-xl max-sm:pt-3">Arlison Wady</p>
+                                <p class="italic text-base font-light max-lg:text-sm">Professor</p>
+                            </header>
+                            <p class="text-sm max-lg:text-xs">Arlison Wady Sousa Martins é Mestre em Ciência da Computação pela Universidade Federal do Maranhão (UFMA) e possui diversas especializações na área de tecnologia e gestão. Atua como professor na Faculdade Estácio desde 2018, lecionando disciplinas como algoritmos, estrutura de dados, engenharia de software, programação orientada a objetos e banco de dados e também atua como líder do projeto de Laboratório de Transformações Digitais (LTD).</p>
+                            <p class="text-sm max-lg:text-xs">Com sólida formação acadêmica e ampla experiência em desenvolvimento de sistemas, Arlison alia prática de mercado ao ensino superior, promovendo uma abordagem atualizada e aplicada nas aulas. Também participa de projetos de pesquisa e orientação de TCCs, contribuindo ativamente para a formação de profissionais da área de computação.</p>
+                        </div>
+
+                    </div>
+                </article>
+    
+                <!--TERCEIRO CARD-->
+                <article class="flex bg-white border border-solid rounded-xl shadow-lg p-[20px] items-center gap-[20px] duration-300 hover:border-[#eeeded] hover:bg-[#eeeded] hover:shadow-[inset_1px_1px_5px_rgba(0,0,0,0.07)] hover:scale-[1.02] mt-10">
+
+                    <div class="max-md:block max-md:text-center flex items-center gap-4">
+                        <img class="shadow-[2px_2px_12px_rgba(0,0,0,0.35)] w-[220px] h-[220px] rounded-[50%] object-cover max-xl:w-[250px] max-xl:h-[250px] max-lg:w-[250px] max-lg:h-[250px] max-sm:w-[220px] max-sm:h-[220px] mx-auto md:mx-0" src="../assets/img/educadores/antonioreis.jpg" alt="Foto de Arlison">
+    
+                        <div class="flex flex-col ml-3 gap-2 max-md:ml-0">
+                            <header>
+                                <p class="text-2xl font-bold max-lg:text-xl max-sm:pt-3">Antônio Reis</p>
+                                <p class="italic text-base font-light max-lg:text-sm">Professor</p>
+                            </header>
+                            <p class="text-sm max-lg:text-xs">Antônio Reis de Sousa é professor no Centro Universitário Estácio São Luís, atuando na área de Tecnologia da Informação. Contribui na formação de alunos em cursos de graduação, aplicando seus conhecimentos em desenvolvimento de software, banco de dados e engenharia da computação.</p>
+                            <p class="text-sm max-lg:text-xs">Na Estácio São Luís, aplica seus conhecimentos em disciplinas como banco de dados, engenharia de software, segurança da informação, business intelligence e computação em nuvem. Sua atuação é marcada pelo uso de metodologias ativas e tecnologias educacionais, visando proporcionar uma aprendizagem significativa aos alunos.</p>
+                            <p class="text-sm max-lg:text-xs">Além das atividades em sala de aula, participa de grupos de pesquisa voltados à inovação no ensino superior, demonstrando seu compromisso com a qualidade acadêmica e o desenvolvimento dos estudantes da Estácio.</p>
+                        </div>
+
+                    </div>
+                </article>
+    
+            </div>
+        </section>
+    </main>
+
+
+    <footer class=" bg-[#001A35] text-white pt-10 pr-5 pb-10 pl-5 text-sm">
+        <div class="w-[75%] flex max-sm:block max-lg:block flex-wrap justify-between gap-[30px] mx-auto">
+            <section class="flex-1 basis-[200px] max-lg:py-5">
+                <h3 class="text-lg text-[#1AFEAB] max-lg:text-center max-lg:text-xl">Créditos</h4>
+                <p class="max-lg:text-base max-lg:text-center">Site desenvolvido por alunos da Estácio São Luís</p>
+            </section>
+            <section class="flex-1 basis-[200px] max-lg:py-5">
+                <h3 class="text-lg text-[#1AFEAB] max-lg:text-center max-lg:text-xl">Sobre o Curso</h4>
+                <p class="max-lg:text-base max-lg:text-center">Ciência da Computação - Universidade Estácio de Sá</p>
+                <p class="max-lg:text-base max-lg:text-center">Campus São Luís</p>
+            </section>
+            <section class="flex-1 basis-[200px] max-lg:py-5">
+                <h3 class="text-lg text-[#1AFEAB] max-lg:text-center max-lg:text-xl">Contato</h4>
+                <address>
+                    <p class="max-lg:text-base hover:underline hover:text-base duration-300 max-lg:text-center"><a href="#">Instagram da Atlética</a></p>
+                    <p class="max-lg:text-base hover:underline hover:text-base duration-300 max-lg:text-center"><a href="#">Instagram da Computação Estácio Sao Luis</a></p>
+                </address>
+            </section>
+        </div>
+        <div class="text-center mt-5 border-t border-[#444] pt-7">
+            <p class="text-[#ccc] italic">© 2025 - Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navLinks = document.querySelector('.nav-links');
+        function onToggleMenu(e) {
+            e.name = e.name === 'menu' ? 'close' : 'menu';
+            navLinks.classList.toggle('top-[62px]');
+        }
+    </script>
+</body>
+</html>
