@@ -1,0 +1,10 @@
+{
+    "name": "syntaxsquad/nerdhub",
+    "description": "portal para o curso de ciencias da computação estacio",
+    "autoload": {
+        "psr-4": {
+            "Syntaxsquad\\Nerdhub\\": "src/"
+        }
+    },
+    "require": {}
+}
