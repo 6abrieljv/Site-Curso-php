@@ -1,7 +1,11 @@
 <header class="bg-[#001934]">
         <nav class="flex justify-between items-center w-[95%] m-auto">
             <div>
-                <a href=""><img class="w-16 p-1" src="../assets/img/logos/favicon pato site.png" alt="Logo"></a>
+                <a href=""><img class="w-16 p-1" src="{{ {% set asset = entry.assetFieldHandle.one() %}
+                
+                {% if asset %}
+                    <img src="{{ asset.getUrl("thumb") }}" width="{{ asset.getWidth("thumb") }}" height="{{ asset.getHeight("thumb") }}" alt="{{ asset.title }}">
+                {% endif %} }}" alt="Logo"></a>
             </div>
             <div
                 class="nav-links duration-500 md:static absolute bg-[#001934] md:min-h-fit min-h-[40vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5">
