@@ -1,9 +1,13 @@
 <?php
 
-class HomeController extends RenderView{
+class HomeController {
     public function index(){
-        $this->loadView('home',[
-            'user'=> 'joao',
-        ]);
+        $twig = new TwigConfig();
+        $data = [
+            'title' => 'Home',
+            'description' => 'Welcome to the home page',
+            'content' => 'This is the home page content',
+        ];
+        echo $twig->render('home.html.twig', $data);
     }
 }

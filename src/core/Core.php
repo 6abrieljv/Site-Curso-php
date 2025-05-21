@@ -23,19 +23,20 @@ class Core
             $pattern = "#^" . preg_replace('/{id}/', '(\w+)', $path) . '$#';
             
 
-
+            
             if (preg_match($pattern, $url, $matches)) {
                 array_shift($matches);
                 $routerFound = true;
                 [$currentController, $action] = explode('@', $controller);
 
                 require_once __DIR__ . "/../controller/$currentController.php";
-                $newController = new $currentController();
-                $newController->$action();
+                (new $currentController())->$action();
             }
         }
         if (!$routerFound) {
-            echo "controller not found!!";
+            require_once __DIR__."/../controller/NotFoundController.php";
+            (NotFoundController())->show();
+            
         }
     }
 }

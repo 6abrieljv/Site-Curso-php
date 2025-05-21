@@ -7,6 +7,6 @@ class RenderView
         $loader = new \Twig\Loader\FilesystemLoader([__DIR__ . '/../views']);
         $twig = new \Twig\Environment($loader);
 
-        echo $twig->render('home.html.twig');
+        echo $twig->render('$view.html.twig');
     }
 }
