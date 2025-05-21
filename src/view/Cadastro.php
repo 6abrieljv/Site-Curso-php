@@ -7,7 +7,7 @@
     <title>Cadastro - NerdHub</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/Site-Curso-php/css/style.css">
 </head>
 
 <body>
@@ -31,7 +31,7 @@
             }
             ?>
 
-            <form method="POST" action="../script/cadastro/processa_cadastro.php">
+            <form method="POST" action="../controller/CadastroController.php">
 
                 <div class="input-login">
                     <label for="nome_completo">Nome Completo:</label>
@@ -60,7 +60,7 @@
         </section>
 
         <div class="imagem-login">
-            <img class="img-login" src="../assets/login.png" alt="imagem de 
+            <img class="img-login" src="/Site-Curso-php/assets/login.png" alt="imagem de 
       login">
         </div>
 
