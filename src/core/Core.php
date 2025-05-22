@@ -29,13 +29,13 @@ class Core
                 $routerFound = true;
                 [$currentController, $action] = explode('@', $controller);
 
-                require_once __DIR__ . "/../controller/$currentController.php";
+                require_once __DIR__ . "/../controllers/$currentController.php";
                 (new $currentController())->$action();
             }
         }
         if (!$routerFound) {
-            require_once __DIR__."/../controller/NotFoundController.php";
-            (NotFoundController())->show();
+            require_once __DIR__."/../controllers/NotFoundController.php";
+            (new NotFoundController())->show();
             
         }
     }
