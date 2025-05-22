@@ -3,15 +3,11 @@
     "description": "portal para o curso de ciencias da computação estacio",
     "autoload": {
         "psr-4": {
-            "Syntaxsquad\\Nerdhub\\": "src/",
-            "App\\Model\\":"src/model",
-            "App\\Utils\\":"src/utils",
-            "App\\Core\\":"src/core"
-
-
+            "Syntaxsquad\\Nerdhub\\": "src/"
         }
     },
     "require": {
-        "twig/twig": "^3.0"
+        "twig/twig": "^3.0",
+        "vlucas/phpdotenv": "^5.6"
     }
 }
