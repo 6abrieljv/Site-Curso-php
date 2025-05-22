@@ -15,6 +15,7 @@ $routers = require_once(__DIR__."/src/routers/routers.php");
 
 require_once(__DIR__."/src/core/Core.php");
 
+
 $core = new Core($routers);
 
 $core->run();

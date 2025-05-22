@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+
 {% include 'partials/_head.html.twig' %}
-<body class="font-['Pixelify_Sans'] bg-[#F5F4F4] h-screen">
+<body class="min-h-screen flex flex-col font-['Pixelify_Sans'] bg-[#F5F4F4]">
     {% include 'partials/_navbar.html.twig' %}
-    {% block body %}
-        nada aqui por enquando
+    
+    <main class="flex-1">
+    {% block main %}
+    --- conteudo main aqui ---
     {% endblock %}
+    
+    </main>
+
+    {% include 'partials/_footer.html.twig' %}
 </body>
 </html>
