@@ -1,27 +1,38 @@
 <header class="bg-[#001934]">
         <nav class="flex justify-between items-center w-[95%] m-auto">
             <div>
-                <a href=""><img class="w-16 p-1" src="{{assets.img}}/logos/logo.png" alt="Logo"></a>
+                <a href="/"><img class="w-16 p-1" src="{{assets}}img/logos/logo.png" alt="Logo"></a>
             </div>
             <div
                 class="nav-links duration-500 md:static absolute bg-[#001934] md:min-h-fit min-h-[40vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5">
                 <ul class="flex md:flex-row flex-col md:items-center md:gap-[6vw] gap-6 text-white text-lg p-4">
+                    {% for key, link in links %}
+                    <li><a class="hover:text-xl hover:underline duration-300" href={{base_url}}{{link}}>{{key}}</a></li>
+                    {% endfor %}
                     
-                    <li><a class="hover:text-xl hover:underline duration-300" href="#">Home</a></li>
-                    <li><a class="hover:text-xl hover:underline duration-300" href="#">LTD</a></li>
-                    <li><a class="hover:text-xl hover:underline duration-300" href="../screen_educadores/index.html">Educadores</a></li>
-                    <li><a class="hover:text-xl hover:underline duration-300" href="#">Atlética</a></li>
-                    <li><a class="hover:text-xl hover:underline duration-300" href="#">Perfil</a></li>
                 </ul>
             </div>
             <div class="flex items-center gap-6">
-                <button
-                    class=" text-lg text-white px-5 py-2 rounded-3xl hover:text-xl cursor-pointer duration-300 ease-out hover:underline active:text-[#001934]">
-                    Entrar
+
+            {% if user %}
+            <div class="relative group">
+                <button class="text-lg text-white px-5 py-2 rounded-3xl duration-300 ease-out focus:outline-none flex items-center">
+                    Olá {{ user.name }}
+                    <svg class="ml-2 w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.25 7.5L10 12.25L14.75 7.5H5.25Z"/></svg>
                 </button>
+                <div class="absolute right-0 mt-2 w-40 bg-[#001934] rounded-md shadow-lg opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto transition-opacity z-20">
+                    <a href="{{base_url}}/logout" class="block px-4 py-2 text-gray-800 hover:bg-gray-500 text-white">Logout</a>
+                </div>
+            </div>
+            
+            
+            {% endif %}
+            
+                
                 <ion-icon onclick="onToggleMenu(this)" name="menu"
                     class="text-3xl text-white cursor-pointer md:hidden"></ion-icon>
             </div>
         </nav>
         
+        <script src="{{ assets }}js/navbar.js"></script>
     </header>
