@@ -1,12 +1,7 @@
-<!DOCTYPE html>
 
-<html lang="pt-br">
-
-
-<body>
-    
+    {% extends 'base.html.twig' %}
+    {%block body%}
     <!--HEADER-->
-    
     <!--MAIN -- PAGINA PRINCPAL-->
     <main>
         <section class="py-10">
@@ -53,30 +48,10 @@
             </div>
         </section>
     </main>
+ <!--footer da página com o twig-->
+    {% include 'partials/_footer.html.twig' %}
+    
 
-    <footer class=" bg-[#001A35] text-white pt-10 pr-5 pb-10 pl-5 text-sm">
-        <div class="w-[75%] flex max-sm:block max-lg:block flex-wrap justify-between gap-[30px] mx-auto">
-            <section class="flex-1 basis-[200px] max-lg:py-5">
-                <h3 class="text-lg text-[#1AFEAB] max-lg:text-center max-lg:text-xl">Créditos</h4>
-                <p class="max-lg:text-base max-lg:text-center">Site desenvolvido por alunos da Estácio São Luís</p>
-            </section>
-            <section class="flex-1 basis-[200px] max-lg:py-5">
-                <h3 class="text-lg text-[#1AFEAB] max-lg:text-center max-lg:text-xl">Sobre o Curso</h4>
-                <p class="max-lg:text-base max-lg:text-center">Ciência da Computação - Universidade Estácio de Sá</p>
-                <p class="max-lg:text-base max-lg:text-center">Campus São Luís</p>
-            </section>
-            <section class="flex-1 basis-[200px] max-lg:py-5">
-                <h3 class="text-lg text-[#1AFEAB] max-lg:text-center max-lg:text-xl">Contato</h4>
-                <address>
-                    <p class="max-lg:text-base hover:underline hover:text-base duration-300 max-lg:text-center"><a href="#">Instagram da Atlética</a></p>
-                    <p class="max-lg:text-base hover:underline hover:text-base duration-300 max-lg:text-center"><a href="#">Instagram da Computação Estácio Sao Luis</a></p>
-                </address>
-            </section>
-        </div>
-        <div class="text-center mt-5 border-t border-[#444] pt-7">
-            <p class="text-[#ccc] italic">© 2025 - Todos os direitos reservados.</p>
-        </div>
-    </footer>
 
     <script>
         // codigo para o menu
@@ -148,5 +123,5 @@
         window.addEventListener('resize', updateCarousel);
         updateCarousel();
     </script>
-</body>
-</html>
+    {% endblock %}
+

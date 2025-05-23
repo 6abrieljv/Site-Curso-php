@@ -2,5 +2,5 @@
 
 class NotFoundController{
     public function show(){
-        echo "404 - Pagina Não Encotrada";
+        echo "404 - Pagina Não Encontrada";
     }}
