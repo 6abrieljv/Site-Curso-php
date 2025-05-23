@@ -1,18 +1,20 @@
 <?php
 
-define('ROOT_PATH', __DIR__);
-define('ROOT_URL', 'http://localhost/code/Site-Curso-php');
-require_once(ROOT_PATH."/vendor/autoload.php");
 
+require_once(__DIR__."/vendor/autoload.php");
+define('ROOT_PATH', __DIR__);
+define("BASE_URL",dirname($_SERVER['PHP_SELF']));
+
+
+// carregando Classes 
 spl_autoload_register(function ($file) {
     if(file_exists(ROOT_PATH."/src/utils/$file.php")) {
         require_once(ROOT_PATH."/src/utils/$file.php");
-    }else if(file_exists(ROOT_PATH."/src/model/$file.php")){
-        require_once(ROOT_PATH."/src/model/$file.php");
+    }else if(file_exists(ROOT_PATH."/src/models/$file.php")){
+        require_once(ROOT_PATH."/src/models/$file.php");
     }
 });
 // Define ROOT_PATH directly or retrieve it from a configuration file or environment variable
-
 $routers = require_once(ROOT_PATH."/src/routers/routers.php");
 
 

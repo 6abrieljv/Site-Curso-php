@@ -7,7 +7,7 @@
                 class="nav-links duration-500 md:static absolute bg-[#001934] md:min-h-fit min-h-[40vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5">
                 <ul class="flex md:flex-row flex-col md:items-center md:gap-[6vw] gap-6 text-white text-lg p-4">
                     {% for key, link in links %}
-                    <li><a class="hover:text-xl hover:underline duration-300" href={{link}}>{{key}}</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href={{base_url}}{{link}}>{{key}}</a></li>
                     {% endfor %}
                     
                 </ul>

@@ -1,7 +1,10 @@
 <?php
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+
 $dotenv->load();
+
+
 $GLOBALS['config'] = array(
     'database' => array(
         'host' => $_ENV['DB_HOST'],
@@ -11,8 +14,7 @@ $GLOBALS['config'] = array(
         'port' => $_ENV['DB_PORT'],
         'charset' => $_ENV['DB_CHARSET'],
         'DB_DRIVER' => $_ENV['DB_DRIVER'],
-    ),
-    ROOT_PATH => $_ENV['ROOT_PATH'],
+    )
 );
 
 class Config

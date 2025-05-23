@@ -4,7 +4,6 @@ $routes = [
     "/"=> "HomeController@index",
 
     "/atletica"=>"AtleticaController@show",
-    "/educadores"=>"EducadoresController@show",
     "/ltd"=>"LTDController@show",
     "/profile"=>"ProfileController@show",
 
