@@ -12,11 +12,12 @@ class RenderTwig
         $this->twig->addGlobal('base_url', BASE_URL);
         $this->twig->addGlobal('assets', 'public/assets/');
         $this->twig->addGlobal('links', [
-            'Home' => '/',
-            'LTD' => '/ltd',
-            'Educadores' => '/educadores',
-            'Atletica' => '/atletica',
-            'Perfil' => '/perfil',
+            'Home' => BASE_URL.'/',
+            'LTD' => BASE_URL.'/ltd',
+            'Podpink'=> BASE_URL.'/podpink',
+            'Educadores' => BASE_URL.'/educadores',
+            'Atletica' => BASE_URL.'/atletica',
+            'Perfil' => BASE_URL.'/perfil',
         ]);
         $this->twig->addGlobal('user', [
             'name' => 'John Doe',
@@ -24,7 +25,7 @@ class RenderTwig
         
     }
 
-    public function render($template, $data=[])
+    public function render($template, $data = [])
     {
         return $this->twig->render("$template.html.twig", $data);
     }
