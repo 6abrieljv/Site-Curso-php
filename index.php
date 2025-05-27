@@ -6,6 +6,7 @@ define('ROOT_PATH', __DIR__);
 define("BASE_URL",dirname($_SERVER['PHP_SELF']));
 
 
+
 // carregando Classes 
 spl_autoload_register(function ($file) {
     if(file_exists(ROOT_PATH."/src/utils/$file.php")) {
@@ -16,7 +17,6 @@ spl_autoload_register(function ($file) {
 });
 // Define ROOT_PATH directly or retrieve it from a configuration file or environment variable
 $routers = require_once(ROOT_PATH."/src/routers/routers.php");
-
 
 require_once(ROOT_PATH."/src/core/Core.php");
 
