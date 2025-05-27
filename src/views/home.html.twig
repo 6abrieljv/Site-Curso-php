@@ -1,1 +1,41 @@
-{% include "templates/base.html.twig" %}
+
+
+{% extends "templates/base.html.twig" %}
+{% set cards = [
+    {
+        "title": "Card 1",
+        "subtitle": "Subtítulo do Card 1",
+        "description": "Descrição do Card 1",
+        "link": "#"
+    },
+    {
+        "title": "Card 2",
+        "subtitle": "Subtítulo do Card 2",
+        "description": "Descrição do Card 2",
+        "link": "#"
+    },
+    {
+        "title": "Card 3",
+        "subtitle": "Subtítulo do Card 3",
+        "description": "Descrição do Card 3",
+        "link": "#"
+    }
+] %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <main>
+    <div>
+    <h2>Bem vindo!!!!</h2>
+    <p>Essa é a página inicial do site</p>
+    <p>Aqui você vai ver o anda rolando por ai</p>
+    </div>
+
+    {% for card in cards %}
+
+    {% include "templates/partials/_card.html.twig" with {card:card} %}
+        
+    {% endfor %}
+    </main>
+{% endblock %}

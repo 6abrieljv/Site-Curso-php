@@ -1,15 +1,13 @@
 
-{% include 'partials/_head.html.twig' %}
+{% include 'templates/partials/_head.html.twig' %}
 <body class="min-h-screen flex flex-col font-['Pixelify_Sans'] bg-[#F5F4F4]">
-    {% include 'partials/_navbar.html.twig' %}
+    {% include 'templates/partials/_navbar.html.twig' %}
     
-    <main class="flex-1">
-    {% block main %}
+    {% block content %}
     --- conteudo main aqui ---
     {% endblock %}
     
-    </main>
 
-    {% include 'partials/_footer.html.twig' %}
+    {% include 'templates/partials/_footer.html.twig' %}
 </body>
 </html>

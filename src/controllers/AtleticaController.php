@@ -2,8 +2,11 @@
 
 class AtleticaController {
     public function show(){
-        $twig = new TwigConfig();
+        $twig = new RenderTwig();
     
-        echo $twig->render('atletica.html.twig');
+        echo $twig->render('atletica', [
+            'title' => 'Atletica',
+            
+        ]);
     }
 }

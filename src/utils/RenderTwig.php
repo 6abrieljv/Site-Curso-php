@@ -24,7 +24,7 @@ class RenderTwig
         
     }
 
-    public function render($template, $data)
+    public function render($template, $data = [])
     {
         return $this->twig->render("$template.html.twig", $data);
     }
