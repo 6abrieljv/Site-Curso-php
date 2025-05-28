@@ -34,7 +34,7 @@ class Core
             }
         }
         if (!$routerFound) {
-            require_once __DIR__."/../controllers/NotFoundController.php";
+            require __DIR__."/../controllers/NotFoundController.php";
             $notFound = new NotFoundController();
             $notFound->show();
             
