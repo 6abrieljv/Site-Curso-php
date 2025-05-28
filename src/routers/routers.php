@@ -2,9 +2,10 @@
 <?php
 $routes = [
     "/"=> "HomeController@index",
-
-    "/atletica"=>"AtleticaController@show",
     "/ltd"=>"LTDController@show",
+    "/podpink"=> "PodPinkController@show",
+    "/educadores"=>"EducadoresController@show",
+    "/atletica"=>"AtleticaController@show",
     "/profile"=>"ProfileController@show",
 
     "/login"=> "LoginController@show",
