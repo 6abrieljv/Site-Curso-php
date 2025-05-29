@@ -6,6 +6,18 @@ class Perfil{
     private $sobrenome;
     private $bio;
     private $foto;
+    private $dataCriacao;
+    private $dataAtualizacao;
+    private $ativo;
+    private $idUsuario;
+
+    private $instagram;
+    private $facebook;
+    private $twitter;
+    private $linkedin;
+    private $github;
+    private $youtube;
+    private $tiktok;
 
     public function __construct($id, $nome, $sobrenome, $bio, $foto) {
         $this->id = $id;
@@ -13,6 +25,7 @@ class Perfil{
         $this->sobrenome = $sobrenome;
         $this->bio = $bio;
         $this->foto = $foto;
+        
     }
     
 
