@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 
 require_once(__DIR__."/vendor/autoload.php");
 define('ROOT_PATH', __DIR__);
@@ -19,9 +19,6 @@ spl_autoload_register(function ($file) {
 $routers = require_once(ROOT_PATH."/src/routers/routers.php");
 require_once(ROOT_PATH."/src/core/Core.php");
 
-
-$core = new Core($routers);
-
-$core->run();
+(new Core($routers))->run();
 
 ?>
