@@ -1,6 +1,8 @@
 <?php
 session_start();
-
+$_SESSION['user'] = [
+    'name' => 'John Doe',
+    'email' => 'jhon@gmail.com'];
 require_once(__DIR__."/vendor/autoload.php");
 define('ROOT_PATH', __DIR__);
 define("BASE_URL",dirname($_SERVER['PHP_SELF']));

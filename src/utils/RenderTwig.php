@@ -12,16 +12,13 @@ class RenderTwig
         $this->twig->addGlobal('base_url', BASE_URL);
         $this->twig->addGlobal('assets', 'public/assets/');
         $this->twig->addGlobal('links', [
-            'Home' => BASE_URL.'/',
             'LTD' => BASE_URL.'/ltd',
             'Podpink'=> BASE_URL.'/podpink',
             'Educadores' => BASE_URL.'/educadores',
             'Atletica' => BASE_URL.'/atletica',
-            'Perfil' => BASE_URL.'/perfil',
+
         ]);
-        $this->twig->addGlobal('user', [
-            'name' => 'John Doe',
-            'email' => 'jhon@gmail.com'] );
+        $this->twig->addGlobal('user', isset($_SESSION['user']) ? $_SESSION['user'] : null);
         
     }
 
