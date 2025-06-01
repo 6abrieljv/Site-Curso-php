@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap">
+
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+
+    <link rel="shortcut icon" type="image/jpg" href="../assets/img/logos/favicon pato site.png"/>
+
+    <title>Admin - Gerenciar Noticias</title>
+
+</head>
+
+<body class="font-['Pixelify_Sans'] bg-[#F5F4F4]">
+    
+    <header class="bg-[#001934]">
+        <nav class="flex justify-between items-center w-[95%] m-auto">
+            <div>
+                <a href=""><img class="w-16 p-1" src="../assets/img/logos/favicon pato site.png" alt="Logo"></a>
+            </div>
+            <div
+                class="nav-links duration-500 md:static absolute bg-[#001934] md:min-h-fit min-h-[40vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5">
+                <ul class="flex md:flex-row flex-col md:items-center md:gap-[6vw] gap-6 text-white text-lg p-4">
+                    <li><a class="hover:text-xl hover:underline duration-300" href="#">Home</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="#">Noticias</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="#">PodPink</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="#">LTD</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="../screen_educadores/index.html">Educadores</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="#">Atlética</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="#">Admin</a></li>
+                </ul>
+            </div>
+            <div class="flex items-center gap-6">
+                <button
+                    class=" text-lg text-white px-5 py-2 rounded-3xl hover:text-xl cursor-pointer duration-300 ease-out hover:underline active:text-[#001934]">
+                    Entrar
+                </button>
+                <ion-icon onclick="onToggleMenu(this)" name="menu"
+                    class="text-3xl text-white cursor-pointer md:hidden"></ion-icon>
+            </div>
+        </nav>
+    </header>
+
+  <div class="flex min-h-screen">
+
+    <aside class="w-[250px] bg-white shadow-md p-6">
+      <nav class="space-y-4">
+        <a href="#" class="block text-lg font-medium text-blue-600">Notícias</a>
+        <a href="../" class="block text-lg text-gray-600 hover:text-blue-600">Educadores</a>
+        <a href="#" class="block text-lg text-gray-600 hover:text-blue-600">Configurações</a>
+      </nav>
+    </aside>
+
+    <main class="flex-1 p-6 ">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">Gerenciar Notícias</h2>
+        <button id="addNewsBtn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          + Adicionar Notícia
+        </button>
+      </div>
+
+      <div class="bg-white shadow-md rounded-lg overflow-x-auto flex-grow grow">
+        <table class="w-full text-left">
+          <thead class="bg-gray-200">
+            <tr>
+              <th class="p-4">ID</th>
+              <th class="p-4">Título</th>
+              <th class="p-4">Assunto</th>
+              <th class="p-4">Data</th>
+              <th class="p-4">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b hover:bg-gray-50">
+              <td class="p-4">1</td>
+              <td class="p-4">Notícia de exemplo</td>
+              <td class="p-4">
+                <select 
+                name="" id=""
+                class=" bg-white w-full border border-gray-300 text-black py-3 px-3 text-sm rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <option value="evento">Evento</option>
+                    <option value="esporte">Esporte</option>
+                    <option value="atletica">Atletica</option>
+                    <option value="podpink">Podpink</option>
+                    <option value="palestra">Palestra</option>
+                </select>
+              </td>
+              <td class="p-4">26/05/2025</td>
+              <td class="p-4 flex space-x-2">
+                <button class="bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500">
+                  Editar
+                </button>
+                <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+                  Deletar
+                </button>
+              </td>
+            </tr>
+            </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <div id="addNewsModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-0 transition-opacity duration-300 ease-out z-50 flex items-center justify-center font-['Pixelify_Sans']">
+    <div id="modalPanel" class="relative mx-auto p-6 border w-full max-w-lg shadow-xl rounded-md bg-white opacity-0 scale-95 transform transition-all duration-300 ease-out">
+        <div class="text-left">
+            <div class="flex justify-between items-center pb-3">
+                <h3 class="text-2xl leading-6 font-bold text-gray-900">Adicionar Nova Notícia</h3>
+                <button id="closeModalBtn" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="mt-4">
+                <form id="addNewsForm">
+                    <div class="mb-4">
+                        <label for="newsImage" class="block text-sm font-medium text-gray-700 font-['Poppins']">Imagem da Notícia (opcional)</label>
+                        <input type="file" name="newsImage" id="newsImage" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 font-['Poppins']
+                            file:mr-4 file:py-2 file:px-4
+                            file:rounded-md file:border-0
+                            file:text-sm file:font-semibold
+                            file:bg-blue-100 file:text-blue-700
+                            hover:file:bg-blue-200 cursor-pointer
+                        "/>
+                        <div id="imagePreviewContainer" class="mt-3 hidden">
+                            <img id="imagePreview" src="#" alt="Prévia da imagem" class="max-h-48 w-auto rounded-md border border-gray-300 shadow-sm"/>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="newsTitle" class="block text-sm font-medium text-gray-700 font-['Poppins']">Título</label>
+                        <input type="text" name="newsTitle" id="newsTitle" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm font-['Poppins']" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="newsSubject" class="block text-sm font-medium text-gray-700 font-['Poppins']">Assunto</label>
+                        <select name="newsSubject" id="newsSubject" class="mt-1 block w-full bg-white border border-gray-300 text-black py-2 px-3 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm font-['Poppins']" required>
+                            <option value="">Selecione o assunto</option>
+                            <option value="evento">Evento</option>
+                            <option value="esporte">Esporte</option>
+                            <option value="atletica">Atlética</option>
+                            <option value="podpink">PodPink</option>
+                            <option value="palestra">Palestra</option>
+                        </select>
+                    </div>
+                    <div class="mb-6">
+                        <label for="newsContent" class="block text-sm font-medium text-gray-700 font-['Poppins']">Conteúdo da Notícia</label>
+                        <textarea name="newsContent" id="newsContent" rows="5" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm font-['Poppins']" required></textarea>
+                    </div>
+                    <div class="flex justify-end items-center pt-3 border-t border-gray-200">
+                        <button id="cancelModalBtn" type="button" class="mr-3 px-4 py-2 bg-gray-200 text-gray-800 text-base font-medium rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300">
+                            Cancelar
+                        </button>
+                        <button id="saveNewsBtn" type="button" class="px-4 py-2 bg-blue-600 text-white text-base font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                            Salvar Notícia
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  <footer class=" bg-[#001A35] text-white pt-10 pr-5 pb-10 pl-5 text-sm grow">
+    <div class="w-[75%] flex max-sm:block max-lg:block flex-wrap justify-between gap-[30px] mx-auto">
+        <section class="flex-1 basis-[200px] max-lg:py-5">
+            <h3 class="text-lg text-[#1AFEAB] max-lg:text-center max-lg:text-xl">Créditos</h4>
+            <p class="max-lg:text-base max-lg:text-center">Site desenvolvido por alunos da Estácio São Luís</p>
+        </section>
+        <section class="flex-1 basis-[200px] max-lg:py-5">
+            <h3 class="text-lg text-[#1AFEAB] max-lg:text-center max-lg:text-xl">Sobre o Curso</h4>
+            <p class="max-lg:text-base max-lg:text-center">Ciência da Computação - Universidade Estácio de Sá</p>
+            <p class="max-lg:text-base max-lg:text-center">Campus São Luís</p>
+        </section>
+        <section class="flex-1 basis-[200px] max-lg:py-5">
+            <h3 class="text-lg text-[#1AFEAB] max-lg:text-center max-lg:text-xl">Contato</h4>
+            <address>
+                <p class="max-lg:text-base hover:underline hover:text-base duration-300 max-lg:text-center"><a href="#">Instagram da Atlética</a></p>
+                <p class="max-lg:text-base hover:underline hover:text-base duration-300 max-lg:text-center"><a href="#">Instagram da Computação Estácio Sao Luis</a></p>
+            </address>
+        </section>
+    </div>
+    <div class="text-center mt-5 border-t border-[#444] pt-7">
+        <p class="text-[#ccc] italic">© 2025 - Todos os direitos reservados.</p>
+    </div>
+</footer>
+
+<script>
+    const navLinks = document.querySelector('.nav-links');
+    function onToggleMenu(e) {
+        e.name = e.name === 'menu' ? 'close' : 'menu';
+        navLinks.classList.toggle('top-[62px]');
+    }
+
+    // --- INÍCIO DO CÓDIGO DO MODAL ---
+    const addNewsBtn = document.getElementById('addNewsBtn');
+    const addNewsModal = document.getElementById('addNewsModal');
+    const modalPanel = document.getElementById('modalPanel'); // Painel interno do modal
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const cancelModalBtn = document.getElementById('cancelModalBtn');
+    const saveNewsBtn = document.getElementById('saveNewsBtn');
+    const addNewsForm = document.getElementById('addNewsForm');
+    const newsTitleInput = document.getElementById('newsTitle');
+
+    // Elementos para upload e prévia da imagem
+    const newsImageInput = document.getElementById('newsImage');
+    const imagePreview = document.getElementById('imagePreview');
+    const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+
+    function openModal() {
+        if (addNewsModal && modalPanel) {
+            addNewsModal.classList.remove('hidden'); // Importante: remove 'hidden' (display: none) primeiro
+            
+            // Força um reflow para garantir que as transições CSS sejam aplicadas corretamente
+            // após a remoção de 'hidden'. Sem isso, a animação inicial pode não ocorrer.
+            void addNewsModal.offsetWidth; 
+
+            // Animação de entrada
+            addNewsModal.classList.remove('bg-opacity-0', 'ease-in');
+            addNewsModal.classList.add('bg-opacity-75', 'ease-out'); // Anima opacidade do overlay
+            
+            modalPanel.classList.remove('opacity-0', 'scale-95', 'ease-in');
+            modalPanel.classList.add('opacity-100', 'scale-100', 'ease-out'); // Anima o painel
+
+            if (newsTitleInput) {
+                newsTitleInput.focus();
+            }
+        }
+    }
+
+    function closeModal() {
+        if (addNewsModal && modalPanel) {
+            // Animação de saída
+            addNewsModal.classList.remove('bg-opacity-75', 'ease-out');
+            addNewsModal.classList.add('bg-opacity-0', 'ease-in'); 
+
+            modalPanel.classList.remove('opacity-100', 'scale-100', 'ease-out');
+            modalPanel.classList.add('opacity-0', 'scale-95', 'ease-in');
+
+            // Espera a animação terminar antes de esconder completamente e resetar
+            setTimeout(() => {
+                addNewsModal.classList.add('hidden'); // Adiciona 'hidden' (display: none)
+                if (addNewsForm) {
+                    addNewsForm.reset(); // Reseta campos do formulário
+                }
+                // Limpa o input de arquivo e a prévia da imagem
+                if (newsImageInput) {
+                    newsImageInput.value = ''; // Limpa o valor do input de arquivo
+                }
+                if (imagePreview && imagePreviewContainer) {
+                    imagePreview.src = '#'; // Reseta o src da imagem
+                    imagePreviewContainer.classList.add('hidden'); // Esconde o container da prévia
+                }
+            }, 300); // Duração da animação (deve corresponder a duration-300 em ms)
+        }
+    }
+
+    if (addNewsBtn) {
+        addNewsBtn.addEventListener('click', openModal);
+    }
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', closeModal);
+    }
+    if (cancelModalBtn) {
+        cancelModalBtn.addEventListener('click', closeModal);
+    }
+    if (addNewsModal) {
+        addNewsModal.addEventListener('click', function(event) {
+            if (event.target === addNewsModal) { 
+                closeModal();
+            }
+        });
+    }
+
+    // Lógica para prévia da imagem
+    if (newsImageInput && imagePreview && imagePreviewContainer) {
+        newsImageInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    imagePreviewContainer.classList.remove('hidden');
+                }
+                reader.readAsDataURL(file);
+            } else {
+                // Caso o usuário cancele a seleção de arquivo
+                imagePreview.src = '#';
+                imagePreviewContainer.classList.add('hidden');
+            }
+        });
+    }
+
+    if (saveNewsBtn) {
+        saveNewsBtn.addEventListener('click', function() {
+            const title = document.getElementById('newsTitle').value;
+            const subject = document.getElementById('newsSubject').value;
+            const content = document.getElementById('newsContent').value;
+            const imageFile = newsImageInput.files[0]; // Pega o arquivo da imagem
+
+            if (title.trim() === '' || subject.trim() === '' || content.trim() === '') {
+                alert('Por favor, preencha todos os campos obrigatórios: Título, Assunto e Conteúdo.');
+                return;
+            }
+
+            console.log('Nova Notícia a ser salva:', { title, subject, content, imageName: imageFile ? imageFile.name : 'Nenhuma imagem selecionada' });
+            // No PHP, você usaria $_FILES['newsImage'] para processar o upload da imagem.
+            alert('Notícia "' + title + '" salva com sucesso! (Simulação)');
+            
+            closeModal(); // Fecha o modal e reseta o formulário
+        });
+    }
+    // --- FIM DO CÓDIGO DO MODAL ---
+</script>
+
+</body>
+</html>
