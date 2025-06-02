@@ -13,6 +13,7 @@ class RenderTwig
         $this->twig->addGlobal('assets', 'public/assets/');
         $this->twig->addGlobal('links', [
             'LTD' => BASE_URL.'/ltd',
+            'Notícias' => BASE_URL.'/noticias',
             'Podpink'=> BASE_URL.'/podpink',
             'Educadores' => BASE_URL.'/educadores',
             'Atletica' => BASE_URL.'/atletica',

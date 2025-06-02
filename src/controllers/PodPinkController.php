@@ -6,8 +6,7 @@ class PodPinkController
     {
 
         // Render the view with the fetched data
-        echo (new RenderTwig())->render('podpink', [
-            'title' => 'PodPink',
+        return (new RenderTwig())->render('podpink', [
             
         ]);
     }

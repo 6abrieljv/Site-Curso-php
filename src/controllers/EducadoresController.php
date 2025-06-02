@@ -9,6 +9,6 @@ class EducadoresController
             'description' => 'Educadores - Laboratório de Transformação Digital',
         ];
 
-        echo (new RenderTwig())->render('educadores', $data);
+        return (new RenderTwig())->render('educadores', $data);
     }
 }

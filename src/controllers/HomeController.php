@@ -4,7 +4,7 @@ class HomeController
 {
     public function index()
     {
-        echo (new RenderTwig())->render('home', [
+        return (new RenderTwig())->render('home', [
             'title' => 'Home',
             
         ]);

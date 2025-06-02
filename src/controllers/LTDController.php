@@ -11,6 +11,6 @@ class LTDController
             'description' => 'LTD - Liga de Treinamento e Desenvolvimento',
         ];
 
-        echo (new RenderTwig())->render('ltd', $data);
+        return (new RenderTwig())->render('ltd', $data);
     }
 }

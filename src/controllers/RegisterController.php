@@ -3,6 +3,6 @@
 class RegisterController{
 
     public function show(){
-        echo "Controller de register";
+        return "Controller de register";
     }
 }

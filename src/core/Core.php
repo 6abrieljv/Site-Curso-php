@@ -30,7 +30,7 @@ class Core
                 [$currentController, $action] = explode('@', $controller);
 
                 require_once __DIR__ . "/../controllers/$currentController.php";
-                (new $currentController())->$action();
+                echo (new $currentController())->$action();
             }
         }
         if (!$routerFound) {

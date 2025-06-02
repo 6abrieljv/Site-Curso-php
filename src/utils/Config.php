@@ -1,10 +1,10 @@
 <?php
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
-
+// carregando .env
+$dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
 $dotenv->load();
 
-
+// Definindo constantes de ambiente
 $GLOBALS['config'] = array(
     'database' => array(
         'host' => $_ENV['DB_HOST'],

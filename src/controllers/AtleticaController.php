@@ -4,6 +4,6 @@ class AtleticaController {
     public function show(){
         
     
-        echo (new RenderTwig())->render('atletica');
+        return (new RenderTwig())->render('atletica');
     }
 }

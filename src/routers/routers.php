@@ -6,13 +6,13 @@ $routes = [
     "/podpink"=> "PodPinkController@show",
     "/educadores"=>"EducadoresController@show",
     "/atletica"=>"AtleticaController@show",
-    "/profile"=>"ProfileController@show",
+    "/noticias" => "NoticiasController@show",
 
     "/login"=> "LoginController@show",
     "logout"=> "LoginController@logout",
     "/login/submit"=> "LoginController@login",
     "/register"=> "RegisterController@show",
-    
+    "/profile"=>"ProfileController@show",
 ];
 
 return $routes;
