@@ -1,0 +1,27 @@
+{% extends "templates/base.html.twig" %}
+{% block title %}
+	Noticias 📰
+{% endblock %}
+
+{% block content %}
+
+
+<div class="noticias-destaque" style="margin-bottom: 2rem;">
+	{% if noticias|length > 0 %}
+		{% set noticia_destaque = noticias[0] %}
+		{% include 'templates/partials/_card_noticia.html.twig' with { 'noticia': noticia_destaque, 'destaque': true } %}
+	{% endif %}
+</div>
+<h2 class="noticias-ultimas-titulo" style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; border-left: 4px solid #c4170c; padding-left: 0.5rem;">
+	Últimas notícias
+</h2>
+<div class="noticias-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+{% for noticia in noticias %}
+
+{% include 'templates/partials/_card_noticia.html.twig' with { 'noticia': noticia } %}
+	
+{% endfor %}
+
+</div>
+
+{% endblock %}
