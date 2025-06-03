@@ -1,11 +1,16 @@
 <?php
 
 class Noticia{
-    private $id;
-    private $titulo;
-    private $conteudo;
-    private $dataPublicacao;
-    private $imagem;
-    private $idUsuario;
+    public $id;
+    public $id_usuario;
+    public $titulo;
+    public $slug;
+    public $conteudo;
+    public $imagem;
+    public $data_publicacao;
 
+    public $categoria;
+
+
+    
 }

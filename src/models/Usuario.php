@@ -10,7 +10,4 @@ class Usuario
     private $is_admin;
     
 
-    public static function login(){
-        
-    }
 }

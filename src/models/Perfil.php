@@ -2,14 +2,14 @@
 
 class Perfil{
     private $id;
+    private $id_usuario;
     private $nome;
     private $sobrenome;
+    private $data_nascimento;
     private $bio;
     private $foto;
-    private $dataCriacao;
-    private $dataAtualizacao;
-    private $ativo;
-    private $idUsuario;
+
+
 
     private $instagram;
     private $facebook;
@@ -19,6 +19,4 @@ class Perfil{
     private $youtube;
     private $tiktok;
     
-
-
 }

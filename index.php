@@ -12,6 +12,9 @@ spl_autoload_register(function ($file) {
     }else if(file_exists(ROOT_PATH."/src/models/$file.php")){
         require_once(ROOT_PATH."/src/models/$file.php");
     }
+    else if(file_exists(ROOT_PATH."/src/repositories/$file.php")){
+        require_once(ROOT_PATH."/src/repositories/$file.php");
+    }
 });
 // Define ROOT_PATH directly or retrieve it from a configuration file or environment variable
 $routers = require_once(ROOT_PATH."/src/routers/routers.php");

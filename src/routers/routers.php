@@ -6,7 +6,7 @@ $routes = [
     "/podpink"=> "PodPinkController@show",
     "/educadores"=>"EducadoresController@show",
     "/atletica"=>"AtleticaController@show",
-    "/noticias" => "NoticiasController@show",
+    "/noticias" => "NoticiasController@index",
 
     "/login"=> "LoginController@show",
     "logout"=> "LoginController@logout",

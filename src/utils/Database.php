@@ -32,6 +32,9 @@ class Database{
         if ($className) {
             $stmt->setFetchMode(PDO::FETCH_CLASS, $className);
         } 
+        else {
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        }
         if ($params) {
             foreach ($params as $key => $value) {
                 $stmt->bindValue(":$key", $value);
