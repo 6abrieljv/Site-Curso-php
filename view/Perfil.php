@@ -140,8 +140,7 @@
 
     <header>
         <div class="logo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Est%C3%A1cio_Positivo.png/600px-Est%C3%A1cio_Positivo.png"
-                alt="Logo Estácio">
+            <img src="https://wordpress-cms-ead-prod-assets.quero.space/uploads/2017/11/estacio.png" alt="Logo Estácio">
             <span>Estácio</span>
         </div>
         <nav>
@@ -157,7 +156,7 @@
                     echo '<img src="../' . htmlspecialchars($foto, ENT_QUOTES, 'UTF-8') . '" alt="Foto do usuário">';
                 } else {
                     // Exibe uma imagem padrão de um link externo
-                    echo '<img src="https://via.placeholder.com/150.png?text=Foto+Padrão" alt="Foto padrão">';
+                    echo '<img src="https://i.pinimg.com/736x/6d/13/0f/6d130f1e2a5e7f6f8829718fb37cf02c.jpg" alt="Foto padrão">';
                 }
                 ?>
             </div>

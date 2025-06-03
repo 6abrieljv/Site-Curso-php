@@ -77,7 +77,7 @@ $fotoPerfil = $perfil['foto'] ?? 'assets/img/default.png'; // Foto padrão se n�
             echo '<img src="../' . htmlspecialchars($fotoPerfil, ENT_QUOTES, 'UTF-8') . '" alt="Foto do usuário">';
         } else {
             // Exibe uma imagem padrão de um link externo
-            echo '<img src="https://via.placeholder.com/150.png?text=Foto+Padrão" alt="Foto padrão">';
+            echo '<img src="https://i.pinimg.com/736x/6d/13/0f/6d130f1e2a5e7f6f8829718fb37cf02c.jpg" alt="Foto padrão">';
         }
         ?>
     </div>
