@@ -3,21 +3,38 @@
 class NoticiaRepository
 {
     private $db;
+    private $usuarioRepository;
+    private $categoriaRepository;
 
     public function __construct()
     {
         $this->db = new Database();
+        $this->usuarioRepository = new UsuarioRepository();
+        $this->categoriaRepository = new CategoriaRepository();
+
+
     }
 
     public function findAll()
 
     {
-        $sql = "SELECT n.id, n.usuario_id, n.titulo, n.slug, n.conteudo, n.imagem, n.data_publicacao, 
-                u.username AS autor, c.nome AS categoria
-                FROM noticia n
-                JOIN usuario u ON n.usuario_id = u.id
-                JOIN categoria c ON n.categoria_id= c.id";
+        $sql = "SELECT * FROM noticia";
         $stmt = $this->db->query($sql);
-        return $stmt->fetchAll();
+
+        // Montando objeto
+        foreach ($stmt as $row) {
+            $noticia = new Noticia();
+            $noticia->setId($row['id']);
+            $noticia->setTitulo($row['titulo']);
+            $noticia->setConteudo($row['conteudo']);
+            $noticia->setDataPublicacao($row['data_publicacao']);
+            $noticia->setUsuario($this->usuarioRepository->findById($row['usuario_id']));
+            $noticia->setImagem($row['imagem']);
+            $noticia->setCategoria($this->categoriaRepository->findById($row['categoria_id']));
+
+            $result[] = $noticia;
+        }
+
+        return isset($result) ? $result : [];
     }
 }

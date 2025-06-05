@@ -16,7 +16,7 @@ class Categoria
         $this->id = $id;
         $this->nome = $nome;
         $this->cor = $cor;
-        $this->slug = StringUtils::slugify($nome);
+        $this->slug = $nome !== null ? StringUtils::slugify($nome) : null;
     }
     public function getId(): ?int
     {

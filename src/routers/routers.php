@@ -13,6 +13,8 @@ $routes = [
     "/login/submit"=> "LoginController@login",
     "/register"=> "RegisterController@show",
     "/profile"=>"ProfileController@show",
+
+    "/admin"=> "AdminController@index",
 ];
 
 return $routes;

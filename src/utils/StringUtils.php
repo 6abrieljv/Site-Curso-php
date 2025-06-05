@@ -1,4 +1,4 @@
-// Exemplo de src/utils/StringUtils.php
+
 <?php
 
 class StringUtils

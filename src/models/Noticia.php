@@ -31,7 +31,7 @@ class Noticia{
         $this->usuario = $usuario;
         $this->categoria = $categoria;
         $this->titulo = $titulo;
-        $this->slug = StringUtils::slugify($titulo);
+        $this->slug = $titulo !== null ? StringUtils::slugify($titulo) : null;
         $this->conteudo = $conteudo;
         $this->imagem = $imagem;
         $this->data_publicacao = $data_publicacao;
