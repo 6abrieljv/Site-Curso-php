@@ -29,27 +29,27 @@ class CategoriaRepository{
     // metodo para fazer update ou criar uma categoria
     public function save(Categoria $categoria)
     {
-        if(empty($categoria->id)) {
+        if(empty($categoria->getId())) {
             // Inserir nova categoria
             $sql = "INSERT INTO categoria (nome, cor, slug) VALUES (:nome, :cor, :slug)";
             $params = [
-                'nome' => $categoria->nome,
-                'cor' => $categoria->cor,
-                'slug' => $categoria->slug
+                'nome' => $categoria->getNome(),
+                'cor' => $categoria->getCor(),
+                'slug' => $categoria->getSlug()
             ];
         } else {
             // Atualizar categoria existente
             $sql = "UPDATE categoria SET nome = :nome, cor = :cor, slug = :slug WHERE id = :id";
             $params = [
-                'id' => $categoria->id,
-                'nome' => $categoria->nome,
-                'cor' => $categoria->cor,
-                'slug' => $categoria->slug
+                'id' => $categoria->getId(),
+                'nome' => $categoria->getNome(),
+                'cor' => $categoria->getCor(),
+                'slug' => $categoria->getSlug()
             ];
         }
         $this->db->query($sql, $params, className: Categoria::class);
-        if(empty($categoria->id)) {
-            $categoria->id = $this->db->getConnection()->lastInsertId(); 
+        if(empty($categoria->getId())) {
+            $categoria->setId($this->db->getConnection()->lastInsertId()); 
             // Pega o ID da nova categoria
     }
     return $categoria; // Retorna a categoria com o ID atualizado

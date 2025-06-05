@@ -10,7 +10,7 @@ class RenderTwig
         $loader = new \Twig\Loader\FilesystemLoader(ROOT_PATH . '/src/views');
         $this->twig = new \Twig\Environment($loader);
         $this->twig->addGlobal('base_url', BASE_URL);
-        $this->twig->addGlobal('assets', 'public/assets/');
+        $this->twig->addGlobal('assets', 'public/assets');
         $this->twig->addGlobal('links', [
             'LTD' => BASE_URL.'/ltd',
             'Notícias' => BASE_URL.'/noticias',
