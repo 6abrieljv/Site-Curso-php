@@ -8,3 +8,13 @@
 - [ ] Atualizar validações no backend e frontend
 - [ ] Testar cadastro e edição de notícias para garantir que apenas uma categoria pode ser selecionada
 - [ ] Atualizar documentação, se necessário
+
+- Filipe
+- [X] Tela 'Dashboard'
+- [ ] Transformar Login/Register em tailwind
+- [ ] Tela 'Usuarios'
+    - [ ] Mudanca entre usuarios e admins
+- [ ] Tela 'Perfil'
+    - [ ] Talvez com markdown
+- [ ] Tela 'Sobre'
+    - [ ] Imagens dos criadores do site
