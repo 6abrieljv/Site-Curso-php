@@ -12,8 +12,8 @@
 - Filipe
 - [X] Tela 'Dashboard'
 - [ ] Transformar Login/Register em tailwind
-- [ ] Tela 'Usuarios'
-    - [ ] Mudanca entre usuarios e admins
+- [X] Tela 'Usuarios'
+    - [X] Filtro entre usuarios e admins
 - [ ] Tela 'Perfil'
 - [ ] Tela 'Sobre'
     - [ ] Imagens dos criadores do site
