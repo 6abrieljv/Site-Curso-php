@@ -46,10 +46,10 @@ class UsuarioRepository
         return null;
     }
 
-    public function findByUsername(string $username): ?Usuario
+    public function findByUsername(string $email): ?Usuario
     {
-        $sql = "SELECT * FROM usuario WHERE username = :username";
-        $stmt = $this->db->query($sql, [':username' => $username]);
+        $sql = "SELECT * FROM usuario WHERE email = :email";
+        $stmt = $this->db->query($sql, ['email' => $email]);
         if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $usuario = new Usuario();
             $usuario->setId($row['id']);
