@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap">
+
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+
+    <link rel="shortcut icon" type="image/jpg" href="../../../public/assets/img/logos/logo.png"/>
+    
+    <title>Admin - Dashboard</title>
+
+</head>
+
+<body class="font-['Pixelify_Sans'] bg-[#F5F4F4]">
+    
+    <header class="bg-[#001934]">
+        <nav class="flex justify-between items-center w-[95%] m-auto">
+            <div>
+                <a href=""><img class="w-16 p-1" src="../../../public/assets/img/logos/logo.png" alt="Logo"></a>
+            </div>
+            <div
+                class="nav-links duration-500 md:static absolute bg-[#001934] md:min-h-fit min-h-[40vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5">
+                <ul class="flex md:flex-row flex-col md:items-center md:gap-[6vw] gap-6 text-white text-lg p-4">
+                    <li><a class="hover:text-xl hover:underline duration-300" href="#">Home</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="#">Noticias</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="#">PodPink</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="#">LTD</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="../screen_educadores/index.html">Educadores</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="#">Atlética</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="#">Admin</a></li>
+                </ul>
+            </div>
+            <div class="flex items-center gap-6">
+                <button
+                    class=" text-lg text-white px-5 py-2 rounded-3xl hover:text-xl cursor-pointer duration-300 ease-out hover:underline active:text-[#001934]">
+                    Entrar
+                </button>
+                <ion-icon onclick="onToggleMenu(this)" name="menu"
+                    class="text-3xl text-white cursor-pointer md:hidden"></ion-icon>
+            </div>
+        </nav>
+    </header>
+
+  <div class="flex min-h-screen">
+
+    <aside class="w-[250px] bg-[#012145] shadow-md p-6">
+        <nav class="space-y-4 text-white">
+          <a href="../screen_dashboard/index.html" class="block text-lg  hover:text-xl hover:underline duration-300 ">Dashboard</a>
+          <a href="../screen_noticias/index.html" class="block text-lg  hover:text-xl hover:underline duration-300  font-medium">Notícias</a>
+          <a href="../screen_educadores/index.html" class="block text-lg  hover:text-xl hover:underline duration-300 ">Educadores</a>
+        </nav>
+    </aside>
+
+    <main class="flex-1 p-6 ">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">Dashboard</h2>
+      </div>
+
+      <div class="bg-white shadow-md rounded-lg overflow-x-auto">
+        <table class="w-full text-left">
+          <thead class="bg-gray-200">
+            <tr>
+                <th class="p-4">Quantidade de Membros</th>
+                <th class="p-4">Quantidade de Educadores</th>
+                <th class="p-4">Quantidade de Noticias</th>
+                <th class="p-4">Quantidade de Admins</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b hover:bg-gray-50">
+                  <td class="p-4">1</td>
+                  <td class="p-4">2</td>
+                  <td class="p-4">3</td>
+                  <td class="p-4">3</td>
+              </tr>
+
+            </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <footer class=" bg-[#001A35] text-white pt-10 pr-5 pb-10 pl-5 text-sm grow">
+    </footer>
+
+<script>
+    const navLinks = document.querySelector('.nav-links');
+    function onToggleMenu(e) {
+        e.name = e.name === 'menu' ? 'close' : 'menu';
+        navLinks.classList.toggle('top-[62px]');
+    }
+</script>
+
+</body>
+</html>
