@@ -21,7 +21,7 @@ class Usuario
         $this->id = $id;
         $this->username = $username;
         $this->email = $email;
-        $this->senha = $senha;
+        $this->senha = password_hash($senha, PASSWORD_DEFAULT);
         $this->data_cadastro = $data_cadastro;
         $this->is_admin = $is_admin;
     }

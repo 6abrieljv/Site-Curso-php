@@ -35,9 +35,14 @@ class UsuarioRepository
         $stmt = $this->db->query($sql, ['id' => $id]);
         if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $usuario = new Usuario();
+            $usuario->setId($row['id']);
+            $usuario->setUsername($row['username']);
+            $usuario->setEmail($row['email']);
+            $usuario->setSenha($row['senha']);
+            $usuario->setDataCadastro($row['data_cadastro']);
+
             return $usuario;
         }
-
         return null;
     }
 
@@ -55,7 +60,15 @@ class UsuarioRepository
 
             return $usuario;
         }
+        return null;
+    }
+
+    public function login(string $email, string $senha): ?Usuario
+    {
+        
+        // adidiconar logica de login
 
         return null;
     }
+
 }
