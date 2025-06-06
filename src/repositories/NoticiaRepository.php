@@ -37,4 +37,12 @@ class NoticiaRepository
 
         return isset($result) ? $result : [];
     }
+    
+     public function count(): int
+    {
+        $sql = "SELECT COUNT(*) as total FROM noticia";
+        $stmt = $this->db->query($sql);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return (int)$row['total'];
+    }
 }

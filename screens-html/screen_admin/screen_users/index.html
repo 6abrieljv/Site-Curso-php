@@ -13,7 +13,7 @@
 
     <link rel="shortcut icon" type="image/jpg" href="../../../public/assets/img/logos/logo.png"/>
     
-    <title>Admin - Gerenciar Educadores</title>
+    <title>Admin - Gerenciar Usuários</title>
 
 </head>
 
@@ -52,18 +52,15 @@
     <aside class="w-[250px] bg-[#012145] shadow-md p-6">
         <nav class="space-y-4 text-white">
           <a href="../screen_dashboard/index.html" class="block text-lg  hover:text-xl hover:underline duration-300 ">Dashboard</a>
-          <a href="../screen_users/index.html" class="block text-lg  hover:text-xl hover:underline duration-300">Usuários</a>
+          <a href="../screen_users/index.html" class="block text-lg  hover:text-xl hover:underline duration-300 font-medium">Usuários</a>
           <a href="../screen_noticias/index.html" class="block text-lg  hover:text-xl hover:underline duration-300">Notícias</a>
-          <a href="../screen_educadores/index.html" class="block text-lg  hover:text-xl hover:underline duration-300 font-medium">Educadores</a>
+          <a href="../screen_educadores/index.html" class="block text-lg  hover:text-xl hover:underline duration-300">Educadores</a>
         </nav>
     </aside>
 
     <main class="flex-1 p-6 ">
       <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold text-gray-800">Gerenciar Educadores</h2>
-        <button id="addEducatorBtn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-          + Adicionar Educador
-        </button>
+        <h2 class="text-2xl font-bold text-gray-800">Gerenciar Usuários</h2>
       </div>
 
       <div class="bg-white shadow-md rounded-lg overflow-x-auto flex-grow grow">
@@ -80,8 +77,8 @@
           <tbody>
             <tr class="border-b hover:bg-gray-50">
                 <td class="p-4 educator-table-id">1</td>
-                <td class="p-4 educator-table-name">Prof. Dr. Exemplo Silva</td>
-                <td class="p-4 educator-table-role">Coordenador de Curso</td>
+                <td class="p-4 educator-table-name">Brunera</td>
+                <td class="p-4 educator-table-role">brunera@gmail.com</td>
                 <td class="p-4 educator-table-date">26/05/2025</td>
                 <td class="p-4 flex space-x-2">
                 <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded"
@@ -98,9 +95,9 @@
             </tr>
             <tr class="border-b hover:bg-gray-50">
                 <td class="p-4 educator-table-id">2</td>
-                <td class="p-4 educator-table-name">Prof. Maria Oliveira</td>
-                <td class="p-4 educator-table-role">Professora Titular</td>
-                <td class="p-4 educator-table-date">20/05/2025</td>
+                <td class="p-4 educator-table-name">Jubiscrelton</td>
+                <td class="p-4 educator-table-role">jubiscrelton@gmail.com</td>
+                <td class="p-4 educator-table-date">29/06/2025</td>
                 <td class="p-4 flex space-x-2">
                 <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded edit-educator-btn"
                         data-id="2"
@@ -120,59 +117,6 @@
       </div>
     </main>
   </div>
-
-  <div id="addEducatorModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-0 transition-opacity duration-300 ease-out z-50 flex items-center justify-center font-['Pixelify_Sans']">
-    <div id="modalPanel" class="relative mx-auto p-6 border w-full max-w-lg shadow-xl rounded-md bg-white opacity-0 scale-95 transform transition-all duration-300 ease-out">
-        <div class="text-left">
-            <div class="flex justify-between items-center pb-3">
-                <h3 id="educatorModalTitle" class="text-2xl leading-6 font-bold text-gray-900">Adicionar Novo Educador</h3>
-                <button id="closeEducatorModalBtn" class="text-gray-400 hover:text-gray-600">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-            </div>
-            <div class="mt-4">
-                <form id="addEducatorForm">
-                    <input type="hidden" id="editingEducatorIdInput" value=""> <div class="mb-4">
-                        <label for="educatorImage" class="block text-sm font-medium text-gray-700 font-['Poppins']">Imagem do Educador (opcional)</label>
-                        <input type="file" name="educatorImage" id="educatorImage" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 font-['Poppins']
-                            file:mr-4 file:py-2 file:px-4
-                            file:rounded-md file:border-0
-                            file:text-sm file:font-semibold
-                            file:bg-blue-100 file:text-blue-700
-                            hover:file:bg-blue-200 cursor-pointer
-                        "/>
-                        <div id="imagePreviewContainer" class="mt-3 hidden">
-                            <img id="imagePreview" src="#" alt="Prévia da imagem" class="max-h-48 w-auto rounded-md border border-gray-300 shadow-sm"/>
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="educatorName" class="block text-sm font-medium text-gray-700 font-['Poppins']">Nome do Educador</label>
-                        <input type="text" name="educatorName" id="educatorName" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm font-['Poppins']" required>
-                    </div>
-                    <div class="mb-4">
-                        <label for="educatorRole" class="block text-sm font-medium text-gray-700 font-['Poppins']">Cargo do Educador</label>
-                        <input type="text" name="educatorRole" id="educatorRole" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm font-['Poppins']" required>
-                    </div>
-                    <div class="mb-6">
-                        <label for="educatorBio" class="block text-sm font-medium text-gray-700 font-['Poppins']">Biografia do Educador</label>
-                        <textarea name="educatorBio" id="educatorBio" rows="5" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm font-['Poppins']" required></textarea>
-                    </div>
-                    <div class="flex justify-end items-center pt-3 border-t border-gray-200">
-                        <button id="cancelEducatorModalBtn" type="button" class="mr-3 px-4 py-2 bg-gray-200 text-gray-800 text-base font-medium rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300">
-                            Cancelar
-                        </button>
-                        <button id="saveEducatorBtn" type="button" class="px-4 py-2 bg-blue-600 text-white text-base font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
-                            Salvar Educador
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
   <footer class=" bg-[#001A35] text-white pt-10 pr-5 pb-10 pl-5 text-sm grow">
     </footer>

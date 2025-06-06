@@ -46,7 +46,7 @@ class UsuarioRepository
         return null;
     }
 
-    public function findByUsername(string $email): ?Usuario
+    public function findByEmail(string $email): ?Usuario
     {
         $sql = "SELECT * FROM usuario WHERE email = :email";
         $stmt = $this->db->query($sql, ['email' => $email]);
@@ -63,12 +63,12 @@ class UsuarioRepository
         return null;
     }
 
-    public function login(string $email, string $senha): ?Usuario
+    public function count(): int
     {
-        
-        // adidiconar logica de login
-
-        return null;
+        $sql = "SELECT COUNT(*) as total FROM usuario";
+        $stmt = $this->db->query($sql);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return (int)$row['total'];
     }
 
 }

@@ -7,13 +7,19 @@ class Auth
 
     public function __construct()
     {
-        $this->db = new UsuarioRepository();
+        $this->usuarioRepository = new UsuarioRepository();
         $this->user = null;
     }
 
     public function login($email, $password)
     {
-        $this->usuarioRepository->
+        $user = $this->usuarioRepository->findByEmail($email);
+        if ($user && password_verify($password, $user->getSenha())) {
+            $_SESSION['user'] = $user;
+            $this->user = $user;
+            return true;
+        }
+        return false;
     }
 
     public function logout()

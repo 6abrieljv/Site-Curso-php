@@ -15,6 +15,5 @@
 - [ ] Tela 'Usuarios'
     - [ ] Mudanca entre usuarios e admins
 - [ ] Tela 'Perfil'
-    - [ ] Talvez com markdown
 - [ ] Tela 'Sobre'
     - [ ] Imagens dos criadores do site
