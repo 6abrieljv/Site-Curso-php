@@ -11,7 +11,7 @@ class LoginController{
             header('Location: '.ROOT_PATH.'/');
             exit();
         }else{
-            return (new RenderTwig())->render('login', [
+            return (new View())->render('login', [
                 'error' => isset($_GET['error']) ? $_GET['error'] : null,
                 'success' => isset($_GET['success']) ? $_GET['success'] : null,
             ]);

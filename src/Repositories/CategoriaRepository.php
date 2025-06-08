@@ -1,4 +1,6 @@
 <?php
+use App\Models\Categoria;
+use App\Utils\Database;
 
 class CategoriaRepository{
     private $db;

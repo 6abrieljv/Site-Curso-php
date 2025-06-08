@@ -13,6 +13,6 @@ class NoticiasController{
             'noticias' => $noticias
         ];
         $noticias = $noticiasRepository->findAll();
-        return (new RenderTwig())->render('noticias', $data);
+        return (new View())->render('noticias', $data);
     }
 }
