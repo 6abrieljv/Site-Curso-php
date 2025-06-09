@@ -1,14 +1,19 @@
 <?php
 require_once(__DIR__."/vendor/autoload.php");
+
+use App\Controllers\HomeController;
 use App\HTTP\Response;
+use App\HTTP\Router;
 
-$ob = new Response(200, "<h1>Olá Mundo!</h1>", "text/html");
-
-$ob->sendResponse();
-
-
-
-exit;
+define('URL', 'http://localhost/code/Site-Curso-php/');
+define('ROOT_PATH', __DIR__);
+define("BASE_URL",dirname($_SERVER['PHP_SELF']));
 
 
+$router = new Router(URL);
+//carregando as rotas
+include_once(__DIR__."/src/routers/web.php");
+
+$router->run()
+    ->sendResponse();
 ?>

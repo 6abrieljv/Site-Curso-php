@@ -1,10 +1,11 @@
 <?php
-
+namespace App\Controllers;
+use App\Utils\View;
 class LTDController
 {
     
 
-    public function show()
+    public function index()
     {
         $data = [
             'title' => 'LTD',

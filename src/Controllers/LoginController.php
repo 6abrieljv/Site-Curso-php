@@ -1,4 +1,9 @@
 <?php
+namespace App\Controllers;
+use App\Utils\View;
+use App\Repositories\UsuarioRepository;
+use App\Utils\Flash;
+
 
 class LoginController{
     private $usuarioRepository;
@@ -19,7 +24,7 @@ class LoginController{
     }
     public function login(){
         if(isset($_POST['email']) && isset($_POST['senha'])){
-            $usuario = $this->usuarioRepository->findByUsername($_POST['email']);
+            $usuario = $this->usuarioRepository->findByEmail($_POST['email']);
             if($usuario && password_verify($_POST['password'], $usuario->getSenha())){
                 $_SESSION['user'] = $usuario;
                 header('Location: '.ROOT_PATH.'/');

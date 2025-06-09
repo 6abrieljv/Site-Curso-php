@@ -1,8 +1,10 @@
 <?php
+namespace App\Controllers;
+use App\Utils\View;
 
 class PodPinkController
 {
-    public function show()
+    public function index()
     {
 
         // Render the view with the fetched data

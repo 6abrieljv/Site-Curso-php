@@ -1,4 +1,8 @@
 <?php
+namespace App\Controllers;
+use App\Utils\View;
+use App\Repositories\NoticiaRepository;
+
 
 
 class NoticiasController{

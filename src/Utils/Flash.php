@@ -1,4 +1,5 @@
 <?php
+namespace App\Utils;
 
 class Flash
 {

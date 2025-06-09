@@ -1,8 +1,9 @@
 <?php
-
+namespace App\Controllers;
+use App\Utils\View;
 class EducadoresController
 {
-    public function show (){
+    public function index (){
     
         $data = [
             'title' => 'Educadores',

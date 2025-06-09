@@ -1,5 +1,10 @@
 <?php
-
+namespace App\Repositories;
+use App\Utils\Database;
+use App\Models\Noticia;
+use App\Repositories\UsuarioRepository;
+use App\Repositories\CategoriaRepository;
+use PDO;
 class NoticiaRepository
 {
     private $db;
