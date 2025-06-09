@@ -1,13 +1,13 @@
 <?php
+namespace App\Utils;
 
-
-class RenderTwig
+class View
 {
     private $twig;
 
     public function __construct()
     {
-        $loader = new \Twig\Loader\FilesystemLoader(ROOT_PATH . '/src/views');
+        $loader = new \Twig\Loader\FilesystemLoader(ROOT_PATH . '/src/Views');
         $this->twig = new \Twig\Environment($loader);
         $this->twig->addGlobal('base_url', BASE_URL);
         $this->twig->addGlobal('assets', 'public/assets');

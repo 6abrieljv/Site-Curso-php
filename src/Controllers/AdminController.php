@@ -1,5 +1,9 @@
 <?php
 namespace App\Controllers;
+use App\Repositories\UsuarioRepository;
+use App\Repositories\NoticiaRepository;
+use App\Repositories\CategoriaRepository;
+use App\Utils\View;
 
 class AdminController{
     public function index()
@@ -13,7 +17,7 @@ class AdminController{
         $totalCategorias = $categoriaRepository->count();
 
         // Renderizar a view com os usuários
-        return (new RenderTwig())->render('admin/index.html.twig', [
+        return (new View())->render('admin/index.html.twig', [
             'totalUsuarios' => $totalUsuarios,
             'totalNoticias' => $totalNoticias,
             'totalCategorias' => $totalCategorias,

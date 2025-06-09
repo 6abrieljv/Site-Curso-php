@@ -1,4 +1,8 @@
 <?php
+namespace App\Models;
+use App\Utils\StringUtils;
+use App\Models\Usuario;
+use App\Models\Categoria;
 
 class Noticia{
     private ?int $id = null;

@@ -1,5 +1,7 @@
 <?php
+namespace App\Models;
 
+use App\Utils\StringUtils;
 class Categoria
 {
     private ?int $id;

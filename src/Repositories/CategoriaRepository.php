@@ -1,4 +1,9 @@
 <?php
+namespace App\Repositories;
+use App\Models\Categoria;
+use App\Utils\Database;
+
+use PDO;
 
 class CategoriaRepository{
     private $db;

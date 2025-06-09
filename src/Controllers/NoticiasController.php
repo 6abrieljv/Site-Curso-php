@@ -1,4 +1,8 @@
 <?php
+namespace App\Controllers;
+use App\Utils\View;
+use App\Repositories\NoticiaRepository;
+
 
 
 class NoticiasController{
@@ -13,6 +17,6 @@ class NoticiasController{
             'noticias' => $noticias
         ];
         $noticias = $noticiasRepository->findAll();
-        return (new RenderTwig())->render('noticias', $data);
+        return (new View())->render('noticias', $data);
     }
 }
