@@ -20,20 +20,31 @@ $router->get('/ltd', [
 $router->get('/atletica', [
     function () {
 
-        return new Response(200,(new Controllers\AtleticaController())->index());
+        return new Response(200, (new Controllers\AtleticaController())->index());
     }
 ]);
 
 $router->get('/noticias', [
-    function () {
+    function ($request) {
 
-        return new Response(200,(new Controllers\NoticiasController())->index());
+        return new Response(200, (new Controllers\NoticiasController())->index($request));
     }
 ]);
+$router->get('/noticias/{slug}', [
+    function ($request) {
+        echo "<pre>";
+        print_r($request);
+        echo "</pre>";
+        
+
+        return new Response(200, (new Controllers\NoticiasController())->show($request->getParam('slug')));
+    }
+]);
+
 $router->get('/educadores', [
     function () {
 
-        return new Response(200,(new Controllers\EducadoresController())->index());
+        return new Response(200, (new Controllers\EducadoresController())->index());
     }
 ]);
 
@@ -41,8 +52,6 @@ $router->get('/educadores', [
 $router->get('/podpink', [
     function () {
 
-        return new Response(200,(new Controllers\PodPinkController())->index());
+        return new Response(200, (new Controllers\PodPinkController())->index());
     }
 ]);
-
-

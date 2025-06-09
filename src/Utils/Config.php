@@ -14,7 +14,12 @@ $GLOBALS['config'] = array(
         'port' => $_ENV['DB_PORT'],
         'charset' => $_ENV['DB_CHARSET'],
         'DB_DRIVER' => $_ENV['DB_DRIVER'],
-    )
+    ),
+    'app'=> array(
+        'name' => $_ENV['APP_NAME'],
+        'url' => $_ENV['APP_URL'],
+        'debug' => filter_var($_ENV['APP_DEBUG'], FILTER_VALIDATE_BOOLEAN),
+    ),
 );
 
 class Config

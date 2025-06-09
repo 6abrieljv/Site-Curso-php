@@ -1,10 +1,13 @@
 <?php
+
 namespace App\Repositories;
+
 use App\Utils\Database;
 use App\Models\Noticia;
 use App\Repositories\UsuarioRepository;
 use App\Repositories\CategoriaRepository;
 use PDO;
+
 class NoticiaRepository
 {
     private $db;
@@ -16,14 +19,15 @@ class NoticiaRepository
         $this->db = new Database();
         $this->usuarioRepository = new UsuarioRepository();
         $this->categoriaRepository = new CategoriaRepository();
-
-
     }
 
-    public function findAll()
+    public function findAll($where = null)
 
     {
         $sql = "SELECT * FROM noticia";
+        if ($where) {
+            $sql .= " WHERE " . $where;
+        }
         $stmt = $this->db->query($sql);
 
         // Montando objeto
@@ -42,8 +46,17 @@ class NoticiaRepository
 
         return isset($result) ? $result : [];
     }
-    
-     public function count(): int
+
+    public function findBySlug($slug)
+    {
+        $sql = "SELECT * FROM noticia WHERE slug = :slug";
+        $stmt = $this->db->query($sql, ['slug' => $slug], Noticia::class);
+        
+        
+        return null;
+    }
+
+    public function count(): int
     {
         $sql = "SELECT COUNT(*) as total FROM noticia";
         $stmt = $this->db->query($sql);
