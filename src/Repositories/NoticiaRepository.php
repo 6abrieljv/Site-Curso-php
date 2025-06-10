@@ -75,30 +75,31 @@ class NoticiaRepository
     }
 
     /**
-     * Encontra todas as notícias.
+     * Encontra todas as notícias com suporte para paginação.
+     * @param string|null $order
+     * @param string|null $limit
      * @return Noticia[]
      */
-    public function findAll($order = null)
+    public function findAll($order = null, $limit = null)
     {
-        // Query para buscar notícias com nome do autor e da categoria
-        $stmt = $this->db->select(order: $order);
+        $stmt = $this->db->select(null, [], $order, $limit);
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $noticias = [];
 
         foreach ($results as $row) {
             $noticia = $this->mapToModel($row);
 
             if (!empty($row["usuario_id"])) {
-                // adicionar logica de adicionar usuario
+                // Futuramente, adicionar lógica para carregar dados do autor
             }
             if (!empty($row["categoria_id"])) {
                 $categoria = $this->categoriaRepository->findById($row["categoria_id"]);
                 $noticia->setCategoria($categoria);
-                
             }
             $noticias[] = $noticia;
         }
 
-        return isset($noticias) ? $noticias : [];
+        return $noticias;
     }
 
     /**
@@ -107,7 +108,7 @@ class NoticiaRepository
      */
     public function count(): int
     {
-        return $this->db->select(null, null, null, 'COUNT(*) as total')
+        return $this->db->select(null, [], null, null, 'COUNT(*) as total')
             ->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
     }
 
@@ -128,7 +129,6 @@ class NoticiaRepository
         $noticia->setIdUsuario($data['usuario_id']);
         $noticia->setIdCategoria($data['categoria_id']);
 
-        // Adiciona dados do autor e categoria se existirem no join
         if (isset($data['autor_nome'])) {
             $autor = new Usuario();
             $autor->setUsername($data['autor_nome']);
@@ -138,7 +138,6 @@ class NoticiaRepository
         if (isset($data['categoria_nome'])) {
             $categoria = $this->categoriaRepository->findById($data['categoria_id']);
             $noticia->setCategoria($categoria);
-            
         }
 
         return $noticia;

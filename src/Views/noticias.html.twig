@@ -1,26 +1,48 @@
 {% extends "templates/base.html.twig" %}
 {% block title %}
-	Noticias 📰
+    Noticias 📰
 {% endblock %}
 
 {% block content %}
 
+{# --- 1. NOTÍCIA EM DESTAQUE --- #}
 <div class="noticias-destaque" style="margin-bottom: 2rem;">
-	{% if noticias|length > 0 %}
-		{% set noticia_destaque = noticias[0] %}
-		{% include 'templates/partials/_card_noticia.html.twig' with { 'noticia': noticia_destaque, 'destaque': true } %}
-	{% endif %}
+    {% if noticias|length > 0 %}
+        {# Pega o primeiro item da lista para ser o destaque #}
+        {% set noticia_destaque = noticias[0] %}
+        {% include 'templates/partials/_card_noticia.html.twig' with { 'noticia': noticia_destaque, 'destaque': true } %}
+    {% endif %}
 </div>
+
 <h2 class="noticias-ultimas-titulo" style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; border-left: 4px solid #c4170c; padding-left: 0.5rem;">
-	Últimas notícias
+    Últimas notícias
 </h2>
+
+{# --- 2. GRELHA DE NOTÍCIAS (SEM O DESTAQUE) --- #}
 <div class="noticias-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
-{% for noticia in noticias %}
+    {# O filtro |slice(1) começa o loop a partir do SEGUNDO item para não repetir o destaque #}
+    {% for noticia in noticias|slice(1) %}
+        {% include 'templates/partials/_card_noticia.html.twig' with { 'noticia': noticia } %}
+    {% endfor %} {# <--- O LOOP TERMINA AQUI #}
+</div>
 
-{% include 'templates/partials/_card_noticia.html.twig' with { 'noticia': noticia } %}
-	
-{% endfor %}
-
+{# --- 3. PAGINAÇÃO (FORA DO LOOP) --- #}
+{# Este bloco deve vir DEPOIS que o loop de notícias terminou #}
+<div class="mt-10 flex justify-center">
+    <nav aria-label="Paginação">
+        <ul class="flex items-center -space-x-px h-10 text-base">
+            {% for page in pagination %}
+                <li>
+                    <a href="?page={{ page.page }}" 
+                       class="flex items-center justify-center px-4 h-10 leading-tight 
+                              {{ page.current ? 'text-blue-600 border border-blue-300 bg-blue-50' : 'text-gray-500 bg-white border border-gray-300' }} 
+                              hover:bg-gray-100 hover:text-gray-700">
+                        {{ page.page }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
 </div>
 
 {% endblock %}
