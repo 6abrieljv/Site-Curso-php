@@ -1,7 +1,10 @@
 <?php
+
 namespace App\Database;
+
 use PDO;
 use PDOException;
+
 class Database
 {
     /**
@@ -12,6 +15,7 @@ class Database
     private static $user;
     private static $password;
     private static $port;
+    private static $charset;
 
     /**
      * @var PDO|null A instância única da conexão PDO (Singleton).
@@ -27,13 +31,14 @@ class Database
      * Configura estaticamente os dados de conexão com o banco.
      * Deve ser chamado uma única vez na inicialização da aplicação.
      */
-    public static function config($host, $name, $user, $password, $port = 3306)
+    public static function config($host, $name, $user, $password, $port = 3306, $charset = 'utf8mb4')
     {
         self::$host = $host;
         self::$name = $name;
         self::$user = $user;
         self::$password = $password;
         self::$port = $port;
+        self::$charset = $charset;
     }
 
     /**
@@ -55,7 +60,7 @@ class Database
         // Se a conexão ainda não foi criada, cria uma nova.
         if (self::$connection === null) {
             try {
-                $dsn = "mysql:host=" . self::$host . ";dbname=" . self::$name . ";port=" . self::$port;
+                $dsn = "mysql:host=" . self::$host . ";dbname=" . self::$name . ";port=" . self::$port . ";charset=" . self::$charset;
                 self::$connection = new PDO($dsn, self::$user, self::$password);
                 self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $e) {
@@ -94,7 +99,7 @@ class Database
         $binds = array_map(fn($field) => ":$field", $fields);
 
         $query = 'INSERT INTO ' . $this->table . ' (' . implode(',', $fields) . ') VALUES (' . implode(',', $binds) . ')';
-        
+
         $this->execute($query, $values);
 
         // Retorna o ID do registro inserido
@@ -111,12 +116,12 @@ class Database
     {
         $fields = array_keys($values);
         $set = array_map(fn($field) => "$field = :$field", $fields);
-        
+
         $query = 'UPDATE ' . $this->table . ' SET ' . implode(', ', $set) . ' WHERE ' . $where;
 
         // Combina os parâmetros dos valores a serem atualizados com os da cláusula WHERE
         $params = array_merge($values, $whereParams);
-        
+
         $this->execute($query, $params);
     }
 
@@ -139,7 +144,7 @@ class Database
      * @param string $fields Os campos a serem retornados.
      * @return \PDOStatement
      */
-    public function select($where = null, $order = null, $limit = null, $fields = '*')
+    public function select($where = null, $params = [], $order = null, $limit = null, $fields = '*')
     {
         $whereClause = !is_null($where) ? 'WHERE ' . $where : '';
         $orderClause = !is_null($order) ? 'ORDER BY ' . $order : '';
@@ -147,8 +152,6 @@ class Database
 
         $query = 'SELECT ' . $fields . ' FROM ' . $this->table . ' ' . $whereClause . ' ' . $orderClause . ' ' . $limitClause;
 
-        // Nota: Esta implementação de select é simples. Para WHERE com parâmetros,
-        // seria necessário estendê-la para usar prepared statements também.
-        return $this->execute($query);
+        return $this->execute($query, $params);
     }
 }

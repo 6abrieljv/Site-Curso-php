@@ -16,9 +16,18 @@ class Categoria
         ?string $slug = null
     ) {
         $this->id = $id;
-        $this->nome = $nome;
+        $this->nome = $nome; // Define o nome primeiro
         $this->cor = $cor;
-        $this->slug = $nome !== null ? StringUtils::slugify($nome) : null;
+
+        // Se um slug for fornecido explicitamente (ex: do banco de dados), use-o.
+        // Caso contrário, gere a partir do nome, se o nome existir.
+        if ($slug !== null) {
+            $this->slug = $slug;
+        } elseif ($this->nome !== null) {
+            $this->slug = StringUtils::slugify($this->nome);
+        } else {
+            $this->slug = null;
+        }
     }
     public function getId(): ?int
     {
@@ -38,7 +47,13 @@ class Categoria
     public function setNome(?string $nome): void
     {
         $this->nome = $nome;
-        $this->slug = StringUtils::slugify($nome);
+        // Atualiza o slug com base no novo nome.
+        // Se o nome for null, o slug também deve ser null.
+        if ($this->nome !== null) {
+            $this->slug = StringUtils::slugify($this->nome);
+        } else {
+            $this->slug = null;
+        }
     }
 
     public function getCor(): ?string

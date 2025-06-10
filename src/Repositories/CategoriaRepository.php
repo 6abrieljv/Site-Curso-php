@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories;
 use App\Models\Categoria;
-use App\Utils\Database;
+use App\Database\Database;
 
 use PDO;
 
@@ -10,69 +10,64 @@ class CategoriaRepository{
     
     public function __construct()
     {
-        $this->db = new Database();
+        $this->db = new Database('categoria');
     }
 
-    // metodo para buscar todas as categorias
-    public function findAll()
-    {
-        $sql = "SELECT * FROM categoria";
-        return $this->db->query($sql, [], Categoria::class)->fetchAll();
-    }
-
-    public function findById($id)
-    {
-
-        $sql = "SELECT * FROM categoria WHERE id = :id";
-        $stmt = $this->db->query($sql, ['id' => $id], Categoria::class);
-        if ($stmt->rowCount() === 0) {
-            return null; // Retorna null se não encontrar a categoria
-        }
-        return $stmt->fetch();
-    }
-
-    // metodo para fazer update ou criar uma categoria
     public function save(Categoria $categoria)
     {
-        if(empty($categoria->getId())) {
-            // Inserir nova categoria
-            $sql = "INSERT INTO categoria (nome, cor, slug) VALUES (:nome, :cor, :slug)";
-            $params = [
-                'nome' => $categoria->getNome(),
-                'cor' => $categoria->getCor(),
-                'slug' => $categoria->getSlug()
-            ];
+        $values = [
+            'nome' => $categoria->getNome(),
+            'cor' => $categoria->getCor(),
+            'slug' => $categoria->getSlug()
+        ];
+        if (empty($categoria->getId())) {
+            $id = $this->db->insert($values);
+            $categoria->setId($id);
         } else {
-            // Atualizar categoria existente
-            $sql = "UPDATE categoria SET nome = :nome, cor = :cor, slug = :slug WHERE id = :id";
-            $params = [
-                'id' => $categoria->getId(),
-                'nome' => $categoria->getNome(),
-                'cor' => $categoria->getCor(),
-                'slug' => $categoria->getSlug()
-            ];
+            // Atualizar
+            $this->db->update($values, 'id = :id', ['id' => $categoria->getId()]);
         }
-        $this->db->query($sql, $params, className: Categoria::class);
-        if(empty($categoria->getId())) {
-            $categoria->setId($this->db->getConnection()->lastInsertId()); 
-            // Pega o ID da nova categoria
-    }
-    return $categoria; // Retorna a categoria com o ID atualizado
+        return $categoria;
     }
 
-    public function delete($id)
+    public function delete(int $id)
     {
-        $sql = "DELETE FROM categoria WHERE id = :id";
-        $this->db->query($sql, ['id' => $id]);
+        $this->db->delete('id = :id', ['id' => $id]);
     }
 
-     public function count(): int
+    public function findAll()
     {
-        $sql = "SELECT COUNT(*) as total FROM categoria";
-        $stmt = $this->db->query($sql);
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return (int)$row['total'];
+        $stmt = $this->db->select();
+        foreach ($stmt as $row) {
+            $categoria = new Categoria();
+            $categoria->setId($row['id']);
+            $categoria->setNome($row['nome']);
+            $categoria->setCor($row['cor']);
+            $categoria->setSlug($row['slug']);
+
+            $result[] = $categoria;
+        }
+
+        return isset($result) ? $result : [];
     }
-    
+
+    public function findById(int $id)
+    {
+        $stmt = $this->db->select('id = :id', [':id' => $id]);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$data) {
+            return null;
+        }
+
+        $categoria = new Categoria();
+        $categoria->setId($data['id']);
+        $categoria->setNome($data['nome']);
+        $categoria->setCor($data['cor']);
+        $categoria->setSlug($data['slug']);
+
+        return $categoria;
+
+    }
 
 }

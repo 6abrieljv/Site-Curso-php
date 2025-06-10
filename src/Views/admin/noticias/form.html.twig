@@ -1,0 +1,45 @@
+{% extends "templates/admin/layout.html.twig" %}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block content %}
+	<h2 class="text-2xl font-bold text-gray-800 mb-6">{{ title }}</h2>
+
+	<div class="bg-white shadow-md rounded-lg p-6">
+		<form action="{{ action }}" method="POST" class="font-['Poppins']">
+			<div class="mb-4">
+				<label for="titulo" class="block text-sm font-medium text-gray-700">Título</label>
+				<input type="text" name="titulo" id="titulo" value="{{ noticia.getTitulo() }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+			</div>
+
+			<div class="mb-4">
+				<label for="categoria_id" class="block text-sm font-medium text-gray-700">Categoria</label>
+				<select name="categoria_id" id="categoria_id" class="mt-1 block w-full bg-white border border-gray-300 text-black py-2 px-3 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+					<option value="">Selecione uma categoria</option>
+					{% for categoria in categorias %}
+						<option value="{{ categoria.id }}" {{ noticia.getIdCategoria() == categoria.id ? 'selected' : '' }}>
+							{{ categoria.nome }}
+						</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="mb-6">
+				<label for="conteudo" class="block text-sm font-medium text-gray-700">Conteúdo</label>
+				<textarea name="conteudo" id="conteudo" rows="10" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>{{ noticia.getConteudo() }}</textarea>
+			</div>
+
+			{# Campo para upload de imagem pode ser adicionado aqui #}
+
+			<div class="flex justify-end items-center pt-3 border-t border-gray-200">
+				<a href="{{ base_url }}/admin/noticias" class="mr-3 px-4 py-2 bg-gray-200 text-gray-800 text-base font-medium rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300">
+					Cancelar
+				</a>
+				<button type="submit" class="px-4 py-2 bg-blue-600 text-white text-base font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+					{{ button_label }}
+				</button>
+			</div>
+		</form>
+	</div>
+{% endblock %}

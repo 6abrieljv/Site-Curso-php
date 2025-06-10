@@ -1,145 +1,114 @@
 <?php
+
 namespace App\Models;
+
+use DateTime;
 use App\Utils\StringUtils;
-use App\Models\Usuario;
-use App\Models\Categoria;
 
-class Noticia{
-    private ?int $id = null;
-    private ?int $id_usuario = null;
+class Noticia
+{
+    private  $id = null;
+    private  $titulo = null;
+    private  $conteudo = null;
+    private  $slug = null;
+    private  $data_publicacao = null;
+    private  $id_categoria = null;
+    private  $id_usuario = null;
+    private  $imagem = null; // Caminho para a imagem
 
-    private ?int $id_categoria = null;
+    private  $usuario = null;
+    private  $categoria = null;
 
-    private ?Usuario $usuario = null;
-    private ?Categoria $categoria = null;
-    private ?string $titulo = null;
-    private ?string $slug = null;
-    private ?string $conteudo = null;
-    private ?string $imagem = null;
-    private ?string $data_publicacao = null;
 
-    public function __construct(
-        ?int $id = null,
-        ?int $id_usuario = null,
-        ?int $id_categoria = null,
-        ?Usuario $usuario = null,
-        ?Categoria $categoria = null,
-        ?string $titulo = null,
-        ?string $conteudo = null,
-        ?string $imagem = null,
-        ?string $data_publicacao = null
-    ) {
-        $this->id = $id;
-        $this->id_usuario = $id_usuario;
-        $this->id_categoria = $id_categoria;
-        $this->usuario = $usuario;
-        $this->categoria = $categoria;
-        $this->titulo = $titulo;
-        $this->slug = $titulo !== null ? StringUtils::slugify($titulo) : null;
-        $this->conteudo = $conteudo;
-        $this->imagem = $imagem;
-        $this->data_publicacao = $data_publicacao;
-    }
 
-    public function getId(): ?int
+
+    public function getId()
     {
         return $this->id;
     }
-
-    public function setId(?int $id): void
+    public function setId($value)
     {
-        $this->id = $id;
+        $this->id = $value;
     }
 
-    public function getIdUsuario(): ?int
-    {
-        return $this->id_usuario;
-    }
-
-    public function setIdUsuario(?int $id_usuario): void
-    {
-        $this->id_usuario = $id_usuario;
-    }
-
-    public function getIdCategoria(): ?int
-    {
-        return $this->id_categoria;
-    }
-
-    public function setIdCategoria(?int $id_categoria): void
-    {
-        $this->id_categoria = $id_categoria;
-    }
-
-    public function getUsuario(): ?Usuario
-    {
-        return $this->usuario;
-    }
-
-    public function setUsuario(?Usuario $usuario): void
-    {
-        $this->usuario = $usuario;
-    }
-
-    public function getCategoria(): ?Categoria
-    {
-        return $this->categoria;
-    }
-
-    public function setCategoria(?Categoria $categoria): void
-    {
-        $this->categoria = $categoria;
-    }
-
-    public function getTitulo(): ?string
+    public function getTitulo()
     {
         return $this->titulo;
     }
-
-    public function setTitulo(?string $titulo): void
+    public function setTitulo($value)
     {
-        $this->titulo = $titulo;
+        $this->titulo = $value;
     }
 
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(?string $slug): void
-    {
-        $this->slug = $slug;
-    }
-
-    public function getConteudo(): ?string
+    public function getConteudo()
     {
         return $this->conteudo;
     }
-
-    public function setConteudo(?string $conteudo): void
+    public function setConteudo($value)
     {
-        $this->conteudo = $conteudo;
+        $this->conteudo = $value;
     }
 
-    public function getImagem(): ?string
+    public function getSlug()
     {
-        return $this->imagem;
+        return $this->slug;
+    }
+    public function setSlug($value)
+    {
+        $this->slug = $value;
     }
 
-    public function setImagem(?string $imagem): void
-    {
-        $this->imagem = $imagem;
-    }
-
-    public function getDataPublicacao(): ?string
+    public function getDataPublicacao()
     {
         return $this->data_publicacao;
     }
-
-    public function setDataPublicacao(?string $data_publicacao): void
+    public function setDataPublicacao($value)
     {
-        $this->data_publicacao = $data_publicacao;
+        $this->data_publicacao = $value;
     }
 
+    public function getIdCategoria()
+    {
+        return $this->id_categoria;
+    }
+    public function setIdCategoria($value)
+    {
+        $this->id_categoria = $value;
+    }
 
+    public function getIdUsuario()
+    {
+        return $this->id_usuario;
+    }
+    public function setIdUsuario($value)
+    {
+        $this->id_usuario = $value;
+    }
+
+    public function getImagem()
+    {
+        return $this->imagem;
+    }
+    public function setImagem($value)
+    {
+        $this->imagem = $value;
+    }
+
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+    public function setUsuario($value)
+    {
+        $this->usuario = $value;
+    }
+
+    public function getCategoria()
+    {
+        return $this->categoria;
+    }
+    public function setCategoria($value)
+    {
+        $this->categoria = $value;
+    }
 }

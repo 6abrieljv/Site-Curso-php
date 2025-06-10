@@ -17,7 +17,6 @@ class Response
         $this->httpCode = $code;
         $this->content = $content;
         $this->setContentType($contentType);
-
     }
 
     public function sendHeaders()
@@ -34,7 +33,7 @@ class Response
     public function setContentType($contentType)
     {
         $this->contentType = $contentType;
-        $this->addHeader('Content-Type', $contentType);   
+        $this->addHeader('Content-Type', $contentType);
     }
 
     public function addHeader($key, $value)
@@ -42,11 +41,13 @@ class Response
         $this->headers[$key] = $value;
     }
 
-    public function sendResponse(){
+    public function sendResponse()
+    {
         $this->sendHeaders();
         switch ($this->contentType) {
             case 'text/html':
-                echo $this->content;                            
+                echo $this->content;
+                break;
             default:
                 # code...
                 break;
