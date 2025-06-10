@@ -33,7 +33,7 @@ class AdminNoticiasController
         $noticias = $this->noticiaRepository->findAll();
         $categorias = $this->categoriaRepository->findAll();
         
-        $content = $this->view->render('admin/noticias/noticias', [
+        $content = $this->view->render('admin/noticias/index', [
             'noticias' => $noticias,
             'flash' => Flash::get('message'),
             'categorias' =>  $categorias
