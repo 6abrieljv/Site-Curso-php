@@ -141,11 +141,6 @@ class AdminNoticiasController
      */
     public function delete($request, $params)
     {
-        // echo "<pre>";
-        // var_dump($request, $params);
-        // echo "</pre>";
-        // exit;
-
         $noticia = $this->noticiaRepository->findById($params['id']);
         if (!$noticia) {
             Flash::set('message', 'Notícia não encontrada.');

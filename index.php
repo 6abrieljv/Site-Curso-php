@@ -13,6 +13,7 @@ use App\Repositories\NoticiaRepository;
 
 
 
+// define('URL', Config::get('app/url'));
 define('URL', Config::get('app/url'));
 define('ROOT_PATH', __DIR__);
 define("BASE_URL", dirname($_SERVER['PHP_SELF']));
