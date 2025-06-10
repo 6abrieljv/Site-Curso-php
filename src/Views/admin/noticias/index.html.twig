@@ -72,7 +72,7 @@
 						<td class="p-4">{{ noticia.getId() }}</td>
 						<td class="p-4 font-semibold">{{ noticia.getTitulo() }}</td>
 						<td class="p-4">
-							<span class="bg-gray-200 text-gray-700 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">{{ noticia.getCategoria().getNome() | default('Sem Categoria') }}</span>
+							<span class="bg-[{{noticia.getCategoria().getCor()}}] text-gray-700 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">{{ noticia.getCategoria().getNome() | default('Sem Categoria') }}</span>
 						</td>
 						<td class="p-4">{{ noticia.getUsuario().getUsername() | default('N/A') }}</td>
 						<td class="p-4">{{ noticia.getDataPublicacao() | date("d/m/Y H:i") }}</td>
