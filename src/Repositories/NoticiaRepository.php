@@ -13,6 +13,8 @@ class NoticiaRepository
 {
     private $db;
     private $categoriaRepository;
+    private $usuarioRepository;
+
 
 
     public function __construct()
@@ -20,6 +22,7 @@ class NoticiaRepository
         // Utiliza a classe de banco de dados para a tabela 'noticia'
         $this->db = new Database('noticia');
         $this->categoriaRepository = new CategoriaRepository();
+        $this->usuarioRepository = new UsuarioRepository();
     }
 
     /**
@@ -56,7 +59,7 @@ class NoticiaRepository
      * @param int $id
      * @return bool
      */
-    public function delete(int $id)
+    public function delete( $id)
     {
         $this->db->delete('id = :id', ['id' => $id]);
     }
@@ -72,6 +75,28 @@ class NoticiaRepository
         }
 
         return $this->mapToModel($data);
+    }
+
+    public function findBySlug($slug)
+    {
+        $stmt = $this->db->select('slug = :slug', [':slug' => $slug]);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$data) {
+            return null;
+        }
+        $noticia = new Noticia();
+        $noticia->setId($data['id']);
+        $noticia->setCategoria($this->categoriaRepository->findById($data['categoria_id']));
+        $noticia->setUsuario($this->usuarioRepository->findById($data['usuario_id']));
+        $noticia->setConteudo($data['conteudo']);
+        $noticia->setDataPublicacao($data['data_publicacao']);
+        $noticia->setTitulo($data['titulo']);
+        $noticia->setSlug($data['slug']);
+        $noticia->setImagem($data['imagem']);
+
+        return $noticia;
+        
     }
 
     /**
