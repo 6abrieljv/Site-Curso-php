@@ -56,7 +56,7 @@ class AdminNoticiasController
             'button_label' => 'Cadastrar'
         ]);
 
-        return new Response(200, $content);
+        return $content;
     }
 
     /**
@@ -82,19 +82,22 @@ class AdminNoticiasController
         exit;
     }
 
-    /**
-     * Exibe o formulário para editar uma notícia existente.
-     * @param int $id
-     */
-    public function edit($id)
+
+    public function edit($request, $params)
     {
-        $noticia = $this->noticiaRepository->findById((int)$id);
-        if (!$noticia) {
+        $id = $params['id'];
+        $noticia = $this->noticiaRepository->findById($id);
+        echo "<pre>";
+        print_r($noticia);
+        echo "</pre>";
+        exit;
+
+        if (!$noticia){
             Flash::set('message', 'Notícia não encontrada.');
             header('Location: ' . BASE_URL . '/admin/noticias');
             exit;
         }
-
+        
         $categorias = $this->categoriaRepository->findAll();
         $content = $this->view->render('admin/noticias/form', [
             'title' => 'Editar Notícia',
@@ -112,27 +115,33 @@ class AdminNoticiasController
      * @param Request $request
      * @param int $id
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $params)
     {
         $data = $request->getBody();
-        $noticia = $this->noticiaRepository->findById((int)$id);
 
-        if (!$noticia) {
-            Flash::set('message', 'Notícia não encontrada.');
-            header('Location: ' . BASE_URL . '/admin/noticias');
-            exit;
-        }
-
-        $noticia->setTitulo($data['titulo']);
-        $noticia->setConteudo($data['conteudo']);
-        $noticia->setIdCategoria((int)$data['categoria_id']);
-        $noticia->setSlug(StringUtils::slugify($data['titulo']));
-
-        $this->noticiaRepository->save($noticia);
-
-        Flash::set('message', 'Notícia atualizada com sucesso!');
-        header('Location: ' . BASE_URL . '/admin/noticias');
+        echo "<pre>";
+        var_dump($request);
+        echo "</pre>";
         exit;
+        // $id = $params['id'];
+        // $noticia = $this->noticiaRepository->findById((int)$id);
+
+        // if (!$noticia) {
+        //     Flash::set('message', 'Notícia não encontrada.');
+        //     header('Location: ' . BASE_URL . '/admin/noticias');
+        //     exit;
+        // }
+
+        // $noticia->setTitulo($data['titulo']);
+        // $noticia->setConteudo($data['conteudo']);
+        // $noticia->setIdCategoria((int)$data['categoria_id']);
+        // $noticia->setSlug(StringUtils::slugify($data['titulo']));
+
+        // $this->noticiaRepository->save($noticia);
+
+        // Flash::set('message', 'Notícia atualizada com sucesso!');
+        // header('Location: ' . BASE_URL . '/admin/noticias');
+        // exit;
     }
 
     /**

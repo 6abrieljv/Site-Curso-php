@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories;
 use App\Models\Usuario;
-use App\Utils\Database;
+use App\Database\Database;
 use PDO;
 
 class UsuarioRepository
@@ -10,69 +10,37 @@ class UsuarioRepository
 
     public function __construct()
     {
-        $this->db = new Database();
+        $this->db = new Database("usuario");
     }
 
     public function findAll()
     {
-        $sql = "SELECT * FROM usuario";
-        $stmt = $this->db->query($sql);
+        $stmt = $this->db->select();
+    }
+    public function findById(int $id)
+    {
+        $stmt = $this->db->select('id = :id', [':id' => $id]);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Montando objeto
-        foreach ($stmt as $row) {
-            $usuario = new Usuario();
-            $usuario->setId($row['id']);
-            $usuario->setUsername($row['username']);
-            $usuario->setEmail($row['email']);
-            $usuario->setSenha($row['senha']);
-            $usuario->setDataCadastro($row['data_cadastro']);
-
-            $result[] = $usuario;
+        if (!$data) {
+            return null;
         }
 
-        return isset($result) ? $result : [];
+        $usuario = new Usuario();
+        $usuario->setId($data['id']);
+        $usuario->setUsername($data['username']);
+        $usuario->setEmail($data['email']);
+        $usuario->setSenha($data['senha']);
+
+        return $usuario;
     }
 
-    public function findById(int $id): ?Usuario
+
+    public function cont($where = null)
     {
-        $sql = "SELECT * FROM usuario WHERE id = :id";
-        $stmt = $this->db->query($sql, ['id' => $id]);
-        if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $usuario = new Usuario();
-            $usuario->setId($row['id']);
-            $usuario->setUsername($row['username']);
-            $usuario->setEmail($row['email']);
-            $usuario->setSenha($row['senha']);
-            $usuario->setDataCadastro($row['data_cadastro']);
-
-            return $usuario;
-        }
-        return null;
-    }
-
-    public function findByEmail(string $email): ?Usuario
-    {
-        $sql = "SELECT * FROM usuario WHERE email = :email";
-        $stmt = $this->db->query($sql, ['email' => $email]);
-        if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $usuario = new Usuario();
-            $usuario->setId($row['id']);
-            $usuario->setUsername($row['username']);
-            $usuario->setEmail($row['email']);
-            $usuario->setSenha($row['senha']);
-            $usuario->setDataCadastro($row['data_cadastro']);
-
-            return $usuario;
-        }
-        return null;
-    }
-
-    public function count(): int
-    {
-        $sql = "SELECT COUNT(*) as total FROM usuario";
-        $stmt = $this->db->query($sql);
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return (int)$row['total'];
+        $stmt = $this->db->select(fields: "COUNT(*) as total", where: $where);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return isset($result) ? $result['total'] : 0;
     }
 
 }

@@ -59,7 +59,7 @@ class NoticiaRepository
      * @param int $id
      * @return bool
      */
-    public function delete( $id)
+    public function delete($id)
     {
         $this->db->delete('id = :id', ['id' => $id]);
     }
@@ -96,7 +96,6 @@ class NoticiaRepository
         $noticia->setImagem($data['imagem']);
 
         return $noticia;
-        
     }
 
     /**
@@ -166,5 +165,12 @@ class NoticiaRepository
         }
 
         return $noticia;
+    }
+
+    public function cont($where = null)
+    {
+        $stmt = $this->db->select(fields: "COUNT(*) as total", where: $where);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return isset($result) ? $result['total'] : 0;
     }
 }

@@ -1,13 +1,16 @@
 <?php
+
 namespace App\Repositories;
+
 use App\Models\Categoria;
 use App\Database\Database;
 
 use PDO;
 
-class CategoriaRepository{
+class CategoriaRepository
+{
     private $db;
-    
+
     public function __construct()
     {
         $this->db = new Database('categoria');
@@ -67,7 +70,29 @@ class CategoriaRepository{
         $categoria->setSlug($data['slug']);
 
         return $categoria;
-
     }
 
+    public function cont($where = null)
+    {
+        $stmt = $this->db->select(fields: "COUNT(*) as total", where: $where);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return isset($result) ? $result['total'] : 0;
+    }
+    public function findBySlug(string $slug)
+    {
+        $stmt = $this->db->select('slug = :slug', [':slug' => $slug]);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$data) {
+            return null;
+        }
+
+        $categoria = new Categoria();
+        $categoria->setId($data['id']);
+        $categoria->setNome($data['nome']);
+        $categoria->setCor($data['cor']);
+        $categoria->setSlug($data['slug']);
+
+        return $categoria;
+    }
 }

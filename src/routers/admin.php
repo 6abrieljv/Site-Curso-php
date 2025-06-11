@@ -24,7 +24,7 @@ $router->post('/admin/noticias/create', [
 ]);
 
 $router->get('/admin/noticias/edit/{id}', [
-    fn($id) => new Response(200, (new AdminNoticiasController())->edit($id))
+    fn($request, $params) => new Response(200, (new AdminNoticiasController())->edit($request, $params))
 ]);
 
 $router->post('/admin/noticias/edit/{id}', [
