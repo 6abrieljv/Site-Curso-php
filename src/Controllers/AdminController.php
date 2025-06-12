@@ -6,8 +6,17 @@ use App\Repositories\CategoriaRepository;
 use App\Utils\View;
 
 class AdminController{
+
+    // exibe dashboard do admin
     public function index()
     {
+
+        // adicionar verificacao se o usuario é adm
+
+        // if(!isset($_SESSION['user']) ||  !$_SESSION['user']['is_admin']){
+        //     header('Location: ' . BASE_URL . '/login');
+        //     exit;
+        // }
 
         $status = [
             "totalUsuarios"=> (new UsuarioRepository())->cont(),
