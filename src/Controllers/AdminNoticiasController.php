@@ -12,6 +12,9 @@ use App\Utils\StringUtils;
 use App\HTTP\Response;
 use App\HTTP\Request;
 
+use App\Services\ImageUploader;
+
+
 class AdminNoticiasController
 {
     private $noticiaRepository;
@@ -32,7 +35,7 @@ class AdminNoticiasController
     {
         $noticias = $this->noticiaRepository->findAll();
         $categorias = $this->categoriaRepository->findAll();
-        
+
         $content = $this->view->render('admin/noticias/index', [
             'noticias' => $noticias,
             'flash' => Flash::get('message'),
@@ -66,17 +69,27 @@ class AdminNoticiasController
     {
         $data = $request->getBody();
 
+        $userId = $_SESSION['user']['id'] ?? 1;
+
+
+
+        // processo de cadastro de noticia
         $noticia = new Noticia();
         $noticia->setTitulo($data['titulo']);
         $noticia->setConteudo($data['conteudo']);
         $noticia->setIdCategoria((int)$data['categoria_id']);
         $noticia->setSlug(StringUtils::slugify($data['titulo']));
+        $noticia->setIdUsuario($userId);
+        $imagePath = ImageUploader::upload($data, $_FILES, 'noticias');
+        if ($imagePath) {
+            $noticia->setImagem($imagePath);
+        }
 
-        // Simulação de usuário logado (substituir pela lógica de autenticação)
-        $noticia->setIdUsuario(1);
-
+        // salva no banco de dados
         $this->noticiaRepository->save($noticia);
 
+
+        // redireciona para a página de notícias
         Flash::set('message', 'Notícia cadastrada com sucesso!');
         header('Location: ' . BASE_URL . '/admin/noticias');
         exit;
@@ -87,17 +100,13 @@ class AdminNoticiasController
     {
         $id = $params['id'];
         $noticia = $this->noticiaRepository->findById($id);
-        echo "<pre>";
-        print_r($noticia);
-        echo "</pre>";
-        exit;
 
-        if (!$noticia){
+        if (!$noticia) {
             Flash::set('message', 'Notícia não encontrada.');
             header('Location: ' . BASE_URL . '/admin/noticias');
             exit;
         }
-        
+
         $categorias = $this->categoriaRepository->findAll();
         $content = $this->view->render('admin/noticias/form', [
             'title' => 'Editar Notícia',
@@ -110,38 +119,34 @@ class AdminNoticiasController
         return new Response(200, $content);
     }
 
-    /**
-     * Atualiza uma notícia no banco de dados.
-     * @param Request $request
-     * @param int $id
-     */
     public function update(Request $request, $params)
     {
         $data = $request->getBody();
 
-        echo "<pre>";
-        var_dump($request);
-        echo "</pre>";
+        $id = $params['id'];
+        $noticia = $this->noticiaRepository->findById($id);
+
+        if (!$noticia) {
+            Flash::set('message', 'Notícia não encontrada.');
+            header('Location: ' . BASE_URL . '/admin/noticias');
+            exit;
+        }
+
+        $newImagePath = ImageUploader::upload($data, $_FILES, 'noticias', $noticia->getImagem());
+        if ($newImagePath) {
+            $noticia->setImagem($newImagePath);
+        }
+        $noticia->setTitulo($data['titulo']);
+        $noticia->setConteudo($data['conteudo']);
+        $noticia->setIdCategoria((int)$data['categoria_id']);
+        $noticia->setSlug(StringUtils::slugify($data['titulo']));
+
+
+        $this->noticiaRepository->save($noticia);
+
+        Flash::set('message', 'Notícia atualizada com sucesso!');
+        header('Location: ' . BASE_URL . '/admin/noticias');
         exit;
-        // $id = $params['id'];
-        // $noticia = $this->noticiaRepository->findById((int)$id);
-
-        // if (!$noticia) {
-        //     Flash::set('message', 'Notícia não encontrada.');
-        //     header('Location: ' . BASE_URL . '/admin/noticias');
-        //     exit;
-        // }
-
-        // $noticia->setTitulo($data['titulo']);
-        // $noticia->setConteudo($data['conteudo']);
-        // $noticia->setIdCategoria((int)$data['categoria_id']);
-        // $noticia->setSlug(StringUtils::slugify($data['titulo']));
-
-        // $this->noticiaRepository->save($noticia);
-
-        // Flash::set('message', 'Notícia atualizada com sucesso!');
-        // header('Location: ' . BASE_URL . '/admin/noticias');
-        // exit;
     }
 
     /**
