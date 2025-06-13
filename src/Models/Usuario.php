@@ -73,5 +73,11 @@ class Usuario
         return $this->is_admin;
     }
 
+    public function setIsAdmin( $is_admin)
+    {
+        $this->is_admin = $is_admin;
+    }
+
+
     
 }
