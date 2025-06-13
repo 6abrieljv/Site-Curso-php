@@ -61,3 +61,7 @@ $router->post('/perfil', [
 
 ]);
 
+$router->get('/sobre', [
+    fn() => new Response(200,(new Controllers\SobreController())->index())
+]);
+

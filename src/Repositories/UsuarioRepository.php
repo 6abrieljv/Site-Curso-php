@@ -72,10 +72,11 @@ class UsuarioRepository
      * Conta o total de usuários.
      * @return int
      */
-    public function count(): int
+    public function cont($where = null)
     {
-        return $this->db->select(null, [], null, null, 'COUNT(*) as total')
-            ->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
+        $stmt = $this->db->select(fields: "COUNT(*) as total", where: $where);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return isset($result) ? $result['total'] : 0;
     }
 
     /**
