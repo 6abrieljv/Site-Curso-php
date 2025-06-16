@@ -67,6 +67,20 @@ class UsuarioRepository
 
         return $data ? $this->mapToModel($data) : null;
     }
+    public function findById($id){
+        $stmt = $this->db->select('id = :id', [':id' => $id]);
+        $data = $stmt->fetch();
+        if (!$data) {
+            return null;
+        }
+        
+        $usuario = new Usuario();
+        $usuario->setId($data['id']);
+        $usuario->setDataCadastro($data['data_cadastro']);
+        $usuario->setEmail($data['email']);
+        $usuario->setUsername($data['username']);
+
+    }
 
     /**
      * Conta o total de usuários.
