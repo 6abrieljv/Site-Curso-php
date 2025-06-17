@@ -30,7 +30,7 @@ $router->get('/noticias', [
         return new Response(200, (new Controllers\NoticiasController())->index($request));
     }
 ]);
-$router->get('/noticias/{slug}', [
+$router->get('/noticia/{slug}', [
     function ($request,$params) {      
 
         return new Response(200, (new Controllers\NoticiasController())->show($request, $params));
