@@ -50,4 +50,5 @@ class NoticiasController
 
         return (new View())->render('noticia', $data);
     }
+
 }

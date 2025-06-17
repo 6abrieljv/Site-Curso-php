@@ -28,7 +28,7 @@ $router->get('/admin/noticias/edit/{id}', [
 ]);
 
 $router->post('/admin/noticias/edit/{id}', [
-    fn(Request $request, $id) => (new AdminNoticiasController())->update($request, $id)
+    fn(Request $request, $id) => new Response(200, (new AdminNoticiasController())->update($request, $id))
 ]);
 
 $router->get('/admin/noticias/delete/{id}', [

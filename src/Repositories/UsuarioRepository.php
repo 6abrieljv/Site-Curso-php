@@ -67,15 +67,30 @@ class UsuarioRepository
 
         return $data ? $this->mapToModel($data) : null;
     }
+    public function findById($id){
+        $stmt = $this->db->select('id = :id', [':id' => $id]);
+        $data = $stmt->fetch();
+        if (!$data) {
+            return null;
+        }
+        
+        $usuario = new Usuario();
+        $usuario->setId($data['id']);
+        $usuario->setDataCadastro($data['data_cadastro']);
+        $usuario->setEmail($data['email']);
+        $usuario->setUsername($data['username']);
+
+    }
 
     /**
      * Conta o total de usuários.
      * @return int
      */
-    public function count(): int
+    public function cont($where = null)
     {
-        return $this->db->select(null, [], null, null, 'COUNT(*) as total')
-            ->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
+        $stmt = $this->db->select(fields: "COUNT(*) as total", where: $where);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return isset($result) ? $result['total'] : 0;
     }
 
     /**
