@@ -35,9 +35,11 @@ $router = new Router(URL);
 include_once(__DIR__ . "/src/routers/web.php");
 include_once(__DIR__ . "/src/routers/admin.php");
 include_once(__DIR__ . "/src/routers/auth.php");
+/*
 echo "<pre>";
 print_r($_SESSION['user']);
 echo "</pre>";
+*/
 
 
 
