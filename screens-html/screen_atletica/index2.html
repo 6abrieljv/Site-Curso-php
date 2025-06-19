@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--TAILWIND-->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap">
+
+    <!--ICONS MENU HAMBURGUER-->
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+
+    <!--FAVICON-->
+    <link rel="shortcut icon" type="image/jpg" href="../../assets/img/logos/favicon pato site.png"/>
+
+    <title>NerdHub - Atlética</title>
+</head>
+<body class="bg-gray-100">
+
+    <header class="bg-[#001934] font-['Pixelify_Sans'] text-white">
+        <nav class="flex justify-between items-center w-[95%] m-auto">
+            <div>
+                <a href=""><img class="w-16 p-1" src="../../assets/img/logos/favicon pato site.png" alt="Logo"></a>
+            </div>
+            <div
+                class="nav-links duration-500 md:static absolute bg-[#001934] md:min-h-fit min-h-[40vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5">
+                <ul class="flex md:flex-row flex-col md:items-center md:gap-[6vw] gap-6 text-white text-lg p-4">
+                    <li><a class="hover:text-xl hover:underline duration-300" href="#">Home</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="#">LTD</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="#">Educadores</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="../screen_atletica/index.html">Atlética</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="#">Perfil</a></li>
+                </ul>
+            </div>
+            <div class="flex items-center gap-6">
+                <button
+                    class=" text-lg text-white px-5 py-2 rounded-3xl hover:text-xl cursor-pointer duration-300 ease-out hover:underline active:text-[#001934]">
+                    Entrar
+                </button>
+                <ion-icon onclick="onToggleMenu(this)" name="menu"
+                    class="text-3xl text-white cursor-pointer md:hidden"></ion-icon>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-12 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/3 mb-6 md:mb-0">
+                <img src="../../assets/img/logos/atletica.png" alt="Logo da Atlética" class="mx-auto h-64 w-64 object-contain">
+            </div>
+            <div class="md:w-2/3 md:pl-8">
+                <h1 class="font-['Pixelify_Sans'] text-4xl font-bold text-gray-800 mb-4">Nossa Atlética</h1>
+                <p class="text-gray-600 leading-relaxed">
+                    Aqui você pode inserir um texto inspirador e informativo sobre a história, a missão e os valores da atlética. Fale sobre as modalidades esportivas, os títulos conquistados e o espírito de equipe que une todos os membros. Destaque a importância da atlética na vida acadêmica e na formação dos estudantes.
+                </p>
+            </div>
+        </section>
+
+        <section class="">
+            <h2 class="text-3xl font-bold font-['Pixelify_Sans'] text-center text-gray-800 mb-10">Nossos Membros</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <img src="../../assets/img/membros_atletica/joao-lucas.jpeg" alt="Foto do Membro" class="w-40 h-40 rounded-full mx-auto mb-4 object-cover">
+                    <h3 class="text-xl font-semibold text-gray-800">Nome do Membro</h3>
+                    <p class="text-gray-500">Presidente</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <img src="../../assets/img/membros_atletica/joao-lucas.jpeg" alt="Foto do Membro" class="w-40 h-40 rounded-full mx-auto mb-4 object-cover">
+                    <h3 class="text-xl font-semibold text-gray-800">Nome do Membro</h3>
+                    <p class="text-gray-500">Presidente</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <img src="../../assets/img/membros_atletica/joao-lucas.jpeg" alt="Foto do Membro" class="w-40 h-40 rounded-full mx-auto mb-4 object-cover">
+                    <h3 class="text-xl font-semibold text-gray-800">Nome do Membro</h3>
+                    <p class="text-gray-500">Presidente</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <img src="../../assets/img/membros_atletica/joao-lucas.jpeg" alt="Foto do Membro" class="w-40 h-40 rounded-full mx-auto mb-4 object-cover">
+                    <h3 class="text-xl font-semibold text-gray-800">Nome do Membro</h3>
+                    <p class="text-gray-500">Presidente</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <img src="../../assets/img/membros_atletica/joao-lucas.jpeg" alt="Foto do Membro" class="w-40 h-40 rounded-full mx-auto mb-4 object-cover">
+                    <h3 class="text-xl font-semibold text-gray-800">Nome do Membro</h3>
+                    <p class="text-gray-500">Presidente</p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <img src="../../assets/img/membros_atletica/joao-lucas.jpeg" alt="Foto do Membro" class="w-40 h-40 rounded-full mx-auto mb-4 object-cover">
+                    <h3 class="text-xl font-semibold text-gray-800">Nome do Membro</h3>
+                    <p class="text-gray-500">Presidente</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <img src="../../assets/img/membros_atletica/joao-lucas.jpeg" alt="Foto do Membro" class="w-40 h-40 rounded-full mx-auto mb-4 object-cover">
+                    <h3 class="text-xl font-semibold text-gray-800">Nome do Membro</h3>
+                    <p class="text-gray-500">Presidente</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <img src="../../assets/img/membros_atletica/joao-lucas.jpeg" alt="Foto do Membro" class="w-40 h-40 rounded-full mx-auto mb-4 object-cover">
+                    <h3 class="text-xl font-semibold text-gray-800">Nome do Membro</h3>
+                    <p class="text-gray-500">Presidente</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <img src="../../assets/img/membros_atletica/joao-lucas.jpeg" alt="Foto do Membro" class="w-40 h-40 rounded-full mx-auto mb-4 object-cover">
+                    <h3 class="text-xl font-semibold text-gray-800">Nome do Membro</h3>
+                    <p class="text-gray-500">Presidente</p>
+                </div>
+
+                
+                 </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-12">
+        <div class="container mx-auto px-6 py-4 text-center">
+            <p>&copy; 2025 Nome do Curso. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // codigo para o menu
+        const navLinks = document.querySelector('.nav-links');
+        function onToggleMenu(e) {
+            e.name = e.name === 'menu' ? 'close' : 'menu';
+            navLinks.classList.toggle('top-[62px]');
+        }
+        </script>
+
+</body>
+</html>
