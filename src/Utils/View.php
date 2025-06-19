@@ -14,6 +14,8 @@ class View
         $this->twig->addGlobal('links', [
             'LTD' => BASE_URL.'/ltd',
             'Notícias' => BASE_URL.'/noticias',
+            'Perfil' => BASE_URL.'/perfil',
+            'Sobre' => BASE_URL.'/sobre',
             'Podpink'=> BASE_URL.'/podpink',
             'Educadores' => BASE_URL.'/educadores',
             'Atletica' => BASE_URL.'/atletica',

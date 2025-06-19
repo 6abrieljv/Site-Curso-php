@@ -116,7 +116,7 @@ class AdminNoticiasController
             'button_label' => 'Salvar Alterações'
         ]);
 
-        return new Response(200, $content);
+        return  $content;
     }
 
     public function update(Request $request, $params)

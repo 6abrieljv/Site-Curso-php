@@ -1,20 +1,10 @@
 <?php
 
-use App\Controllers;
-use App\HTTP\Response;
+use App\Controllers\AuthController;
 
+$router->get('/login', [ fn() => (new AuthController())->showLoginForm() ]);
+$router->post('/login', [ fn( $r) => (new AuthController())->login($r) ]);
+$router->get('/register', [ fn() => (new AuthController())->showRegisterForm() ]);
+$router->post('/register', [ fn( $r) => (new AuthController())->register($r) ]);
+$router->get('/logout', [ fn() => (new AuthController())->logout() ]);
 
-$router->get(
-    '/login',
-    [
-        fn() => new Response(200, (new Controllers\AuthController())->show())
-
-    ]
-
-);
-$router->post(
-    '/login',
-    [
-        fn() => new Response(200,(new Controllers\AuthController())->login())
-    ]
-    );

@@ -30,14 +30,10 @@ $router->get('/noticias', [
         return new Response(200, (new Controllers\NoticiasController())->index($request));
     }
 ]);
-$router->get('/noticias/{slug}', [
-    function ($request) {
-        echo "<pre>";
-        print_r($request);
-        echo "</pre>";
-        
+$router->get('/noticia/{slug}', [
+    function ($request,$params) {      
 
-        return new Response(200, (new Controllers\NoticiasController())->show($request->getParam('slug')));
+        return new Response(200, (new Controllers\NoticiasController())->show($request, $params));
     }
 ]);
 
@@ -55,3 +51,17 @@ $router->get('/podpink', [
         return new Response(200, (new Controllers\PodPinkController())->index());
     }
 ]);
+
+
+$router->get('/perfil', [
+    fn() => new Response(200,(new Controllers\PerfilController())->index())
+]);
+$router->post('/perfil', [
+    fn($request) => new Response(200,(new Controllers\PerfilController())->update($request))
+
+]);
+
+$router->get('/sobre', [
+    fn() => new Response(200,(new Controllers\SobreController())->index())
+]);
+
