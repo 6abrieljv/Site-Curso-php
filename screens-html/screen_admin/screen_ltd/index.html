@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gerenciar Projetos - LTD</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap">
+
+  <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+
+  <link rel="shortcut icon" type="image/jpg" href="../../../public/assets/img/logos/logo.png"/>
+</head>
+
+<body class="font-['Pixelify_Sans'] bg-[#F5F4F4]">
+
+  <!-- Header -->
+  <header class="bg-[#001934]">
+    <nav class="flex justify-between items-center w-[95%] m-auto">
+      <div>
+        <a href="#"><img class="w-16 p-1" src="../../../public/assets/img/logos/logo.png" alt="Logo"></a>
+      </div>
+      <div class="nav-links duration-500 md:static absolute bg-[#001934] md:min-h-fit min-h-[40vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5">
+        <ul class="flex md:flex-row flex-col md:items-center md:gap-[6vw] gap-6 text-white text-lg p-4">
+          <li><a class="hover:text-xl hover:underline duration-300" href="#">Home</a></li>
+          <li><a class="hover:text-xl hover:underline duration-300" href="#">Noticias</a></li>
+          <li><a class="hover:text-xl hover:underline duration-300" href="#">PodPink</a></li>
+          <li><a class="hover:text-xl hover:underline duration-300" href="#">LTD</a></li>
+          <li><a class="hover:text-xl hover:underline duration-300" href="../screen_educadores/index.html">Educadores</a></li>
+          <li><a class="hover:text-xl hover:underline duration-300" href="#">Atlética</a></li>
+          <li><a class="hover:text-xl hover:underline duration-300" href="#">Admin</a></li>
+        </ul>
+      </div>
+      <div class="flex items-center gap-6">
+        <button class="text-lg text-white px-5 py-2 rounded-3xl hover:text-xl cursor-pointer duration-300 ease-out hover:underline active:text-[#001934]">
+          Entrar
+        </button>
+        <ion-icon onclick="onToggleMenu(this)" name="menu" class="text-3xl text-white cursor-pointer md:hidden"></ion-icon>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Layout -->
+  <div class="flex min-h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-[250px] bg-[#012145] shadow-md p-6">
+      <nav class="space-y-4 text-white">
+        <a href="../screen_dashboard/index.html" class="block text-lg hover:text-xl hover:underline duration-300 font-medium">Dashboard</a>
+        <a href="../screen_users/index.html" class="block text-lg hover:text-xl hover:underline duration-300">Usuários</a>
+        <a href="../screen_noticias/index.html" class="block text-lg hover:text-xl hover:underline duration-300">Notícias</a>
+        <a href="../screen_ltd/index.html" class="block text-lg hover:text-xl hover:underline duration-300">LTD</a>
+        <a href="../screen_educadores/index.html" class="block text-lg hover:text-xl hover:underline duration-300">Educadores</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">Projetos do LTD</h2>
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-lg mt-4 sm:mt-0">
+          + Adicionar Projeto
+        </button>
+      </div>
+
+      <div class="bg-white shadow-md rounded-lg overflow-x-auto flex-grow grow">
+        <table class="w-full text-left">
+          <thead class="bg-gray-200">
+            <tr>
+              <th class="p-5">Nome do Projeto</th>
+              <th class="p-5">Status</th>
+              <th class="p-5">Período</th>
+              <th class="p-5">Data</th>
+              <th class="p-5">Ações</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-800 text-base">
+            <tr class="border-b hover:bg-gray-50">
+              <td class="p-5">Aplicativo de Centro de Treinamento</td>
+              <td class="p-5">Concluído</td>
+              <td class="p-5">2024.2</td>
+              <td class="p-5">29/11/2024</td>
+              <td class="p-5 flex gap-2 flex-wrap">
+                <button class="bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500">Editar</button>
+                <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Deletar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-[#001A35] text-white pt-10 pr-5 pb-10 pl-5 text-sm grow"></footer>
+
+  <script>
+    const navLinks = document.querySelector('.nav-links');
+    function onToggleMenu(e) {
+      e.name = e.name === 'menu' ? 'close' : 'menu';
+      navLinks.classList.toggle('top-[62px]');
+    }
+  </script>
+
+</body>
+</html>
