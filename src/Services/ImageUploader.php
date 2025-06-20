@@ -8,8 +8,14 @@ class ImageUploader
     {
         $uploadDir = 'uploads/' . $subfolder . '/';
         $targetDir = ROOT_PATH . '/public/' . $uploadDir;
+
+        // echo "<pre>";
+        // var_dump($postData);
+        // echo "</pre>";
+        // exit;
         
         if (!is_dir($targetDir)) {
+            echo 'criando pasta';
             mkdir($targetDir, 0775, true);
         }
 
