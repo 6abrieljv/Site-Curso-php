@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 22, 2025 at 07:37 PM
+-- Host: localhost
+-- Generation Time: Jun 22, 2025 at 08:01 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `nerdhub`
 --
+CREATE DATABASE IF NOT EXISTS `nerdhub` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+USE `nerdhub`;
 
 -- --------------------------------------------------------
 
@@ -27,12 +29,15 @@ SET time_zone = "+00:00";
 -- Table structure for table `categoria`
 --
 
-CREATE TABLE `categoria` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `categoria` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `cor` varchar(20) NOT NULL DEFAULT '#001A35',
-  `slug` varchar(150) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+  `slug` varchar(150) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nome` (`nome`),
+  UNIQUE KEY `slug` (`slug`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Dumping data for table `categoria`
@@ -50,16 +55,20 @@ INSERT INTO `categoria` (`id`, `nome`, `cor`, `slug`) VALUES
 -- Table structure for table `noticia`
 --
 
-CREATE TABLE `noticia` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `noticia` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `usuario_id` bigint(20) NOT NULL,
   `categoria_id` bigint(20) DEFAULT NULL,
   `titulo` varchar(200) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `conteudo` text NOT NULL,
   `imagem` varchar(255) DEFAULT NULL,
-  `data_publicacao` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+  `data_publicacao` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `slug` (`slug`),
+  KEY `fk_noticia_usuario` (`usuario_id`),
+  KEY `fk_noticia_categoria` (`categoria_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Dumping data for table `noticia`
@@ -118,8 +127,8 @@ INSERT INTO `noticia` (`id`, `usuario_id`, `categoria_id`, `titulo`, `slug`, `co
 -- Table structure for table `perfil`
 --
 
-CREATE TABLE `perfil` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `perfil` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_usuario` bigint(20) NOT NULL,
   `nome` varchar(100) NOT NULL,
   `sobrenome` varchar(100) NOT NULL,
@@ -133,8 +142,10 @@ CREATE TABLE `perfil` (
   `github` varchar(100) DEFAULT NULL,
   `tiktok` varchar(100) DEFAULT NULL,
   `foto` varchar(255) DEFAULT NULL,
-  `cargo` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+  `cargo` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_usuario` (`id_usuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Dumping data for table `perfil`
@@ -155,15 +166,18 @@ INSERT INTO `perfil` (`id`, `id_usuario`, `nome`, `sobrenome`, `data_nascimento`
 -- Table structure for table `usuario`
 --
 
-CREATE TABLE `usuario` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `usuario` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `username` varchar(100) NOT NULL,
   `email` varchar(150) NOT NULL,
   `senha` varchar(255) NOT NULL,
   `data_cadastro` timestamp NOT NULL DEFAULT current_timestamp(),
   `is_admin` tinyint(1) DEFAULT 0,
-  `is_educador` tinyint(1) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+  `is_educador` tinyint(1) DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Dumping data for table `usuario`
@@ -180,70 +194,6 @@ INSERT INTO `usuario` (`id`, `username`, `email`, `senha`, `data_cadastro`, `is_
 (12, 'pinto.jr', 'pintojr@gmail.com', '$2y$10$pV4QrF0AwUeYKuDFeKrJwOYGOWZAVlivc7TiEAQdj0Yr3vgFTLNiO', '2025-06-22 12:08:21', 0, 1),
 (13, 'Calango.net', 'calangonet@gmail.com', '$2y$10$dWCWcwHQgJMjwGwBbxKI/OdE4Oa8gnF9XhiOTCn7pgds2deoiv8EK', '2025-06-22 12:09:09', 0, 1),
 (14, 'Roberto.pinto', 'robertorosas@gmail.com', '$2y$10$5uGRvYFBiRXGvWDRme5R7OnWn668ELRQQkKo38T2lNikoN4sO0e0S', '2025-06-22 12:10:02', 0, 1);
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `categoria`
---
-ALTER TABLE `categoria`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nome` (`nome`),
-  ADD UNIQUE KEY `slug` (`slug`);
-
---
--- Indexes for table `noticia`
---
-ALTER TABLE `noticia`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `slug` (`slug`),
-  ADD KEY `fk_noticia_usuario` (`usuario_id`),
-  ADD KEY `fk_noticia_categoria` (`categoria_id`);
-
---
--- Indexes for table `perfil`
---
-ALTER TABLE `perfil`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_usuario` (`id_usuario`);
-
---
--- Indexes for table `usuario`
---
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`),
-  ADD UNIQUE KEY `email` (`email`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `categoria`
---
-ALTER TABLE `categoria`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `noticia`
---
-ALTER TABLE `noticia`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
-
---
--- AUTO_INCREMENT for table `perfil`
---
-ALTER TABLE `perfil`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `usuario`
---
-ALTER TABLE `usuario`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables
