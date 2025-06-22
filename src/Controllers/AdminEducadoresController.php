@@ -84,21 +84,21 @@ class AdminEducadoresController
         // Validação básica (pode ser expandida)
         if (empty($data['username']) || empty($data['email']) || empty($data['senha']) || empty($data['nome_completo'])) {
             Flash::set('message', 'Erro: Preencha todos os campos obrigatórios (Nome de Usuário, E-mail, Senha, Nome Completo).');
-            return new Response(302, '', [
-                'Location' => BASE_URL . '/admin/educadores/create'
-            ]);
+            $response = new Response(302, '');
+            $response->addHeader('Location', BASE_URL . '/admin/educadores/create');
+            return $response;
         }
         if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             Flash::set('message', 'Erro: E-mail inválido.');
-            return new Response(302, '', [
-                'Location' => BASE_URL . '/admin/educadores/create'
-            ]);
+            $response = new Response(302, '');
+            $response->addHeader('Location', BASE_URL . '/admin/educadores/create');
+            return $response;
         }
         if (strlen($data['senha']) < 6) { // Exemplo de validação de senha
             Flash::set('message', 'Erro: A senha deve ter no mínimo 6 caracteres.');
-            return new Response(302, '', [
-                'Location' => BASE_URL . '/admin/educadores/create'
-            ]);
+            $response = new Response(302, '');
+            $response->addHeader('Location', BASE_URL . '/admin/educadores/create');
+            return $response;
         }
 
 
@@ -134,9 +134,9 @@ class AdminEducadoresController
             Flash::set('message', 'Erro ao cadastrar educador: ' . $e->getMessage());
         }
 
-        return new Response(302, '', [
-            'Location' => BASE_URL . '/admin/educadores'
-        ]);
+        $response = new Response(302, '');
+        $response->addHeader('Location', BASE_URL . '/admin/educadores');
+        return $response;
     }
 
     /**
@@ -152,9 +152,9 @@ class AdminEducadoresController
 
         if (!$educadorData) {
             Flash::set('message', 'Educador não encontrado.');
-            return new Response(302, '', [
-                'Location' => BASE_URL . '/admin/educadores'
-            ]);
+            $response = new Response(302, '');
+            $response->addHeader('Location', BASE_URL . '/admin/educadores');
+            return $response;
         }
 
         // Correção: Mantenha APENAS esta atribuição para $content (removendo a duplicada)
@@ -184,9 +184,9 @@ class AdminEducadoresController
 
         if (!$educadorData) {
             Flash::set('message', 'Educador não encontrado.');
-            return new Response(302, '', [
-                'Location' => BASE_URL . '/admin/educadores'
-            ]);
+            $response = new Response(302, '');
+            $response->addHeader('Location', BASE_URL . '/admin/educadores');
+            return $response;
         }
 
         $usuario = $educadorData['usuario'];
@@ -195,22 +195,22 @@ class AdminEducadoresController
         // Validação básica (pode ser expandida)
         if (empty($data['username']) || empty($data['email']) || empty($data['nome_completo'])) {
             Flash::set('message', 'Erro: Preencha os campos obrigatórios (Nome de Usuário, E-mail, Nome Completo).');
-            return new Response(302, '', [
-                'Location' => BASE_URL . '/admin/educadores/edit/' . $id
-            ]);
+            $response = new Response(302, '');
+            $response->addHeader('Location', BASE_URL . '/admin/educadores/edit/' . $id);
+            return $response;
         }
         if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             Flash::set('message', 'Erro: E-mail inválido.');
-            return new Response(302, '', [
-                'Location' => BASE_URL . '/admin/educadores/edit/' . $id
-            ]);
+            $response = new Response(302, '');
+            $response->addHeader('Location', BASE_URL . '/admin/educadores/edit/' . $id);
+            return $response;
         }
         // Senha: só valida e atualiza se um novo valor for fornecido
         if (!empty($data['senha']) && strlen($data['senha']) < 6) {
             Flash::set('message', 'Erro: A nova senha deve ter no mínimo 6 caracteres.');
-            return new Response(302, '', [
-                'Location' => BASE_URL . '/admin/educadores/edit/' . $id
-            ]);
+            $response = new Response(302, '');
+            $response->addHeader('Location', BASE_URL . '/admin/educadores/edit/' . $id);
+            return $response;
         }
 
 
@@ -251,9 +251,9 @@ class AdminEducadoresController
             Flash::set('message', 'Erro ao atualizar educador: ' . $e->getMessage());
         }
 
-        return new Response(302, '', [
-            'Location' => BASE_URL . '/admin/educadores'
-        ]);
+        $response = new Response(302, '');
+        $response->addHeader('Location', BASE_URL . '/admin/educadores');
+        return $response;
     }
 
     /**
@@ -269,9 +269,9 @@ class AdminEducadoresController
 
         if (!$educadorData) {
             Flash::set('message', 'Educador não encontrado.');
-            return new Response(302, '', [
-                'Location' => BASE_URL . '/admin/educadores'
-            ]);
+            $response = new Response(302, '');
+            $response->addHeader('Location', BASE_URL . '/admin/educadores');
+            return $response;
         }
 
         $content = $this->view->render('admin/educadores/delete', [
@@ -295,9 +295,9 @@ class AdminEducadoresController
 
         if (!$educadorData) {
             Flash::set('message', 'Educador não encontrado.');
-            return new Response(302, '', [
-                'Location' => BASE_URL . '/admin/educadores'
-            ]);
+            $response = new Response(302, '');
+            $response->addHeader('Location', BASE_URL . '/admin/educadores');
+            return $response;
         }
 
         try {
@@ -312,8 +312,8 @@ class AdminEducadoresController
             Flash::set('message', 'Erro ao deletar educador: ' . $e->getMessage());
         }
         
-        return new Response(302, '', [
-            'Location' => BASE_URL . '/admin/educadores'
-        ]);
+        $response = new Response(302, '');
+        $response->addHeader('Location', BASE_URL . '/admin/educadores');
+        return $response;
     }
 }

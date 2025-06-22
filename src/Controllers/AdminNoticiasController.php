@@ -9,7 +9,7 @@ use App\Repositories\CategoriaRepository;
 use App\Models\Noticia;
 use App\Utils\StringUtils;
 
-use App\HTTP\Response;
+use App\HTTP\Response; // Certifique-se de que esta linha está presente
 use App\HTTP\Request;
 
 use App\Services\ImageUploader;
@@ -71,8 +71,6 @@ class AdminNoticiasController
 
         $userId = $_SESSION['user']['id'] ?? 1;
 
-
-
         // processo de cadastro de noticia
         $noticia = new Noticia();
         $noticia->setTitulo($data['titulo']);
@@ -88,11 +86,12 @@ class AdminNoticiasController
         // salva no banco de dados
         $this->noticiaRepository->save($noticia);
 
-
         // redireciona para a página de notícias
         Flash::set('message', 'Notícia cadastrada com sucesso!');
-        header('Location: ' . BASE_URL . '/admin/noticias');
-        exit;
+        // Substituindo header('Location: ...'); exit;
+        $response = new Response(302, '');
+        $response->addHeader('Location', BASE_URL . '/admin/noticias');
+        return $response;
     }
 
 
@@ -103,8 +102,10 @@ class AdminNoticiasController
 
         if (!$noticia) {
             Flash::set('message', 'Notícia não encontrada.');
-            header('Location: ' . BASE_URL . '/admin/noticias');
-            exit;
+            // Substituindo header('Location: ...'); exit;
+            $response = new Response(302, '');
+            $response->addHeader('Location', BASE_URL . '/admin/noticias');
+            return $response;
         }
 
         $categorias = $this->categoriaRepository->findAll();
@@ -128,8 +129,10 @@ class AdminNoticiasController
 
         if (!$noticia) {
             Flash::set('message', 'Notícia não encontrada.');
-            header('Location: ' . BASE_URL . '/admin/noticias');
-            exit;
+            // Substituindo header('Location: ...'); exit;
+            $response = new Response(302, '');
+            $response->addHeader('Location', BASE_URL . '/admin/noticias');
+            return $response;
         }
 
         $newImagePath = ImageUploader::upload($data, $_FILES, 'noticias', $noticia->getImagem());
@@ -145,8 +148,10 @@ class AdminNoticiasController
         $this->noticiaRepository->save($noticia);
 
         Flash::set('message', 'Notícia atualizada com sucesso!');
-        header('Location: ' . BASE_URL . '/admin/noticias');
-        exit;
+        // Substituindo header('Location: ...'); exit;
+        $response = new Response(302, '');
+        $response->addHeader('Location', BASE_URL . '/admin/noticias');
+        return $response;
     }
 
     /**
@@ -158,8 +163,10 @@ class AdminNoticiasController
         $noticia = $this->noticiaRepository->findById($params['id']);
         if (!$noticia) {
             Flash::set('message', 'Notícia não encontrada.');
-            header('Location: ' . BASE_URL . '/admin/noticias');
-            exit;
+            // Substituindo header('Location: ...'); exit;
+            $response = new Response(302, '');
+            $response->addHeader('Location', BASE_URL . '/admin/noticias');
+            return $response;
         }
 
         $content = $this->view->render('admin/noticias/delete', [
@@ -173,7 +180,9 @@ class AdminNoticiasController
     {
         $this->noticiaRepository->delete($params['id']);
         Flash::set('message', 'Notícia deletada com sucesso!');
-        header('Location: ' . BASE_URL . '/admin/noticias');
-        exit;
+        // Substituindo header('Location: ...'); exit;
+        $response = new Response(302, '');
+        $response->addHeader('Location', BASE_URL . '/admin/noticias');
+        return $response;
     }
 }

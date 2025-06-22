@@ -45,7 +45,7 @@ fn($request, $params) => (new AdminNoticiasController())->destroy($request, $par
 // Novas rotas para o painel de administração de EDUCADORES
 $router->get('/admin/educadores', [
 fn(Request $request) => (
-//dd((new AdminEducadoresController())->index($request)) // Linha de depuração para verificar o retorno
+
     new Response(200, (new AdminEducadoresController())->index($request))
 )
 ]);
