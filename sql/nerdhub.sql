@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Tempo de geração: 06/06/2025 às 14:51
--- Versão do servidor: 10.4.32-MariaDB
--- Versão do PHP: 8.2.12
+-- Host: 127.0.0.1
+-- Generation Time: Jun 22, 2025 at 07:37 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `nerdhub`
+-- Database: `nerdhub`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `categoria`
+-- Table structure for table `categoria`
 --
 
 CREATE TABLE `categoria` (
@@ -35,7 +35,7 @@ CREATE TABLE `categoria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
--- Despejando dados para a tabela `categoria`
+-- Dumping data for table `categoria`
 --
 
 INSERT INTO `categoria` (`id`, `nome`, `cor`, `slug`) VALUES
@@ -47,7 +47,7 @@ INSERT INTO `categoria` (`id`, `nome`, `cor`, `slug`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `noticia`
+-- Table structure for table `noticia`
 --
 
 CREATE TABLE `noticia` (
@@ -62,7 +62,7 @@ CREATE TABLE `noticia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
--- Despejando dados para a tabela `noticia`
+-- Dumping data for table `noticia`
 --
 
 INSERT INTO `noticia` (`id`, `usuario_id`, `categoria_id`, `titulo`, `slug`, `conteudo`, `imagem`, `data_publicacao`) VALUES
@@ -115,7 +115,7 @@ INSERT INTO `noticia` (`id`, `usuario_id`, `categoria_id`, `titulo`, `slug`, `co
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `perfil`
+-- Table structure for table `perfil`
 --
 
 CREATE TABLE `perfil` (
@@ -132,13 +132,27 @@ CREATE TABLE `perfil` (
   `youtube` varchar(100) DEFAULT NULL,
   `github` varchar(100) DEFAULT NULL,
   `tiktok` varchar(100) DEFAULT NULL,
-  `foto` varchar(255) DEFAULT NULL
+  `foto` varchar(255) DEFAULT NULL,
+  `cargo` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `perfil`
+--
+
+INSERT INTO `perfil` (`id`, `id_usuario`, `nome`, `sobrenome`, `data_nascimento`, `bio`, `instagram`, `facebook`, `twitter`, `linkedin`, `youtube`, `github`, `tiktok`, `foto`, `cargo`) VALUES
+(1, 4, 'Jhenefer Amorim', '', NULL, 'Bem-vindo ao NerdHub!', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 9, 'Mateus Almeida', '', NULL, 'impino pipa e jogo bola', NULL, NULL, NULL, '', NULL, '', NULL, '', 'Coordenador'),
+(4, 10, 'Leo Muniz', '', NULL, '', NULL, NULL, NULL, '', NULL, '', NULL, '', 'Coordenador'),
+(5, 11, 'Dafiny Gabriele', '', NULL, 'blabla bla bla bla', NULL, NULL, NULL, '', NULL, '', NULL, '', 'Coordenadora'),
+(6, 12, 'Pinto Júnior ', '', NULL, '', NULL, NULL, NULL, '', NULL, '', NULL, '', 'Professor'),
+(7, 13, 'Calango Azul Silva', '', NULL, '', NULL, NULL, NULL, '', NULL, '', NULL, NULL, 'Coordenador'),
+(8, 14, 'Roberto Carlos', '', NULL, '', NULL, NULL, NULL, '', NULL, '', NULL, NULL, 'Professor');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `usuario`
+-- Table structure for table `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -147,24 +161,32 @@ CREATE TABLE `usuario` (
   `email` varchar(150) NOT NULL,
   `senha` varchar(255) NOT NULL,
   `data_cadastro` timestamp NOT NULL DEFAULT current_timestamp(),
-  `is_admin` tinyint(1) DEFAULT 0
+  `is_admin` tinyint(1) DEFAULT 0,
+  `is_educador` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
--- Despejando dados para a tabela `usuario`
+-- Dumping data for table `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `username`, `email`, `senha`, `data_cadastro`, `is_admin`) VALUES
-(1, 'Usuário Editor Dois', 'editor2@example.com', '$2y$10$seuHashDeSenhaAqui2', '2025-06-03 01:39:39', 0),
-(2, 'Usuário Autor Tres', 'autor3@example.com', '$2y$10$seuHashDeSenhaAqui3', '2025-06-03 01:39:39', 0),
-(3, 'joao', 'jao@gmail.com', '$2y$10$seuHashDeSenhaAqui2', '2025-06-03 01:39:39', 0);
+INSERT INTO `usuario` (`id`, `username`, `email`, `senha`, `data_cadastro`, `is_admin`, `is_educador`) VALUES
+(1, 'Usuário Editor Dois', 'editor2@example.com', '$2y$10$seuHashDeSenhaAqui2', '2025-06-03 01:39:39', 0, 0),
+(2, 'Usuário Autor Tres', 'autor3@example.com', '$2y$10$seuHashDeSenhaAqui3', '2025-06-03 01:39:39', 0, 0),
+(3, 'joao', 'jao@gmail.com', '$2y$10$seuHashDeSenhaAqui2', '2025-06-03 01:39:39', 0, 0),
+(4, 'Jhenefer Amorim', 'jhenefer.fdc@gmail.com', '$2y$10$MTS4OU20/FOTyiLnFiKfbe7zFsFyhhEst1/niWraJnTbWFEzvmbJC', '2025-06-18 11:56:43', 0, 0),
+(9, 'Mateus.log', 'mateuslog@gmail.com', '$2y$10$2QfitC7tPAd6uA097bNOSehsJN13FxuzbfJkZx3bBtLiqAoEfg7E.', '2025-06-22 00:40:06', 0, 1),
+(10, 'leo.muniz', 'leo123@gmail.com', '$2y$10$XpO.nRhmKyCiIawsxc3EBOtRU/7znu/6512kqy6XDJIffMeOC.NVS', '2025-06-22 01:11:33', 1, 1),
+(11, 'gabi.core', 'gabi@gmail.com', '$2y$10$idNoEGzAE6nYBBRbiOrZy.Ed3lAIAIJ219VXvWBNU2pIeMxK5Bj9i', '2025-06-22 11:42:53', 1, 1),
+(12, 'pinto.jr', 'pintojr@gmail.com', '$2y$10$pV4QrF0AwUeYKuDFeKrJwOYGOWZAVlivc7TiEAQdj0Yr3vgFTLNiO', '2025-06-22 12:08:21', 0, 1),
+(13, 'Calango.net', 'calangonet@gmail.com', '$2y$10$dWCWcwHQgJMjwGwBbxKI/OdE4Oa8gnF9XhiOTCn7pgds2deoiv8EK', '2025-06-22 12:09:09', 0, 1),
+(14, 'Roberto.pinto', 'robertorosas@gmail.com', '$2y$10$5uGRvYFBiRXGvWDRme5R7OnWn668ELRQQkKo38T2lNikoN4sO0e0S', '2025-06-22 12:10:02', 0, 1);
 
 --
--- Índices para tabelas despejadas
+-- Indexes for dumped tables
 --
 
 --
--- Índices de tabela `categoria`
+-- Indexes for table `categoria`
 --
 ALTER TABLE `categoria`
   ADD PRIMARY KEY (`id`),
@@ -172,7 +194,7 @@ ALTER TABLE `categoria`
   ADD UNIQUE KEY `slug` (`slug`);
 
 --
--- Índices de tabela `noticia`
+-- Indexes for table `noticia`
 --
 ALTER TABLE `noticia`
   ADD PRIMARY KEY (`id`),
@@ -181,14 +203,14 @@ ALTER TABLE `noticia`
   ADD KEY `fk_noticia_categoria` (`categoria_id`);
 
 --
--- Índices de tabela `perfil`
+-- Indexes for table `perfil`
 --
 ALTER TABLE `perfil`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id_usuario` (`id_usuario`);
 
 --
--- Índices de tabela `usuario`
+-- Indexes for table `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`),
@@ -196,46 +218,46 @@ ALTER TABLE `usuario`
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT para tabelas despejadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de tabela `categoria`
+-- AUTO_INCREMENT for table `categoria`
 --
 ALTER TABLE `categoria`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de tabela `noticia`
+-- AUTO_INCREMENT for table `noticia`
 --
 ALTER TABLE `noticia`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
--- AUTO_INCREMENT de tabela `perfil`
+-- AUTO_INCREMENT for table `perfil`
 --
 ALTER TABLE `perfil`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT de tabela `usuario`
+-- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- Restrições para tabelas despejadas
+-- Constraints for dumped tables
 --
 
 --
--- Restrições para tabelas `noticia`
+-- Constraints for table `noticia`
 --
 ALTER TABLE `noticia`
   ADD CONSTRAINT `fk_noticia_categoria` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_noticia_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE;
 
 --
--- Restrições para tabelas `perfil`
+-- Constraints for table `perfil`
 --
 ALTER TABLE `perfil`
   ADD CONSTRAINT `fk_perfil_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON DELETE CASCADE;

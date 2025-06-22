@@ -13,6 +13,8 @@ class View
         $this->twig = new \Twig\Environment($loader);
         $this->twig->addGlobal('base_url', BASE_URL);
         $this->twig->addGlobal('assets', 'public/assets');
+        // Adicionar o favicon como uma variável global para fácil acesso nas views Twig
+        $this->twig->addGlobal('favicon_path', BASE_URL . '/public/assets/img/logos/favicon pato site.png'); //
         $this->twig->addGlobal('links', [
             // Link 'Home' REMOVIDO daqui.
             'Notícias' => BASE_URL.'/noticias',

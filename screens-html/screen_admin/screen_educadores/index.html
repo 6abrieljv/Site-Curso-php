@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -11,29 +12,26 @@
 
     <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
 
-    <link rel="shortcut icon" type="image/jpg" href="../../../public/assets/img/logos/logo.png"/>
-    
-    <title>Admin - Gerenciar Educadores</title>
+    <link rel="shortcut icon" type="image/jpg" href="../../../public/assets/img/logos/favicon pato site.png"/>
 
+    <title>NerdHub - Educadores</title>
 </head>
 
-<body class="font-['Pixelify_Sans'] bg-[#F5F4F4]">
-    
+
+<body class="font-['Pixelify_Sans'] bg-[#F5F4F4] h-screen">
     <header class="bg-[#001934]">
         <nav class="flex justify-between items-center w-[95%] m-auto">
             <div>
-                <a href=""><img class="w-16 p-1" src="../../../public/assets/img/logos/logo.png" alt="Logo"></a>
+                <a href=""><img class="w-16 p-1" src="../assets/img/logos/favicon pato site.png" alt="Logo"></a>
             </div>
             <div
                 class="nav-links duration-500 md:static absolute bg-[#001934] md:min-h-fit min-h-[40vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5">
                 <ul class="flex md:flex-row flex-col md:items-center md:gap-[6vw] gap-6 text-white text-lg p-4">
                     <li><a class="hover:text-xl hover:underline duration-300" href="#">Home</a></li>
-                    <li><a class="hover:text-xl hover:underline duration-300" href="#">Noticias</a></li>
-                    <li><a class="hover:text-xl hover:underline duration-300" href="#">PodPink</a></li>
                     <li><a class="hover:text-xl hover:underline duration-300" href="#">LTD</a></li>
-                    <li><a class="hover:text-xl hover:underline duration-300" href="../screen_educadores/index.html">Educadores</a></li>
-                    <li><a class="hover:text-xl hover:underline duration-300" href="#">Atlética</a></li>
-                    <li><a class="hover:text-xl hover:underline duration-300" href="#">Admin</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="#">Educadores</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="../screen_atletica/index.html">Atlética</a></li>
+                    <li><a class="hover:text-xl hover:underline duration-300" href="#">Perfil</a></li>
                 </ul>
             </div>
             <div class="flex items-center gap-6">
@@ -47,340 +45,101 @@
         </nav>
     </header>
 
-  <div class="flex min-h-screen">
+    <main>
+        <section class="py-10">
+            <div class="flex flex-col  items-center w-[80%] mx-auto font-[Poppins] ">
+                <h1 class="text-[2.5rem] font-extralight max-sm:text-3xl max-md:text-3xl max-sm:text-center">Conheça nossos <span class="font-bold underline">educadores</span></h1>
+    
+                <article class="flex bg-white border border-solid rounded-xl shadow-lg p-[20px] items-center gap-[20px] duration-300 hover:border-[#eeeded] hover:bg-[#eeeded] hover:shadow-[inset_1px_1px_5px_rgba(0,0,0,0.07)] hover:scale-[1.02] mt-10">
+                    <div class="max-md:block max-md:text-center flex items-center gap-4">
 
-    <aside class="w-[250px] bg-[#012145] shadow-md p-6">
-        <nav class="space-y-4 text-white">
-          <a href="../screen_dashboard/index.html" class="block text-lg  hover:text-xl hover:underline duration-300 ">Dashboard</a>
-          <a href="../screen_users/index.html" class="block text-lg  hover:text-xl hover:underline duration-300">Usuários</a>
-          <a href="../screen_noticias/index.html" class="block text-lg  hover:text-xl hover:underline duration-300">Notícias</a>
-          <a href="../screen_ltd/index.html" class="block text-lg  hover:text-xl hover:underline duration-300 font-medium">LTD</a>
-          <a href="../screen_educadores/index.html" class="block text-lg  hover:text-xl hover:underline duration-300 font-medium">Educadores</a>
-        </nav>
-    </aside>
-
-    <main class="flex-1 p-6 ">
-      <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold text-gray-800">Gerenciar Educadores</h2>
-        <button id="addEducatorBtn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-          + Adicionar Educador
-        </button>
-      </div>
-
-      <div class="bg-white shadow-md rounded-lg overflow-x-auto flex-grow grow">
-        <table class="w-full text-left">
-          <thead class="bg-gray-200">
-            <tr>
-              <th class="p-4">ID</th>
-              <th class="p-4">Nome</th>
-              <th class="p-4">Cargo</th>
-              <th class="p-4">Data de Cadastro</th>
-              <th class="p-4">Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="border-b hover:bg-gray-50">
-                <td class="p-4 educator-table-id">1</td>
-                <td class="p-4 educator-table-name">Prof. Dr. Exemplo Silva</td>
-                <td class="p-4 educator-table-role">Coordenador de Curso</td>
-                <td class="p-4 educator-table-date">26/05/2025</td>
-                <td class="p-4 flex space-x-2">
-                <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded"
-                        data-id="1"
-                        data-name="Prof. Dr. Exemplo Silva"
-                        data-role="Coordenador de Curso"
-                        data-bio="Doutor em Ciências da Computação com vasta experiência em desenvolvimento de software e inteligência artificial. Entusiasta de novas tecnologias e metodologias ágeis."
-                        data-image-src=""> Editar
-                </button>
-                <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 delete-educator-btn" data-id="1">
-                  Deletar
-                </button>
-              </td>
-            </tr>
-            <tr class="border-b hover:bg-gray-50">
-                <td class="p-4 educator-table-id">2</td>
-                <td class="p-4 educator-table-name">Prof. Maria Oliveira</td>
-                <td class="p-4 educator-table-role">Professora Titular</td>
-                <td class="p-4 educator-table-date">20/05/2025</td>
-                <td class="p-4 flex space-x-2">
-                <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded edit-educator-btn"
-                        data-id="2"
-                        data-name="Prof. Maria Oliveira"
-                        data-role="Professora Titular"
-                        data-bio="Mestre em Engenharia de Software, especializada em UX/UI Design. Apaixonada por criar interfaces intuitivas e acessíveis para todos os usuários."
-                        data-image-src="">
-                  Editar
-                </button>
-                <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 delete-educator-btn" data-id="2">
-                  Deletar
-                </button>
-              </td>
-            </tr>
-            </tbody>
-        </table>
-      </div>
-    </main>
-  </div>
-
-  <div id="addEducatorModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-0 transition-opacity duration-300 ease-out z-50 flex items-center justify-center font-['Pixelify_Sans']">
-    <div id="modalPanel" class="relative mx-auto p-6 border w-full max-w-lg shadow-xl rounded-md bg-white opacity-0 scale-95 transform transition-all duration-300 ease-out">
-        <div class="text-left">
-            <div class="flex justify-between items-center pb-3">
-                <h3 id="educatorModalTitle" class="text-2xl leading-6 font-bold text-gray-900">Adicionar Novo Educador</h3>
-                <button id="closeEducatorModalBtn" class="text-gray-400 hover:text-gray-600">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-            </div>
-            <div class="mt-4">
-                <form id="addEducatorForm">
-                    <input type="hidden" id="editingEducatorIdInput" value=""> <div class="mb-4">
-                        {# CORREÇÃO AQUI: Mudando name="educatorImage" para name="imagem" e id="educatorImage" para id="imagem" #}
-                        <label for="imagem" class="block text-sm font-medium text-gray-700 font-['Poppins']">Imagem do Educador (opcional)</label>
-                        <input type="file" name="imagem" id="imagem" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 font-['Poppins']
-                            file:mr-4 file:py-2 file:px-4
-                            file:rounded-md file:border-0
-                            file:text-sm file:font-semibold
-                            file:bg-blue-100 file:text-blue-700
-                            hover:file:bg-blue-200 cursor-pointer
-                        "/>
-                        <div id="imagePreviewContainer" class="mt-3 hidden">
-                            <img id="imagePreview" src="#" alt="Prévia da imagem" class="max-h-48 w-auto rounded-md border border-gray-300 shadow-sm"/>
+                        <img class="shadow-[2px_2px_12px_rgba(0,0,0,0.35)] w-[220px] h-[220px] rounded-[50%] object-cover max-xl:w-[250px] max-xl:h-[250px] max-lg:w-[250px] max-lg:h-[250px] max-sm:w-[220px] max-sm:h-[220px] mx-auto md:mx-0" src="../assets/img/educadores/suzanecarvalho.jpg" alt="Foto de Suzane">
+    
+                        <div class="flex flex-col ml-3 gap-2 max-md:ml-0">
+                            <header>
+                                <p class="text-2xl font-bold max-lg:text-xl max-sm:pt-3">Suzane Carvalho</p>
+                                <p class="italic text-base font-light max-lg:text-sm">Coordenadora e Professora</p>
+                            </header>
+                            <p class="text-sm max-lg:text-xs">Suzane Carvalho dos Santos é professora e coordenadora do curso de Ciência da Computação no Centro
+                            Universitário Estácio São Luís. Com vasta experiência na área acadêmica, ela aplica metodologias ativas
+                            e tecnologias educacionais para garantir uma aprendizagem significativa aos seus alunos. Além de sua atuação
+                            docente, Suzane contribui para a Comissão Própria de Avaliação (CPA) da instituição.</p>
+                            <p class="text-sm max-lg:text-xs">Sua formação acadêmica e seu compromisso com a educação refletem seu empenho em oferecer um ensino de qualidade, focado no desenvolvimento de competências técnicas e práticas nos alunos. Com uma trajetória dedicada ao ensino superior, Suzane tem se destacado como uma profissional engajada no processo de inovação educacional. </p>
                         </div>
-                    </div>
 
-                    <div class="mb-4">
-                        <label for="educatorName" class="block text-sm font-medium text-gray-700 font-['Poppins']">Nome do Educador</label>
-                        <input type="text" name="educatorName" id="educatorName" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm font-['Poppins']" required>
                     </div>
-                    <div class="mb-4">
-                        <label for="educatorRole" class="block text-sm font-medium text-gray-700 font-['Poppins']">Cargo do Educador</label>
-                        <input type="text" name="educatorRole" id="educatorRole" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm font-['Poppins']" required>
+                </article>
+    
+                <article class="flex bg-white border border-solid rounded-xl shadow-lg p-[20px] items-center gap-[20px] duration-300 hover:border-[#eeeded] hover:bg-[#eeeded] hover:shadow-[inset_1px_1px_5px_rgba(0,0,0,0.07)] hover:scale-[1.02] mt-10">
+
+                    <div class="max-md:block max-md:text-center flex items-center gap-4">
+                        <img class="shadow-[2px_2px_12px_rgba(0,0,0,0.35)] w-[220px] h-[220px] rounded-[50%] object-cover max-xl:w-[250px] max-xl:h-[250px] max-lg:w-[250px] max-lg:h-[250px] max-sm:w-[220px] max-sm:h-[220px] mx-auto md:mx-0" src="../assets/img/educadores/arlisonwady.jpg" alt="Foto de Arlison">
+    
+                        <div class="flex flex-col ml-3 gap-2 max-md:ml-0">
+                            <header>
+                                <p class="text-2xl font-bold max-lg:text-xl max-sm:pt-3">Arlison Wady</p>
+                                <p class="italic text-base font-light max-lg:text-sm">Professor</p>
+                            </header>
+                            <p class="text-sm max-lg:text-xs">Arlison Wady Sousa Martins é Mestre em Ciência da Computação pela Universidade Federal do Maranhão (UFMA) e possui diversas especializações na área de tecnologia e gestão. Atua como professor na Faculdade Estácio desde 2018, lecionando disciplinas como algoritmos, estrutura de dados, engenharia de software, programação orientada a objetos e banco de dados e também atua como líder do projeto de Laboratório de Transformações Digitais (LTD).</p>
+                            <p class="text-sm max-lg:text-xs">Com sólida formação acadêmica e ampla experiência em desenvolvimento de sistemas, Arlison alia prática de mercado ao ensino superior, promovendo uma abordagem atualizada e aplicada nas aulas. Também participa de projetos de pesquisa e orientação de TCCs, contribuindo ativamente para a formação de profissionais da área de computação.</p>
+                        </div>
+
                     </div>
-                    <div class="mb-6">
-                        <label for="educatorBio" class="block text-sm font-medium text-gray-700 font-['Poppins']">Biografia do Educador</label>
-                        <textarea name="educatorBio" id="educatorBio" rows="5" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm font-['Poppins']" required></textarea>
+                </article>
+    
+                <article class="flex bg-white border border-solid rounded-xl shadow-lg p-[20px] items-center gap-[20px] duration-300 hover:border-[#eeeded] hover:bg-[#eeeded] hover:shadow-[inset_1px_1px_5px_rgba(0,0,0,0.07)] hover:scale-[1.02] mt-10">
+
+                    <div class="max-md:block max-md:text-center flex items-center gap-4">
+                        <img class="shadow-[2px_2px_12px_rgba(0,0,0,0.35)] w-[220px] h-[220px] rounded-[50%] object-cover max-xl:w-[250px] max-xl:h-[250px] max-lg:w-[250px] max-lg:h-[250px] max-sm:w-[220px] max-sm:h-[220px] mx-auto md:mx-0" src="../assets/img/educadores/antonioreis.jpg" alt="Foto de Arlison">
+    
+                        <div class="flex flex-col ml-3 gap-2 max-md:ml-0">
+                            <header>
+                                <p class="text-2xl font-bold max-lg:text-xl max-sm:pt-3">Antônio Reis</p>
+                                <p class="italic text-base font-light max-lg:text-sm">Professor</p>
+                            </header>
+                            <p class="text-sm max-lg:text-xs">Antônio Reis de Sousa é professor no Centro Universitário Estácio São Luís, atuando na área de Tecnologia da Informação. Contribui na formação de alunos em cursos de graduação, aplicando seus conhecimentos em desenvolvimento de software, banco de dados e engenharia da computação.</p>
+                            <p class="text-sm max-lg:text-xs">Na Estácio São Luís, aplica seus conhecimentos em disciplinas como banco de dados, engenharia de software, segurança da informação, business intelligence e computação em nuvem. Sua atuação é marcada pelo uso de metodologias ativas e tecnologias educacionais, visando proporcionar uma aprendizagem significativa aos alunos.</p>
+                            <p class="text-sm max-lg:text-xs">Além das atividades em sala de aula, participa de grupos de pesquisa voltados à inovação no ensino superior, demonstrando seu compromisso com a qualidade acadêmica e o desenvolvimento dos estudantes da Estácio.</p>
+                        </div>
+
                     </div>
-                    <div class="flex justify-end items-center pt-3 border-t border-gray-200">
-                        <button id="cancelEducatorModalBtn" type="button" class="mr-3 px-4 py-2 bg-gray-200 text-gray-800 text-base font-medium rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300">
-                            Cancelar
-                        </button>
-                        <button id="saveEducatorBtn" type="button" class="px-4 py-2 bg-blue-600 text-white text-base font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
-                            Salvar Educador
-                        </button>
-                    </div>
-                </form>
+                </article>
+    
             </div>
-        </div>
-    </div>
-</div>
+        </section>
+    </main>
 
-  <footer class=" bg-[#001A35] text-white pt-10 pr-5 pb-10 pl-5 text-sm grow">
+
+    <footer class=" bg-[#001A35] text-white pt-10 pr-5 pb-10 pl-5 text-sm">
+        <div class="w-[75%] flex max-sm:block max-lg:block flex-wrap justify-between gap-[30px] mx-auto">
+            <section class="flex-1 basis-[200px] max-lg:py-5">
+                <h3 class="text-lg text-[#1AFEAB] max-lg:text-center max-lg:text-xl">Créditos</h4>
+                <p class="max-lg:text-base max-lg:text-center">Site desenvolvido por alunos da Estácio São Luís</p>
+            </section>
+            <section class="flex-1 basis-[200px] max-lg:py-5">
+                <h3 class="text-lg text-[#1AFEAB] max-lg:text-center max-lg:text-xl">Sobre o Curso</h4>
+                <p class="max-lg:text-base max-lg:text-center">Ciência da Computação - Universidade Estácio de Sá</p>
+                <p class="max-lg:text-base max-lg:text-center">Campus São Luís</p>
+            </section>
+            <section class="flex-1 basis-[200px] max-lg:py-5">
+                <h3 class="text-lg text-[#1AFEAB] max-lg:text-center max-lg:text-xl">Contato</h4>
+                <address>
+                    <p class="max-lg:text-base hover:underline hover:text-base duration-300 max-lg:text-center"><a href="#">Instagram da Atlética</a></p>
+                    <p class="max-lg:text-base hover:underline hover:text-base duration-300 max-lg:text-center"><a href="#">Instagram da Computação Estácio Sao Luis</a></p>
+                </address>
+            </section>
+        </div>
+        <div class="text-center mt-5 border-t border-[#444] pt-7">
+            <p class="text-[#ccc] italic">© 2025 - Todos os direitos reservados.</p>
+        </div>
     </footer>
 
-<script>
-    const navLinks = document.querySelector('.nav-links');
-    function onToggleMenu(e) {
-        e.name = e.name === 'menu' ? 'close' : 'menu';
-        navLinks.classList.toggle('top-[62px]');
-    }
-
-    // --- CÓDIGO DO MODAL PARA EDUCADORES ---
-    const addEducatorBtn = document.getElementById('addEducatorBtn');
-    const addEducatorModal = document.getElementById('addEducatorModal');
-    const modalPanel = document.getElementById('modalPanel'); 
-    const educatorModalTitle = document.getElementById('educatorModalTitle');
-    const closeEducatorModalBtn = document.getElementById('closeEducatorModalBtn');
-    const cancelEducatorModalBtn = document.getElementById('cancelEducatorModalBtn');
-    const saveEducatorBtn = document.getElementById('saveEducatorBtn');
-    const addEducatorForm = document.getElementById('addEducatorForm');
-    
-    const educatorNameInput = document.getElementById('educatorName');
-    const educatorRoleInput = document.getElementById('educatorRole');
-    const educatorBioInput = document.getElementById('educatorBio');
-    const educatorImageInput = document.getElementById('educatorImage'); // Este nome de ID permanece, mas o 'name' no HTML é 'imagem'
-    const imagePreview = document.getElementById('imagePreview');
-    const imagePreviewContainer = document.getElementById('imagePreviewContainer');
-    const editingEducatorIdInput = document.getElementById('editingEducatorIdInput'); // Campo oculto
-
-    let currentEditingEducatorId = null; // Para rastrear o ID do educador em edição
-
-    function openModal(educatorToEdit = null) {
-        addEducatorForm.reset(); // Limpa o formulário
-        editingEducatorIdInput.value = ''; // Limpa ID oculto
-        // CORREÇÃO AQUI: Agora usa o ID 'imagem' para limpar o input
-        document.getElementById('imagem').value = ''; // Limpa o input de arquivo
-        imagePreview.src = '#';
-        imagePreviewContainer.classList.add('hidden');
-        
-        const existingImageText = document.getElementById('currentImageText');
-        if (existingImageText) {
-            existingImageText.remove();
+    <script>
+        const navLinks = document.querySelector('.nav-links');
+        function onToggleMenu(e) {
+            e.name = e.name === 'menu' ? 'close' : 'menu';
+            navLinks.classList.toggle('top-[62px]');
         }
-
-        if (educatorToEdit) { // Modo Edição
-            currentEditingEducatorId = educatorToEdit.id;
-            editingEducatorIdInput.value = educatorToEdit.id; // Guarda o ID no campo oculto
-            educatorModalTitle.textContent = 'Editar Educador';
-            saveEducatorBtn.textContent = 'Salvar Alterações';
-
-            educatorNameInput.value = educatorToEdit.name;
-            educatorRoleInput.value = educatorToEdit.role;
-            educatorBioInput.value = educatorToEdit.bio;
-
-            if (educatorToEdit.imageSrc && educatorToEdit.imageSrc !== '') {
-                imagePreview.src = educatorToEdit.imageSrc;
-                imagePreviewContainer.classList.remove('hidden');
-                // Adiciona texto informativo sobre a imagem atual
-                if (!document.getElementById('currentImageText')) {
-                     // CORREÇÃO AQUI: Usa o ID 'imagem' para adicionar texto
-                     document.getElementById('imagem').insertAdjacentHTML('afterend', '<small class="block text-xs text-gray-500 mt-1" id="currentImageText">Imagem atual carregada. Para alterar, selecione um novo arquivo.</small>');
-                }
-            }
-        } else { // Modo Adicionar
-            currentEditingEducatorId = null;
-            educatorModalTitle.textContent = 'Adicionar Novo Educador';
-            saveEducatorBtn.textContent = 'Salvar Educador';
-        }
-
-        // Animação de entrada do modal
-        addEducatorModal.classList.remove('hidden'); 
-        void addEducatorModal.offsetWidth; 
-        addEducatorModal.classList.remove('bg-opacity-0', 'ease-in');
-        addEducatorModal.classList.add('bg-opacity-75', 'ease-out'); 
-        modalPanel.classList.remove('opacity-0', 'scale-95', 'ease-in');
-        modalPanel.classList.add('opacity-100', 'scale-100', 'ease-out'); 
-
-        if (educatorNameInput) {
-            educatorNameInput.focus();
-        }
-    }
-
-    function closeModal() {
-        addEducatorModal.classList.remove('bg-opacity-75', 'ease-out');
-        addEducatorModal.classList.add('bg-opacity-0', 'ease-in'); 
-        modalPanel.classList.remove('opacity-100', 'scale-100', 'ease-out');
-        modalPanel.classList.add('opacity-0', 'scale-95', 'ease-in');
-
-        setTimeout(() => {
-            addEducatorModal.classList.add('hidden'); 
-            addEducatorForm.reset();
-            editingEducatorIdInput.value = '';
-            currentEditingEducatorId = null;
-            // CORREÇÃO AQUI: Usa o ID 'imagem' para limpar
-            document.getElementById('imagem').value = '';
-            imagePreview.src = '#';
-            imagePreviewContainer.classList.add('hidden');
-            const existingImageText = document.getElementById('currentImageText');
-            if (existingImageText) {
-                existingImageText.remove();
-            }
-        }, 300); 
-    }
-
-    // Botão "+ Adicionar Educador"
-    if (addEducatorBtn) {
-        addEducatorBtn.addEventListener('click', () => openModal()); // Chama openModal sem argumentos
-    }
-
-    // Botões "Editar" na tabela
-    document.querySelectorAll('.edit-educator-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const educatorData = {
-                id: this.dataset.id,
-                name: this.dataset.name,
-                role: this.dataset.role,
-                bio: this.dataset.bio,
-                imageSrc: this.dataset.imageSrc || '' 
-            };
-            openModal(educatorData); // Chama openModal com os dados do educador
-        });
-    });
-
-    if (closeEducatorModalBtn) {
-        closeEducatorModalBtn.addEventListener('click', closeModal);
-    }
-    if (cancelEducatorModalBtn) {
-        cancelEducatorModalBtn.addEventListener('click', closeModal);
-    }
-    if (addEducatorModal) {
-        addEducatorModal.addEventListener('click', function(event) {
-            if (event.target === addEducatorModal) { 
-                closeModal();
-            }
-        });
-    }
-
-    if (educatorImageInput && imagePreview && imagePreviewContainer) {
-        // CORREÇÃO AQUI: Usa o ID 'imagem' para o listener
-        document.getElementById('imagem').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    imagePreview.src = e.target.result;
-                    imagePreviewContainer.classList.remove('hidden');
-                }
-                reader.readAsDataURL(file);
-            } else {
-                // Se o usuário cancelar, e estiver editando e havia imagem anterior, mantém a imagem anterior na prévia
-                if (currentEditingEducatorId) {
-                    const originalButton = document.querySelector(`.edit-educator-btn[data-id="${currentEditingEducatorId}"]`);
-                    if (originalButton && originalButton.dataset.imageSrc) {
-                        imagePreview.src = originalButton.dataset.imageSrc;
-                        imagePreviewContainer.classList.remove('hidden');
-                        return;
-                    }
-                }
-                imagePreview.src = '#';
-                imagePreviewContainer.classList.add('hidden');
-            }
-        });
-    }
-
-    if (saveEducatorBtn) {
-        saveEducatorBtn.addEventListener('click', function() {
-            const name = educatorNameInput.value;
-            const role = educatorRoleInput.value;
-            const bio = educatorBioInput.value;
-            // CORREÇÃO AQUI: Obtém o arquivo do input com o ID 'imagem'
-            const imageFile = document.getElementById('imagem').files[0]; // Novo arquivo de imagem, se selecionado
-            const educatorIdBeingEdited = editingEducatorIdInput.value; // Pega o ID do campo oculto
-
-            if (name.trim() === '' || role.trim() === '' || bio.trim() === '') {
-                alert('Por favor, preencha todos os campos obrigatórios: Nome do Educador, Cargo e Biografia.');
-                return;
-            }
-
-            if (educatorIdBeingEdited) { // Modo Edição
-                console.log('Atualizando Educador ID:', educatorIdBeingEdited, { name, role, bio, imageName: imageFile ? imageFile.name : 'Imagem não alterada' });
-                alert('Educador "' + name + '" atualizado com sucesso! (Simulação)');
-
-                // Atualizar a linha da tabela (simulação visual)
-                const rowToUpdate = document.querySelector(`.edit-educator-btn[data-id="${educatorIdBeingEdited}"]`)?.closest('tr');
-                if (rowToUpdate) {
-                    rowToUpdate.querySelector('.educator-table-name').textContent = name;
-                    rowToUpdate.querySelector('.educator-table-role').textContent = role;
-                    // Atualizar data-attributes no botão de editar
-                    const editBtn = rowToUpdate.querySelector('.edit-educator-btn');
-                    editBtn.dataset.name = name;
-                    editBtn.dataset.role = role;
-                    editBtn.dataset.bio = bio;
-                    // Se uma nova imagem foi salva (simulado), você atualizaria o data-image-src
-                    // if (imageFile) { editBtn.dataset.imageSrc = 'novo_caminho_ou_preview_da_imagem_salva'; }
-                }
-
-            } else { // Modo Adicionar
-                console.log('Novo Educador a ser salvo:', { name, role, bio, imageName: imageFile ? imageFile.name : 'Nenhuma imagem selecionada' });
-                alert('Educador "' + name + '" salvo com sucesso! (Simulação)');
-                // Aqui você adicionaria uma nova linha à tabela dinamicamente (código não incluído para brevidade)
-            }
-            
-            closeModal(); 
-        });
-    }
-</script>
-
+    </script>
 </body>
 </html>
