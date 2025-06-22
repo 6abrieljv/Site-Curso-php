@@ -136,8 +136,9 @@
             <div class="mt-4">
                 <form id="addEducatorForm">
                     <input type="hidden" id="editingEducatorIdInput" value=""> <div class="mb-4">
-                        <label for="educatorImage" class="block text-sm font-medium text-gray-700 font-['Poppins']">Imagem do Educador (opcional)</label>
-                        <input type="file" name="educatorImage" id="educatorImage" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 font-['Poppins']
+                        {# CORREÇÃO AQUI: Mudando name="educatorImage" para name="imagem" e id="educatorImage" para id="imagem" #}
+                        <label for="imagem" class="block text-sm font-medium text-gray-700 font-['Poppins']">Imagem do Educador (opcional)</label>
+                        <input type="file" name="imagem" id="imagem" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 font-['Poppins']
                             file:mr-4 file:py-2 file:px-4
                             file:rounded-md file:border-0
                             file:text-sm file:font-semibold
@@ -198,7 +199,7 @@
     const educatorNameInput = document.getElementById('educatorName');
     const educatorRoleInput = document.getElementById('educatorRole');
     const educatorBioInput = document.getElementById('educatorBio');
-    const educatorImageInput = document.getElementById('educatorImage');
+    const educatorImageInput = document.getElementById('educatorImage'); // Este nome de ID permanece, mas o 'name' no HTML é 'imagem'
     const imagePreview = document.getElementById('imagePreview');
     const imagePreviewContainer = document.getElementById('imagePreviewContainer');
     const editingEducatorIdInput = document.getElementById('editingEducatorIdInput'); // Campo oculto
@@ -208,7 +209,8 @@
     function openModal(educatorToEdit = null) {
         addEducatorForm.reset(); // Limpa o formulário
         editingEducatorIdInput.value = ''; // Limpa ID oculto
-        educatorImageInput.value = ''; // Limpa o input de arquivo
+        // CORREÇÃO AQUI: Agora usa o ID 'imagem' para limpar o input
+        document.getElementById('imagem').value = ''; // Limpa o input de arquivo
         imagePreview.src = '#';
         imagePreviewContainer.classList.add('hidden');
         
@@ -232,7 +234,8 @@
                 imagePreviewContainer.classList.remove('hidden');
                 // Adiciona texto informativo sobre a imagem atual
                 if (!document.getElementById('currentImageText')) {
-                     educatorImageInput.insertAdjacentHTML('afterend', '<small class="block text-xs text-gray-500 mt-1" id="currentImageText">Imagem atual carregada. Para alterar, selecione um novo arquivo.</small>');
+                     // CORREÇÃO AQUI: Usa o ID 'imagem' para adicionar texto
+                     document.getElementById('imagem').insertAdjacentHTML('afterend', '<small class="block text-xs text-gray-500 mt-1" id="currentImageText">Imagem atual carregada. Para alterar, selecione um novo arquivo.</small>');
                 }
             }
         } else { // Modo Adicionar
@@ -265,7 +268,8 @@
             addEducatorForm.reset();
             editingEducatorIdInput.value = '';
             currentEditingEducatorId = null;
-            educatorImageInput.value = '';
+            // CORREÇÃO AQUI: Usa o ID 'imagem' para limpar
+            document.getElementById('imagem').value = '';
             imagePreview.src = '#';
             imagePreviewContainer.classList.add('hidden');
             const existingImageText = document.getElementById('currentImageText');
@@ -309,7 +313,8 @@
     }
 
     if (educatorImageInput && imagePreview && imagePreviewContainer) {
-        educatorImageInput.addEventListener('change', function(event) {
+        // CORREÇÃO AQUI: Usa o ID 'imagem' para o listener
+        document.getElementById('imagem').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
@@ -339,7 +344,8 @@
             const name = educatorNameInput.value;
             const role = educatorRoleInput.value;
             const bio = educatorBioInput.value;
-            const imageFile = educatorImageInput.files[0]; // Novo arquivo de imagem, se selecionado
+            // CORREÇÃO AQUI: Obtém o arquivo do input com o ID 'imagem'
+            const imageFile = document.getElementById('imagem').files[0]; // Novo arquivo de imagem, se selecionado
             const educatorIdBeingEdited = editingEducatorIdInput.value; // Pega o ID do campo oculto
 
             if (name.trim() === '' || role.trim() === '' || bio.trim() === '') {

@@ -1,9 +1,16 @@
-RewriteEngine On
+<IfModule mod_rewrite.c>
+    RewriteEngine On
 
-# Adicione esta linha, apontando para a pasta do seu projeto a partir do htdocs
-RewriteBase /code/Site-Curso-php/
+    # A RewriteBase é importante para projetos em subdiretórios
+    RewriteBase /code/Site-Curso-php/
 
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
+    # Se a requisição for para o próprio index.php, pare a reescrita
+    RewriteRule ^index\.php$ - [L]
 
-RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+    # Se o arquivo ou diretório requisitado existe, não faça a reescrita
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+
+    # Reescreva qualquer outra requisição para index.php
+    RewriteRule . index.php [L]
+</IfModule>

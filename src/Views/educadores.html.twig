@@ -12,7 +12,8 @@
 
     <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
 
-    <link rel="shortcut icon" type="image/jpg" href="{{ assets }}/img/logos/favicon pato site.png"/>
+    {# Favicon #}
+    <link rel="shortcut icon" type="image/png" href="{{ base_url }}/{{ assets }}/img/logos/favicon pato site.png"/>
 
     <title>NerdHub - {{ title }}</title>
 </head>
@@ -22,14 +23,13 @@
     <header class="bg-[#001934]">
         <nav class="flex justify-between items-center w-[95%] m-auto">
             <div>
-                {# CORREÇÃO DA LOGO: Usando logo.png para a logo principal #}
-                <a href="{{ base_url }}"><img class="w-16 p-1" src="{{ assets }}/img/logos/logo.png" alt="Logo"></a>
+                {# Logo Principal #}
+                <a href="{{ base_url }}"><img class="w-16 p-1" src="{{ base_url }}/{{ assets }}/img/logos/logo.png" alt="Logo"></a>
             </div>
             <div
                 class="nav-links duration-500 md:static absolute bg-[#001934] md:min-h-fit min-h-[40vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5">
-                <ul class="flex md:flex-row flex-col md:items-center md:gap-[6vw] gap-6 text-white text-lg p-4">
-                    {# LINKS DO MENU: A ordem e os links vêm do 'links' global definido em View.php #}
-                    {# Certifique-se de que a ordem desejada está lá #}
+                {# CORREÇÃO AQUI: Adicionando a classe de fonte ao <ul> #}
+                <ul class="flex md:flex-row flex-col md:items-center md:gap-[6vw] gap-6 text-white text-lg font-['Pixelify_Sans'] p-4">
                     {% for key, link_url in links %}
                         <li><a class="hover:text-xl hover:underline duration-300" href="{{ link_url }}">{{ key }}</a></li>
                     {% endfor %}
@@ -66,7 +66,7 @@
                             <div class="max-md:block max-md:text-center flex items-center gap-4">
                                 {# Exibe a foto do educador, usando uma imagem padrão se não houver #}
                                 <img class="shadow-[2px_2px_12px_rgba(0,0,0,0.35)] w-[220px] h-[220px] rounded-[50%] object-cover max-xl:w-[250px] max-xl:h-[250px] max-lg:w-[250px] max-lg:h-[250px] max-sm:w-[220px] max-sm:h-[220px] mx-auto md:mx-0"
-                                     src="{{ educador.perfil.getFoto() ? base_url ~ '/' ~ educador.perfil.getFoto() : assets ~ '/img/default.png' }}"
+                                     src="{{ educador.perfil.getFoto() ? base_url ~ '/' ~ educador.perfil.getFoto() : base_url ~ '/' ~ assets ~ '/img/default.png' }}"
                                      alt="Foto de {{ educador.perfil.getNome() }}">
 
                                 <div class="flex flex-col ml-3 gap-2 max-md:ml-0">
