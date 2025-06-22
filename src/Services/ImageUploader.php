@@ -15,7 +15,7 @@ class ImageUploader
         // exit;
         
         if (!is_dir($targetDir)) {
-            echo 'criando pasta';
+            //echo 'criando pasta';
             mkdir($targetDir, 0775, true);
         }
 
