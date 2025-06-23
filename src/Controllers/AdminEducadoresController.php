@@ -82,7 +82,7 @@ class AdminEducadoresController
         $fileData = $_FILES;
 
         // Validação básica (pode ser expandida)
-        if (empty($data['username']) || empty($data['email']) || empty($data['senha']) || empty($data['nome_completo'])) {
+        if (empty($data['username']) || empty($data['email']) || empty($data['senha']) || empty($data['nome'])) {
             Flash::set('message', 'Erro: Preencha todos os campos obrigatórios (Nome de Usuário, E-mail, Senha, Nome Completo).');
             $response = new Response(302, '');
             $response->addHeader('Location', BASE_URL . '/admin/educadores/create');
@@ -114,7 +114,7 @@ class AdminEducadoresController
         $usuario->setIsAdmin(isset($data['is_admin']) ? true : false); // Pode ser admin também
 
         // Popula os dados do Perfil
-        $perfil->setNome($data['nome_completo']);
+        $perfil->setNome($data['nome']);
         $perfil->setSobrenome($data['sobrenome'] ?? '');
         $perfil->setCargo($data['cargo'] ?? '');
         $perfil->setBio($data['bio'] ?? '');
@@ -193,7 +193,7 @@ class AdminEducadoresController
         $perfil = $educadorData['perfil'];
 
         // Validação básica (pode ser expandida)
-        if (empty($data['username']) || empty($data['email']) || empty($data['nome_completo'])) {
+        if (empty($data['username']) || empty($data['email']) || empty($data['nome'])) {
             Flash::set('message', 'Erro: Preencha os campos obrigatórios (Nome de Usuário, E-mail, Nome Completo).');
             $response = new Response(302, '');
             $response->addHeader('Location', BASE_URL . '/admin/educadores/edit/' . $id);
@@ -225,7 +225,7 @@ class AdminEducadoresController
         $usuario->setIsEducador(true); // Mantém como educador
 
         // Atualiza os dados do Perfil
-        $perfil->setNome($data['nome_completo']);
+        $perfil->setNome($data['nome']);
         $perfil->setSobrenome($data['sobrenome'] ?? '');
         $perfil->setCargo($data['cargo'] ?? '');
         $perfil->setBio($data['bio'] ?? '');
