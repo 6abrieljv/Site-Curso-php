@@ -21,7 +21,8 @@ class AdminController{
         $status = [
             "totalUsuarios"=> (new UsuarioRepository())->cont(),
             "totalNoticias"=> (new NoticiaRepository())->cont(),
-            "totalCategorias"=> (new CategoriaRepository())->cont()
+            "totalCategorias"=> (new CategoriaRepository())->cont(),
+            "totalProjetos"=> 10, // Placeholder, ajuste conforme necessário
         ];
 
         // Renderizar a view com os usuários

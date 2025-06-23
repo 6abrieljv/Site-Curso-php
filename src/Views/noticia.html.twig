@@ -6,7 +6,7 @@
     <div class="container">
         <h1 class="text-center mt-5 mb-5 text-4xl font-bold ">{{ noticia.titulo }}</h1>
         <p class="text-center mb-5">{{ noticia.data|date('d/m/Y') }}</p>
-        <img src="{{ noticia.imagem }}" alt="{{ noticia.titulo }}" class="img-fluid mb-5">
+        <img src="{{public}}/{{ noticia.imagem }}" alt="{{ noticia.titulo }}" class="img-fluid mb-5">
         <p class="text-center mb-5">{{ noticia.autor }}</p>
         <p class="text-center mb-5">{{ noticia.resumo }}</p>
         <hr>

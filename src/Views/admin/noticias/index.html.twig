@@ -1,13 +1,13 @@
 {% extends "templates/admin/base.html.twig" %}
 
-{% block title %}Gerenciar Notícias
+{% block title %}Gerenciar Projetos do LTD
 {% endblock %}
 
 {% block content %}
 	<div class="flex justify-between items-center mb-6">
-		<h2 class="text-2xl font-bold text-gray-800">Gerenciar Notícias</h2>
+		<h2 class="text-2xl font-bold text-gray-800">Gerenciar Projetos</h2>
 		<a href="{{ base_url }}/admin/noticias/create" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-			+ Adicionar Notícia
+			+ Adicionar Projeto
 		</a>
 	</div>
 
@@ -18,7 +18,7 @@
 	{% endif %}
 
 	<section class="mb-6 flex justify-between items-center">
-		<form action="{{ base_url }}/admin/noticias/search" method="get" class="flex items-center">
+		<form action="{{ base_url }}/admin/projetos/search" method="get" class="flex items-center">
 			<label for="search" class="sr-only">Pesquisar</label>
 			<input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm px-4 py-2">
 			<button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 ml-2" type="submit">
@@ -27,7 +27,7 @@
 		</form>
 
 		<div class='flex'>
-			<form action="{{ base_url }}/admin/noticias" method="get" class="flex items-center ml-4">
+			<form action="{{ base_url }}/admin/projetos" method="get" class="flex items-center ml-4">
 				<label for="categoria" class="sr-only">Filtrar por Categoria</label>
 				<select name="categoria" id="categoria" class="flex bg-gray-50 border border-gray-300 text-gray-900 text-sm px-4 py-2 rounded">
 					<option value="">Todas as Categorias</option>
@@ -39,7 +39,7 @@
 					<i class="fa-solid fa-filter"></i>
 				</button>
 			</form>
-			<form action="{{ base_url }}/admin/noticias" method="get" class="flex items-center ml-4">
+			<form action="{{ base_url }}/admin/projetos" method="get" class="flex items-center ml-4">
 				<label for="order" class="sr-only">Ordenar por</label>
 				<select name="order" id="order" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm px-4 py-2 rounded">
 					<option value="data_desc" {% if app.request.query.get('order') == 'data_desc' %} selected {% endif %}>Mais Recentes</option>
@@ -60,7 +60,7 @@
 				<tr>
 					<th class="p-4">ID</th>
 					<th class="p-4">Título</th>
-					<th class="p-4">Categoria</th>
+					<th class="p-4">12</th>
 					<th class="p-4">Autor</th>
 					<th class="p-4">Data</th>
 					<th class="p-4">Ações</th>

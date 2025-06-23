@@ -10,6 +10,7 @@ class View
         $loader = new \Twig\Loader\FilesystemLoader(ROOT_PATH . '/src/Views');
         $this->twig = new \Twig\Environment($loader);
         $this->twig->addGlobal('base_url', BASE_URL);
+        $this->twig->addGlobal('public', BASE_URL . '/public/');
         $this->twig->addGlobal('assets', 'public/assets');
         $this->twig->addGlobal('links', [
             'LTD' => BASE_URL.'/ltd',

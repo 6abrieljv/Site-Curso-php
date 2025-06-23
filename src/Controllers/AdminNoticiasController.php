@@ -8,8 +8,6 @@ use App\Repositories\NoticiaRepository;
 use App\Repositories\CategoriaRepository;
 use App\Models\Noticia;
 use App\Utils\StringUtils;
-
-use App\HTTP\Response;
 use App\HTTP\Request;
 
 use App\Services\ImageUploader;
@@ -71,8 +69,6 @@ class AdminNoticiasController
 
         $userId = $_SESSION['user']['id'] ?? 1;
 
-
-
         // processo de cadastro de noticia
         $noticia = new Noticia();
         $noticia->setTitulo($data['titulo']);
@@ -80,9 +76,9 @@ class AdminNoticiasController
         $noticia->setIdCategoria((int)$data['categoria_id']);
         $noticia->setSlug(StringUtils::slugify($data['titulo']));
         $noticia->setIdUsuario($userId);
-        $imagePath = ImageUploader::upload($data, $_FILES, 'noticias');
+        $imagePath = ImageUploader::upload($data, $_FILES, 'noticias', null, $noticia->getSlug());
         if ($imagePath) {
-            $noticia->setImagem($imagePath);
+            $noticia->setImagem(ROOT_PATH . '/public/' . $imagePath);
         }
 
         // salva no banco de dados
@@ -132,9 +128,9 @@ class AdminNoticiasController
             exit;
         }
 
-        $newImagePath = ImageUploader::upload($data, $_FILES, 'noticias', $noticia->getImagem());
+        $newImagePath = ImageUploader::upload($data, $_FILES, 'noticias', $noticia->getImagem(), $noticia->getSlug());
         if ($newImagePath) {
-            $noticia->setImagem($newImagePath);
+            $noticia->setImagem( $newImagePath);
         }
         $noticia->setTitulo($data['titulo']);
         $noticia->setConteudo($data['conteudo']);

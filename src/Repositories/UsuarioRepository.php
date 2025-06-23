@@ -55,6 +55,19 @@ class UsuarioRepository
         }
     }
 
+    public function findAll()
+    {
+        $stmt = $this->db->select(order: 'username ASC');
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $usuarios = [];
+
+        foreach ($data as $row) {
+            $usuarios[] = $this->mapToModel($row);
+        }
+
+        return $usuarios;
+    }
+
     /**
      * Encontra um usuário pelo e-mail.
      * @param string $email
@@ -81,6 +94,8 @@ class UsuarioRepository
         $usuario->setUsername($data['username']);
 
     }
+
+    
 
     /**
      * Conta o total de usuários.
