@@ -12,3 +12,9 @@
 
 - [] criar filtro, pesquisa e ordenar 
 - [] renderizar imagens 
+
+## LTD:
+- [x] Remodelação da parte dos projetos do LTD
+- [] Criar a paginação dos projetos do LTD
+- [x] Criar a pagina de cada projeto
+- [x] Criar a tela de admin do LTD

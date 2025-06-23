@@ -1,6 +1,16 @@
-RewriteEngine On
+<IfModule mod_rewrite.c>
+    RewriteEngine On
 
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
+    # A RewriteBase é importante para projetos em subdiretórios
+    RewriteBase /code/Site-Curso-php/
 
-RewriteRule ^(.*)$ index.php?url=$1 [QSA]
+    # Se a requisição for para o próprio index.php, pare a reescrita
+    RewriteRule ^index\.php$ - [L]
+
+    # Se o arquivo ou diretório requisitado existe, não faça a reescrita
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+
+    # Reescreva qualquer outra requisição para index.php
+    RewriteRule . index.php [L]
+</IfModule>

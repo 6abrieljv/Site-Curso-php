@@ -1,5 +1,4 @@
 <?php
-
 use App\Repositories\CategoriaRepository;
 
 require_once(__DIR__ . "/vendor/autoload.php");
@@ -40,5 +39,6 @@ include_once(__DIR__ . "/src/routers/web.php");
 include_once(__DIR__ . "/src/routers/admin.php");
 include_once(__DIR__ . "/src/routers/auth.php");
 
+// Esta é a única linha que deve estar aqui no final para o Router funcionar normalmente
 $router->run()
-    ->sendResponse();
+    ->sendResponse(); 
