@@ -1,6 +1,8 @@
 <?php
 namespace App\Utils;
 
+use App\HTTP\Request;
+
 class View
 {
     private $twig;
@@ -12,18 +14,21 @@ class View
         $this->twig->addGlobal('base_url', BASE_URL);
         $this->twig->addGlobal('public', BASE_URL . '/public/');
         $this->twig->addGlobal('assets', 'public/assets');
+        // Adicionar o favicon como uma variável global para fácil acesso nas views Twig
+        $this->twig->addGlobal('favicon_path', BASE_URL . '/public/assets/img/logos/favicon pato site.png'); //
         $this->twig->addGlobal('links', [
-            'LTD' => BASE_URL.'/ltd',
+            // Link 'Home' REMOVIDO daqui.
             'Notícias' => BASE_URL.'/noticias',
+            'LTD' => BASE_URL.'/ltd',
+            'Educadores' => BASE_URL.'/educadores',
+            'Atlética' => BASE_URL.'/atletica',
+            'Podpink'=> BASE_URL.'/podpink',
             'Perfil' => BASE_URL.'/perfil',
             'Sobre' => BASE_URL.'/sobre',
-            'Podpink'=> BASE_URL.'/podpink',
-            'Educadores' => BASE_URL.'/educadores',
-            'Atletica' => BASE_URL.'/atletica',
-
         ]);
         $this->twig->addGlobal('user', isset($_SESSION['user']) ? $_SESSION['user'] : null);
         
+        $this->twig->addGlobal('app', ['request' => new Request()]);
     }
 
     public function render($template, $data = [])

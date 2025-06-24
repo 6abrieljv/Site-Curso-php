@@ -1,77 +1,91 @@
-{% extends "templates/base.html.twig" %}
-{% block title %} Educadores 📚
+{# src/Views/educadores.html.twig #}
 
- {% endblock %}
+{# Usando o mesmo layout base que já funciona para você #}
+{% extends 'templates/base.html.twig' %} 
+
+{% block title %}Nossos Educadores{% endblock %}
 
 {% block content %}
 <main>
-        <section class="py-10">
-            <div class="flex flex-col  items-center w-[80%] mx-auto font-[Poppins] ">
-                <h1 class="text-3xl md:text-4xl font-bold max-sm:text-3xl max-md:text-3xl max-sm:text-center underline font-['Pixelify_Sans']">Conheça nossos educadores</h1>
-    
-                <!--PRIMEIRO CARD-->
-                <article class="flex bg-white border border-solid rounded-xl shadow-lg p-[20px] items-center gap-[20px] duration-300 hover:border-[#eeeded] hover:bg-[#eeeded] hover:shadow-[inset_1px_1px_5px_rgba(0,0,0,0.07)] hover:scale-[1.02] mt-10">
-                    <div class="max-md:block max-md:text-center flex items-center gap-4">
+    {# 1. AJUSTE DE LAYOUT: Classes alteradas para limitar a largura máxima #}
+    <section class="container mx-auto px-4 sm:px-6 lg:px-8 py-10 max-w-4xl">
+        <div class="flex flex-col items-center w-full font-['Poppins']">
+            <h1 class="text-[2.5rem] font-extralight max-sm:text-3xl max-md:text-3xl max-sm:text-center mb-10">
+                Conheça nossos <span class="font-bold underline">educadores</span>
+            </h1>
 
-                        <img class="shadow-[2px_2px_12px_rgba(0,0,0,0.35)] w-[220px] h-[220px] rounded-[50%] object-cover max-xl:w-[250px] max-xl:h-[250px] max-lg:w-[250px] max-lg:h-[250px] max-sm:w-[220px] max-sm:h-[220px] mx-auto md:mx-0" src="{{assets}}/img/educadores/suzanecarvalho.jpg" alt="Foto de Suzane">
+            {% if educadores is not empty %}
+                {% for item in educadores %}
+                    {% set perfil = item.perfil %}
+                    
+                    <article class="flex bg-white border border-solid rounded-xl shadow-lg p-5 items-center gap-5 duration-300 hover:shadow-xl hover:scale-[1.02] w-full mb-8">
+                        <div class="max-md:block max-md:text-center flex items-center gap-4 w-full">
+                            {% set placeholder = base_url ~ '/public/assets/img/logos/favicon pato site.png' %}
+                            {% set foto_url = perfil.foto ? (base_url ~ '/public/' ~ perfil.foto) : placeholder %}
+                            
+                            <img 
+                                class="shadow-lg w-48 h-48 md:w-56 md:h-56 rounded-full object-cover flex-shrink-0 mx-auto md:mx-0" 
+                                src="{{ foto_url }}" 
+                                alt="Foto de {{ perfil.nome }}"
+                            >
     
-                        <div class="flex flex-col ml-3 gap-2 max-md:ml-0">
-                            <header>
-                                <p class="text-2xl font-bold max-lg:text-xl max-sm:pt-3">Suzane Carvalho</p>
-                                <p class="italic text-base font-light max-lg:text-sm">Coordenadora e Professora</p>
-                            </header>
-                            <p class="text-sm max-lg:text-xs">Suzane Carvalho dos Santos é professora e coordenadora do curso de Ciência da Computação no Centro
-                            Universitário Estácio São Luís. Com vasta experiência na área acadêmica, ela aplica metodologias ativas
-                            e tecnologias educacionais para garantir uma aprendizagem significativa aos seus alunos. Além de sua atuação
-                            docente, Suzane contribui para a Comissão Própria de Avaliação (CPA) da instituição.</p>
-                            <p class="text-sm max-lg:text-xs">Sua formação acadêmica e seu compromisso com a educação refletem seu empenho em oferecer um ensino de qualidade, focado no desenvolvimento de competências técnicas e práticas nos alunos. Com uma trajetória dedicada ao ensino superior, Suzane tem se destacado como uma profissional engajada no processo de inovação educacional. </p>
+                            <div class="flex flex-col ml-3 gap-2 max-md:ml-0 text-left w-full">
+                                <header>
+                                    <p class="text-2xl font-bold max-lg:text-xl max-sm:pt-3">
+                                        {{ perfil.nome }} {{ perfil.sobrenome }}
+                                    </p>
+                                    <p class="italic text-base font-light text-gray-600 max-lg:text-sm">
+                                        {{ perfil.cargo | default('Professor(a)') }}
+                                    </p>
+                                </header>
+                                <p class="text-sm text-gray-700 max-lg:text-xs mt-2 line-clamp-8">
+                                    {{ perfil.bio | nl2br }}
+                                </p>
+                            </div>
                         </div>
+                    </article>
+                {% endfor %}
+            {% else %}
+                <p class="text-center mt-10 text-gray-600">Nenhum educador encontrado no momento.</p>
+            {% endif %}
 
-                    </div>
-                </article>
-    
-                <!--SEGUNDO CARD-->
-                <article class="flex bg-white border border-solid rounded-xl shadow-lg p-[20px] items-center gap-[20px] duration-300 hover:border-[#eeeded] hover:bg-[#eeeded] hover:shadow-[inset_1px_1px_5px_rgba(0,0,0,0.07)] hover:scale-[1.02] mt-10">
+            {# 2. ADIÇÃO DA PAGINAÇÃO: Bloco de código para os botões de página #}
+            {% if pagination|length > 1 %}
+                <nav class="mt-8" aria-label="Paginação">
+                    <ul class="flex justify-center items-center -space-x-px h-10 text-base">
+                        {# Botão Anterior (se não for a primeira página) #}
+                        {% if not pagination[0].current %}
+                             <li>
+                                <a href="{{ base_url }}/educadores?page={{ app.request.getQueryParams()['page']|default(1) - 1 }}" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700">
+                                    <span class="sr-only">Anterior</span>
+                                    <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/></svg>
+                                </a>
+                            </li>
+                        {% endif %}
+                        
+                        {# Botões de Página #}
+                        {% for page in pagination %}
+                            <li>
+                                <a href="{{ base_url }}/educadores?page={{ page.page }}" class="flex items-center justify-center px-4 h-10 leading-tight {{ page.current ? 'text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700' : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700' }}">
+                                    {{ page.page }}
+                                </a>
+                            </li>
+                        {% endfor %}
 
-                    <div class="max-md:block max-md:text-center flex items-center gap-4">
-                        <img class="shadow-[2px_2px_12px_rgba(0,0,0,0.35)] w-[220px] h-[220px] rounded-[50%] object-cover max-xl:w-[250px] max-xl:h-[250px] max-lg:w-[250px] max-lg:h-[250px] max-sm:w-[220px] max-sm:h-[220px] mx-auto md:mx-0" src="{{assets}}/img/educadores/arlisonwady.jpg" alt="Foto de Arlison">
-    
-                        <div class="flex flex-col ml-3 gap-2 max-md:ml-0">
-                            <header>
-                                <p class="text-2xl font-bold max-lg:text-xl max-sm:pt-3">Arlison Wady</p>
-                                <p class="italic text-base font-light max-lg:text-sm">Professor</p>
-                            </header>
-                            <p class="text-sm max-lg:text-xs">Arlison Wady Sousa Martins é Mestre em Ciência da Computação pela Universidade Federal do Maranhão (UFMA) e possui diversas especializações na área de tecnologia e gestão. Atua como professor na Faculdade Estácio desde 2018, lecionando disciplinas como algoritmos, estrutura de dados, engenharia de software, programação orientada a objetos e banco de dados e também atua como líder do projeto de Laboratório de Transformações Digitais (LTD).</p>
-                            <p class="text-sm max-lg:text-xs">Com sólida formação acadêmica e ampla experiência em desenvolvimento de sistemas, Arlison alia prática de mercado ao ensino superior, promovendo uma abordagem atualizada e aplicada nas aulas. Também participa de projetos de pesquisa e orientação de TCCs, contribuindo ativamente para a formação de profissionais da área de computação.</p>
-                        </div>
+                        {# Botão Próximo (se não for a última página) #}
+                        {% if not pagination|last.current %}
+                            <li>
+                                <a href="{{ base_url }}/educadores?page={{ app.request.getQueryParams()['page']|default(1) + 1 }}" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700">
+                                    <span class="sr-only">Próximo</span>
+                                    <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/></svg>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
 
-                    </div>
-                </article>
-    
-                <!--TERCEIRO CARD-->
-                <article class="flex bg-white border border-solid rounded-xl shadow-lg p-[20px] items-center gap-[20px] duration-300 hover:border-[#eeeded] hover:bg-[#eeeded] hover:shadow-[inset_1px_1px_5px_rgba(0,0,0,0.07)] hover:scale-[1.02] mt-10">
-
-                    <div class="max-md:block max-md:text-center flex items-center gap-4">
-                        <img class="shadow-[2px_2px_12px_rgba(0,0,0,0.35)] w-[220px] h-[220px] rounded-[50%] object-cover max-xl:w-[250px] max-xl:h-[250px] max-lg:w-[250px] max-lg:h-[250px] max-sm:w-[220px] max-sm:h-[220px] mx-auto md:mx-0" src="{{assets}}/img/educadores/antonioreis.jpg" alt="Foto de Arlison">
-    
-                        <div class="flex flex-col ml-3 gap-2 max-md:ml-0">
-                            <header>
-                                <p class="text-2xl font-bold max-lg:text-xl max-sm:pt-3">Antônio Reis</p>
-                                <p class="italic text-base font-light max-lg:text-sm">Professor</p>
-                            </header>
-                            <p class="text-sm max-lg:text-xs">Antônio Reis de Sousa é professor no Centro Universitário Estácio São Luís, atuando na área de Tecnologia da Informação. Contribui na formação de alunos em cursos de graduação, aplicando seus conhecimentos em desenvolvimento de software, banco de dados e engenharia da computação.</p>
-                            <p class="text-sm max-lg:text-xs">Na Estácio São Luís, aplica seus conhecimentos em disciplinas como banco de dados, engenharia de software, segurança da informação, business intelligence e computação em nuvem. Sua atuação é marcada pelo uso de metodologias ativas e tecnologias educacionais, visando proporcionar uma aprendizagem significativa aos alunos.</p>
-                            <p class="text-sm max-lg:text-xs">Além das atividades em sala de aula, participa de grupos de pesquisa voltados à inovação no ensino superior, demonstrando seu compromisso com a qualidade acadêmica e o desenvolvimento dos estudantes da Estácio.</p>
-                        </div>
-
-                    </div>
-                </article>
-    
-            </div>
-        </section>
-    </main>
-
-
+        </div>
+    </section>
+</main>
 {% endblock %}
-
-

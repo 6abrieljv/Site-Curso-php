@@ -12,6 +12,7 @@ class Perfil
     private $data_nascimento = null;
     private $bio = '';
     private $foto = '';
+    private $cargo = '';
 
 
 
@@ -120,5 +121,13 @@ class Perfil
     }
     public function setTiktok($value) {
       $this->tiktok = $value;
+    }
+
+    public function getCargo(){
+      return $this->cargo;
+    }
+
+    public function setCargo($value){
+      $this->cargo = $value;
     }
 }

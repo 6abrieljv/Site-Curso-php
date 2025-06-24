@@ -7,7 +7,6 @@ class HomeController
     public function index()
     {
         return (new View())->render('home', [
-            'title' => 'Home',
             
         ]);
     }
