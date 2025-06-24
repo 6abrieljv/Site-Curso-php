@@ -1,7 +1,7 @@
 {# src/Views/educadores.html.twig #}
 
 {# Usando o mesmo layout base que já funciona para você #}
-{% extends 'templates/admin/base.html.twig' %} 
+{% extends 'templates/base.html.twig' %} 
 
 {% block title %}Nossos Educadores{% endblock %}
 
@@ -38,7 +38,7 @@
                                         {{ perfil.cargo | default('Professor(a)') }}
                                     </p>
                                 </header>
-                                <p class="text-sm text-gray-700 max-lg:text-xs mt-2 line-clamp-6">
+                                <p class="text-sm text-gray-700 max-lg:text-xs mt-2 line-clamp-8">
                                     {{ perfil.bio | nl2br }}
                                 </p>
                             </div>
