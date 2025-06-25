@@ -4,7 +4,8 @@ use App\HTTP\Request;
 use App\HTTP\Response;
 use App\Controllers\AdminController;
 use App\Controllers\AdminNoticiasController;
-use App\Controllers\AdminEducadoresController; // Adicione esta linha
+use App\Controllers\AdminEducadoresController;
+use App\Controllers\AdminAtleticaController;
 
 
 $router->get('/admin', [
@@ -72,4 +73,29 @@ fn(Request $request, $params) => new Response(200, (new AdminEducadoresControlle
 
 $router->post('/admin/educadores/delete/{id}', [
 fn(Request $request, $params) => (new AdminEducadoresController())->destroy($request, $params)
+]);
+
+// Rotas para o CRUD de Membros da Atlética
+$router->get('/admin/atletica', [
+    fn(Request $request) => new Response(200, (new AdminAtleticaController())->index($request))
+]);
+
+$router->get('/admin/atletica/create', [
+    fn() => new Response(200, (new AdminAtleticaController())->create())
+]);
+
+$router->post('/admin/atletica/create', [
+    fn(Request $request) => (new AdminAtleticaController())->store($request)
+]);
+
+$router->get('/admin/atletica/edit/{id}', [
+    fn(Request $request, $params) => new Response(200, (new AdminAtleticaController())->edit($request, $params))
+]);
+
+$router->post('/admin/atletica/edit/{id}', [
+    fn(Request $request, $params) => (new AdminAtleticaController())->update($request, $params)
+]);
+
+$router->post('/admin/atletica/delete/{id}', [
+    fn(Request $request, $params) => (new AdminAtleticaController())->destroy($request, $params)
 ]);
