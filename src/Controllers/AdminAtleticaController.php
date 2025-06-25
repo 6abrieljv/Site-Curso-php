@@ -18,6 +18,11 @@ class AdminAtleticaController
 
     public function __construct()
     {
+        // Adicionar verificação de admin aqui se necessário
+        // if (!isset($_SESSION['user']) || !$_SESSION['user']['is_admin']) {
+        //     header('Location: ' . BASE_URL . '/login');
+        //     exit;
+        // }
         $this->repository = new AtleticaRepository();
         $this->view = new View();
     }
@@ -64,7 +69,10 @@ class AdminAtleticaController
 
         $this->repository->save($membro);
         Flash::set('message', 'Membro adicionado com sucesso!');
-        return new Response(302, '', ['Location' => BASE_URL . '/admin/atletica']);
+
+        $response = new Response(302, '');
+        $response->addHeader('Location', BASE_URL . '/admin/atletica');
+        return $response;
     }
 
     public function edit(Request $request, array $params)
@@ -74,7 +82,9 @@ class AdminAtleticaController
 
         if (!$membro) {
             Flash::set('message', 'Membro não encontrado.');
-            return new Response(302, '', ['Location' => BASE_URL . '/admin/atletica']);
+            $response = new Response(302, '');
+            $response->addHeader('Location', BASE_URL . '/admin/atletica');
+            return $response;
         }
         
         return $this->view->render('admin/atletica/form', [
@@ -93,7 +103,9 @@ class AdminAtleticaController
 
         if (!$membro) {
             Flash::set('message', 'Membro não encontrado.');
-            return new Response(302, '', ['Location' => BASE_URL . '/admin/atletica']);
+            $response = new Response(302, '');
+            $response->addHeader('Location', BASE_URL . '/admin/atletica');
+            return $response;
         }
 
         $membro->setNome($data['nome']);
@@ -102,13 +114,21 @@ class AdminAtleticaController
 
         $oldImage = $membro->getFoto();
         $newImage = ImageUploader::upload($data, $_FILES, 'atletica', $oldImage);
+        
         if ($newImage) {
             $membro->setFoto($newImage);
+        } elseif (isset($data['remove_current_image']) && $data['remove_current_image'] == '1') {
+            // Se "remover imagem" for marcado e nenhuma nova imagem for enviada
+            ImageUploader::delete($oldImage);
+            $membro->setFoto(null); // Limpa o caminho da foto no banco de dados
         }
 
         $this->repository->save($membro);
         Flash::set('message', 'Membro atualizado com sucesso!');
-        return new Response(302, '', ['Location' => BASE_URL . '/admin/atletica']);
+        
+        $response = new Response(302, '');
+        $response->addHeader('Location', BASE_URL . '/admin/atletica');
+        return $response;
     }
 
     public function destroy(Request $request, array $params)
@@ -124,6 +144,8 @@ class AdminAtleticaController
             Flash::set('message', 'Membro não encontrado.');
         }
 
-        return new Response(302, '', ['Location' => BASE_URL . '/admin/atletica']);
+        $response = new Response(302, '');
+        $response->addHeader('Location', BASE_URL . '/admin/atletica');
+        return $response;
     }
 }

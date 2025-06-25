@@ -8,11 +8,10 @@ use App\Repositories\NoticiaRepository;
 use App\Repositories\CategoriaRepository;
 use App\Models\Noticia;
 use App\Utils\StringUtils;
-<<<<<<< HEAD
-=======
+
 
 use App\HTTP\Response; // Certifique-se de que esta linha está presente
->>>>>>> 6f4ba4bdc7c0c46add839482cc6541f5e2745b14
+
 use App\HTTP\Request;
 
 use App\Services\ImageUploader;
