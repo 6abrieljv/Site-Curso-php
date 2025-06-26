@@ -9,12 +9,14 @@ use PDO;
 class UsuarioRepository
 {
     private $db;
+    private $perfilRepository;
     private $dbPerfil;
 
     public function __construct()
     {
         $this->db = new Database('usuario');
         $this->dbPerfil = new Database('perfil');
+        $this->perfilRepository = new PerfilRepository();
     }
 
     /**
@@ -35,17 +37,14 @@ class UsuarioRepository
                 'senha' => password_hash($usuario->getSenha(), PASSWORD_DEFAULT),
                 'is_admin' => $usuario->isAdmin() ? 1 : 0
             ]);
+            $perfil = new \App\Models\Perfil();
+            $perfil->setIdUsuario($userId);
 
             // Cria um perfil padrão para o novo usuário
-            $this->dbPerfil->insert([
-                'id_usuario' => $userId,
-                'nome' => $usuario->getUsername(), // Usa o username como nome padrão
-                'sobrenome' => '',
-                'bio' => 'Bem-vindo ao NerdHub!'
-            ]);
-
+            
             // Confirma a transação
             $this->db->execute('COMMIT');
+            $this->perfilRepository->save($perfil);
 
             return $userId;
         } catch (\Exception $e) {
@@ -55,14 +54,15 @@ class UsuarioRepository
         }
     }
 
-    public function findAll()
+    public function findAll($where = null): array
     {
-        $stmt = $this->db->select(order: 'username ASC');
+        $stmt = $this->db->select(where: $where, order: 'username ASC');
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $usuarios = [];
 
         foreach ($data as $row) {
             $usuarios[] = $this->mapToModel($row);
+            $usuarios[-1]->setPerfil($this->perfilRepository->findByUserId($usuarios[-1]->getId()));
         }
 
         return $usuarios;

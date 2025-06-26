@@ -20,7 +20,7 @@ class NoticiasController
         $totalNoticias = $noticiasRepository->count();
 
         // 3. Configurar a paginação
-        $pagination = new Pagination($totalNoticias, $currentPage, 5); // 5 notícias por página
+        $pagination = new Pagination($totalNoticias, $currentPage, 7); // 5 notícias por página
 
         // 4. Buscar apenas as notícias da página atual
         $noticias = $noticiasRepository->findAll('data_publicacao DESC', $pagination->getLimit());
@@ -28,9 +28,10 @@ class NoticiasController
         // 5. Passar os dados para a view
         $data = [
             'noticias' => $noticias,
-            'pagination' => $pagination->getPages() // Envia os botões da paginação
+            'pagination' => $pagination->getPages(), // Envia os botões da paginação
+            'currentPage' => $currentPage
         ];
-
+        
         return (new View())->render('noticias', $data);
     }
 

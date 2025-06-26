@@ -11,22 +11,22 @@
 	</div>
 {% if card.redes is defined and card.redes is not empty %}
 <div class="flex justify-center md:justify-start gap-4 mt-4">
-	{% if card.redes.instagram is defined %}
+	{% if card.redes.instagram is not empty and card.redes.instagram is defined %}
 		<a href="{{ card.redes.instagram }}" target="_blank" rel="noopener" aria-label="Instagram" class="text-gray-500 hover:text-pink-600 text-2xl">
 			<i class="fab fa-instagram"></i>
 		</a>
 	{% endif %}
-	{% if card.redes.x is defined %}
+	{% if card.redes.x is not empty and card.redes.x is defined %}
 		<a href="{{ card.redes.x }}" target="_blank" rel="noopener" aria-label="X (Twitter)" class="text-gray-500 hover:text-blue-500 text-2xl">
 			<i class="fab fa-x-twitter"></i>
 		</a>
 	{% endif %}
-	{% if card.redes.linkedin is defined %}
+	{% if card.redes.linkedin is not empty and card.redes.linkedin is defined %}
 		<a href="{{ card.redes.linkedin }}" target="_blank" rel="noopener" aria-label="LinkedIn" class="text-gray-500 hover:text-blue-700 text-2xl">
 			<i class="fab fa-linkedin"></i>
 		</a>
 	{% endif %}
-	{% if card.redes.github is defined %}
+	{% if card.redes.github is not empty and card.redes.github is defined %}
 		<a href="{{ card.redes.github }}" target="_blank" rel="noopener" aria-label="GitHub" class="text-gray-500 hover:text-black text-2xl">
 			<i class="fab fa-github"></i>
 		</a>
