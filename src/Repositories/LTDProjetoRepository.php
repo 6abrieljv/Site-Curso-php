@@ -14,7 +14,7 @@ class LTDProjetoRepository
 
     public function __construct()
     {
-        $this->db = new Database('ltd_projetos');
+        $this->db = new Database('ltd_projeto');
         $this->dbParticipantes = new Database('ltd_projeto_participantes');
         $this->dbTecnologias = new Database('ltd_projeto_tecnologias');
     }
@@ -82,5 +82,8 @@ class LTDProjetoRepository
         }
     }
     
-    // O método findAll() e outros virão aqui...
+    public function findAll(){
+        $projetos = $this->db->select(order: 'id DESC');
+        return $projetos->fetchAll();
+    }
 }

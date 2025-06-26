@@ -1,6 +1,6 @@
 <?php
 namespace App\Models;
-
+use App\Models\Perfil;
 class Usuario
 {
     private ?int $id;
@@ -11,6 +11,8 @@ class Usuario
     private $data_cadastro;
     private $is_admin;
     private ?bool $is_educador;
+
+    private ?Perfil $perfil; // Adicionando a propriedade Perfil
     
     public function __construct(
         ?int $id = null,
@@ -19,7 +21,8 @@ class Usuario
         ?string $senha = null,
         ?string $data_cadastro = null,
         ?bool $is_admin = false,
-        ?bool $is_educador = false
+        ?bool $is_educador = false,
+        ?Perfil $perfil = null // Adicionando o parâmetro Perfil
     ) {
         $this->id = $id;
         $this->username = $username;
@@ -31,6 +34,7 @@ class Usuario
         $this->data_cadastro = $data_cadastro;
         $this->is_admin = $is_admin;
         $this->is_educador = $is_educador;
+        $this->perfil = $perfil; // Armazenando o perfil
     }
     public function getId(): ?int
     {
@@ -92,5 +96,14 @@ class Usuario
     public function setIsEducador(?bool $is_educador): void
     {
         $this->is_educador = $is_educador; // <-- Linha corrigida aqui
+    }
+
+    public function getPerfil(): ?Perfil
+    {
+        return $this->perfil;
+    }
+    public function setPerfil(?Perfil $perfil): void
+    {
+        $this->perfil = $perfil;
     }
 }

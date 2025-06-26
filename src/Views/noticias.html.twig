@@ -6,15 +6,15 @@
 {% block content %}
 
 	{# --- 1. NOTÍCIA EM DESTAQUE --- #}
-	{% if page.page <= 1 %}
 
-		<div class="noticias-destaque" style="margin-bottom: 2rem;">
-			{% if noticias|length > 0 %}
-				{# Pega o primeiro item da lista para ser o destaque #}
-				{% set noticia_destaque = noticias[0] %}
-				{% include 'templates/partials/_card_noticia.html.twig' with { 'noticia': noticia_destaque, 'destaque': true } %}
-			{% endif %}
-		</div>
+
+	
+	{% if currentPage <= 1 %}
+		<div class="noticias-destaque" style="margin-bottom: 2rem;"> {% if noticias|length > 0 %}
+			{% set noticia_destaque = noticias[0] %}
+			{% include 'templates/partials/_card_noticia.html.twig' with { 'noticia': noticia_destaque, 'destaque': true } %}
+		{% endif %}
+	</div>
 	{% endif %}
 
 
@@ -39,9 +39,7 @@
 			<ul class="flex items-center -space-x-px h-10 text-base">
 				{% for page in pagination %}
 					<li>
-						<a href="?page={{ page.page }}" class="flex items-center justify-center px-4 h-10 leading-tight
-								                              {{ page.current ? 'text-blue-600 border border-blue-300 bg-blue-50' : 'text-gray-500 bg-white border border-gray-300' }}
-								                              hover:bg-gray-100 hover:text-gray-700">
+						<a href="?page={{ page.page }}" class="flex items-center justify-center px-4 h-10 leading-tight {{ page.current ? 'text-blue-600 border border-blue-300 bg-blue-50' : 'text-gray-500 bg-white border border-gray-300' }} hover:bg-gray-100 hover:text-gray-700">
 							{{ page.page }}
 						</a>
 					</li>

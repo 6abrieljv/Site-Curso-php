@@ -9,9 +9,7 @@ use App\Repositories\CategoriaRepository;
 use App\Models\Noticia;
 use App\Utils\StringUtils;
 
-
 use App\HTTP\Response; // Certifique-se de que esta linha está presente
-
 use App\HTTP\Request;
 
 use App\Services\ImageUploader;
@@ -49,7 +47,7 @@ class AdminNoticiasController
 
     /**
      * Exibe o formulário para criar uma nova notícia.
-     */
+     **/
     public function create()
     {
         $categorias = $this->categoriaRepository->findAll();

@@ -4,9 +4,8 @@ use App\HTTP\Request;
 use App\HTTP\Response;
 use App\Controllers\AdminController;
 use App\Controllers\AdminNoticiasController;
-use App\Controllers\AdminEducadoresController;
-use App\Controllers\AdminAtleticaController;
-
+use App\Controllers\AdminEducadoresController; // Adicione esta linha
+use App\Controllers\AdminLTDController;
 
 $router->get('/admin', [
 fn() => new Response(200, (new AdminController())->index())
@@ -75,27 +74,29 @@ $router->post('/admin/educadores/delete/{id}', [
 fn(Request $request, $params) => (new AdminEducadoresController())->destroy($request, $params)
 ]);
 
-// Rotas para o CRUD de Membros da Atlética
-$router->get('/admin/atletica', [
-    fn(Request $request) => new Response(200, (new AdminAtleticaController())->index($request))
+
+// Rota para o painel de administração de projetos
+$router->get('/admin/ltd', [
+    fn($request, $params) => new Response(200, (new AdminLTDController())->index($request, $params))
 ]);
 
-$router->get('/admin/atletica/create', [
-    fn() => new Response(200, (new AdminAtleticaController())->create())
+
+$router->get('/admin/ltd/create', [
+    fn($request, $params) => new Response(200, (new AdminLTDController())->create($request, $params))
 ]);
 
-$router->post('/admin/atletica/create', [
-    fn(Request $request) => (new AdminAtleticaController())->store($request)
+$router->post('/admin/ltd/create', [
+    fn(Request $request) => (new AdminLTDController())->store($request)
 ]);
 
-$router->get('/admin/atletica/edit/{id}', [
-    fn(Request $request, $params) => new Response(200, (new AdminAtleticaController())->edit($request, $params))
+$router->get('/admin/ltd/edit/{id}', [
+    fn(Request $request, $params) => new Response(200, (new AdminLTDController())->edit($request, $params))
 ]);
 
-$router->post('/admin/atletica/edit/{id}', [
-    fn(Request $request, $params) => (new AdminAtleticaController())->update($request, $params)
+$router->post('/admin/ltd/edit/{id}', [
+    fn(Request $request, $params) => (new AdminLTDController())->update($request, $params)
 ]);
 
-$router->post('/admin/atletica/delete/{id}', [
-    fn(Request $request, $params) => (new AdminAtleticaController())->destroy($request, $params)
+$router->get('/admin/ltd/delete/{id}', [
+    fn(Request $request, $params) => new Response(200, (new AdminLTDController())->delete($request, $params))
 ]);
