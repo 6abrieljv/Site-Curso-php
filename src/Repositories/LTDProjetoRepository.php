@@ -86,4 +86,60 @@ class LTDProjetoRepository
         $projetos = $this->db->select(order: 'id DESC');
         return $projetos->fetchAll();
     }
+
+    public function findById(int $id): ?LTDProjeto
+    {
+        $stmt = $this->db->select('id = :id', ['id' => $id]);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($data) {
+            $projeto = new LTDProjeto();
+            $projeto->setId($data['id']);
+            $projeto->setNome($data['nome']);
+            $projeto->setDescricao($data['descricao']);
+            $projeto->setStatus($data['status']);
+            $projeto->setPeriodo($data['periodo']);
+            $projeto->setGithub($data['github_url']);
+            $projeto->setImagem($data['imagem_path']);
+            return $projeto;
+        }
+        
+        return null;
+    }
+
+    public function delete(int $id): bool
+    {
+        // Inicia a transação
+        $this->db->execute('START TRANSACTION');
+
+        try {
+            // Remove as associações de participantes
+            $this->dbParticipantes->delete('id_projeto = :id_projeto', ['id_projeto' => $id]);
+            // Remove as associações de tecnologias
+            $this->dbTecnologias->delete('id_projeto = :id_projeto', ['id_projeto' => $id]);
+            // Remove o projeto
+            $this->db->delete('id = :id', ['id' => $id]);
+
+            // Se tudo deu certo, confirma a transação
+            $this->db->execute('COMMIT');
+            return true;
+
+        } catch (\Exception $e) {
+            // Se algo deu errado, desfaz tudo
+            $this->db->execute('ROLLBACK');
+            // Idealmente, você logaria o erro em vez de usar die()
+            die('Erro ao deletar o projeto: ' . $e->getMessage());
+        }
+    }
+
+    public function findParticipantesByProjetoId(int $projetoId): array
+    {
+        $stmt = $this->dbParticipantes->select('id_projeto = :id_projeto', ['id_projeto' => $projetoId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function update(LTDProjeto $projeto, array $participantesIds, array $tecnologiasIds): int
+    {
+        return $this->save($projeto, $participantesIds, $tecnologiasIds);
+    }
 }

@@ -100,5 +100,86 @@ class AdminLTDController
     }
     
     // Aqui viriam os outros métodos: edit, update e destroy, seguindo um padrão similar.
+    public function edit(Request $request, $params)
+    {
+        $id = $params['id'] ?? null;
+        if (!$id) {
+            Flash::set('message', 'Projeto não encontrado.');
+            header('Location: ' . BASE_URL . '/admin/ltd');
+            exit;
+        }
 
+        $projeto = $this->ltdProjetoRepository->findById($id);
+        if (!$projeto) {
+            Flash::set('message', 'Projeto não encontrado.');
+            header('Location: ' . BASE_URL . '/admin/ltd');
+            exit;
+        }
+
+        $todosUsuarios = $this->usuarioRepository->findAll();
+        $todasTecnologias = $this->tecnologiaRepository->findAll();
+
+        return $this->view->render('admin/ltd/form', [
+            'title' => 'Editar Projeto LTD',
+            'action' => BASE_URL . '/admin/ltd/edit/' . $projeto->getId(),
+            'projeto' => $projeto,
+            'todos_usuarios' => $todosUsuarios,
+            'todas_tecnologias' => $todasTecnologias,
+            'projeto_participantes_ids' => array_map(fn($p) => $p->getId(), $projeto->getParticipantes()),
+            'projeto_tecnologias_ids' => array_map(fn($t) => $t->getId(), $projeto->getTecnologias()),
+            'button_label' => 'Atualizar Projeto'
+        ]);
+    }
+
+    public function update(Request $request, $params)
+    {
+        $id = $params['id'] ?? null;
+        if (!$id) {
+            Flash::set('message', 'Projeto não encontrado.');
+            header('Location: ' . BASE_URL . '/admin/ltd');
+            exit;
+        }
+
+        $data = $request->getBody();
+        $projeto = $this->ltdProjetoRepository->findById($id);
+        if (!$projeto) {
+            Flash::set('message', 'Projeto não encontrado.');
+            header('Location: ' . BASE_URL . '/admin/ltd');
+            exit;
+        }
+
+        $projeto->setNome($data['nome']);
+        $projeto->setDescricao($data['descricao']);
+        $projeto->setStatus($data['status']);
+        $projeto->setPeriodo($data['periodo']);
+        $projeto->setGithub($data['github_url']);
+
+        // Upload da Imagem
+        $imagePath = ImageUploader::upload($data, $_FILES, 'ltd_projetos');
+        if ($imagePath) {
+            $projeto->setImagem($imagePath);
+        }
+
+        // Participantes e Tecnologias selecionados no formulário
+        $participantesIds = $data['participantes'] ?? [];
+        $tecnologiasIds = $data['tecnologias'] ?? [];
+
+        // Atualiza o projeto e suas relações
+        $this->ltdProjetoRepository->update($projeto, $participantesIds, $tecnologiasIds);
+
+        Flash::set('message', 'Projeto LTD atualizado com sucesso!');
+        header('Location: ' . BASE_URL . '/admin/ltd');
+        exit;
+    }
+
+    public function findById($id)
+    {
+        $projeto = $this->ltdProjetoRepository->findById($id);
+        if (!$projeto) {
+            Flash::set('message', 'Projeto não encontrado.');
+            header('Location: ' . BASE_URL . '/admin/ltd');
+            exit;
+        }
+        return $projeto;
+    }
 }
