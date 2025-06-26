@@ -1,102 +1,154 @@
-{% extends "templates/admin/base.html.twig" %}
+{% extends 'templates/admin.html.twig' %}
 
-{% block title %}{{ title }}{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js" defer></script>
+{% endblock %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-8">
-    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6 md:p-8">
-        <h1 class="text-2xl font-bold text-gray-800 mb-6 font-['Pixelify_Sans']">{{ title }}</h1>
+<div class="flex-1 p-6 font-['Poppins']">
+    <div class="bg-white p-8 rounded-lg shadow-md max-w-2xl mx-auto">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center font-['Pixelify_Sans']">{{ title }}</h2>
 
         <form action="{{ action }}" method="POST" enctype="multipart/form-data">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
-                {# Coluna da Imagem #}
-                <div class="md:col-span-1">
-                    <label for="imagem" class="block text-sm font-medium text-gray-700 mb-1">Foto do Membro</label>
-                    
-                    {# Input de Arquivo Estilizado #}
-                    <input type="file" name="imagem" id="imagem" accept="image/*" class="
-                        block w-full text-sm text-gray-500
-                        file:mr-4 file:py-2 file:px-4
-                        file:rounded-md file:border-0
-                        file:text-sm file:font-semibold
-                        file:bg-blue-100 file:text-blue-700
-                        hover:file:bg-blue-200 cursor-pointer
-                    "/>
-                    
-                    {# Container para Preview da Nova Imagem #}
-                    <div id="imagePreviewContainer" class="mt-4 hidden">
-                        <span class="block text-xs font-semibold text-gray-600 mb-2">Nova Imagem:</span>
-                        <img id="imagePreview" src="#" alt="Prévia da imagem" class="w-48 h-48 rounded-full object-cover border-4 border-blue-200 shadow-sm"/>
-                    </div>
-
-                    {# Mostra a Imagem Atual ao Editar #}
-                    {% if membro.id and membro.foto %}
-                        <div class="mt-4" id="currentImageContainer">
-                            <span class="block text-xs font-semibold text-gray-600 mb-2">Imagem Atual:</span>
-                            <img src="{{ public ~ membro.foto }}" alt="Foto atual de {{ membro.nome }}" class="w-48 h-48 rounded-full object-cover border-4 border-gray-200 shadow-sm">
-                            <div class="mt-2">
-                                <label class="flex items-center text-sm text-gray-600">
-                                    <input type="checkbox" name="remove_current_image" value="1" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                    <span class="ml-2">Remover imagem atual</span>
-                                </label>
-                            </div>
-                        </div>
-                    {% endif %}
-                </div>
-
-                {# Coluna dos Campos de Texto #}
-                <div class="md:col-span-1 space-y-6">
-                    <div>
-                        <label for="nome" class="block text-sm font-medium text-gray-700">Nome Completo</label>
-                        <input type="text" name="nome" id="nome" value="{{ membro.nome }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
-                    </div>
-
-                    <div>
-                        <label for="cargo" class="block text-sm font-medium text-gray-700">Cargo</label>
-                        <input type="text" name="cargo" id="cargo" value="{{ membro.cargo }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
-                    </div>
-                    
-                    <div>
-                        <label for="instagram_url" class="block text-sm font-medium text-gray-700">Link do Instagram</label>
-                        <input type="url" name="instagram_url" id="instagram_url" value="{{ membro.instagramUrl }}" placeholder="https://instagram.com/usuario" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                    </div>
-                </div>
+            
+            <div class="mb-4">
+                <label for="nome" class="block text-sm font-medium text-gray-700">Nome do Membro</label>
+                <input type="text" name="nome" id="nome" value="{{ membro.getNome() }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
             </div>
 
-            {# Botões de Ação #}
-            <div class="mt-8 pt-5 border-t border-gray-200 flex items-center justify-end gap-3">
-                <a href="{{ base_url }}/admin/atletica" class="bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-md hover:bg-gray-300 transition duration-300">
-                    Cancelar
-                </a>
-                <button type="submit" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300">
-                    {{ button_label }}
-                </button>
+            <div class="mb-4">
+                <label for="cargo" class="block text-sm font-medium text-gray-700">Cargo</label>
+                <input type="text" name="cargo" id="cargo" value="{{ membro.getCargo() }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+            </div>
+
+            <div class="mb-6">
+                <label for="instagram_url" class="block text-sm font-medium text-gray-700">Link do Instagram (URL completa)</label>
+                <input type="url" name="instagram_url" id="instagram_url" value="{{ membro.getInstagramUrl() }}" placeholder="https://instagram.com/usuario" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+            </div>
+
+            <div class="mb-6">
+                <label for="uploadImageInput" class="block text-sm font-medium text-gray-700">Foto do Membro</label>
+                <input type="file" id="uploadImageInput" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200 cursor-pointer" accept="image/*">
+                
+                <input type="hidden" name="image" id="croppedImageData">
+                
+                <div class="mt-4">
+                    <p class="text-xs text-gray-500 mb-1">Pré-visualização:</p>
+                    <img id="imagePreview" src="{{ membro.getFoto() ? public ~ membro.getFoto() : '' }}" alt="Pré-visualização" class="h-32 w-32 object-cover rounded-full border-2 border-gray-300 shadow-sm {{ membro.getFoto() ? '' : 'hidden' }}">
+                </div>
+
+                {% if membro.getId() and membro.getFoto() %}
+                    <div class="mt-2">
+                        <label class="inline-flex items-center">
+                            <input type="checkbox" name="remove_current_image" value="1" class="form-checkbox h-4 w-4 text-blue-600">
+                            <span class="ml-2 text-sm text-gray-600">Remover imagem atual</span>
+                        </label>
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="flex justify-end gap-4 pt-4 border-t mt-6">
+                <a href="{{ base_url }}/admin/atletica" class="px-6 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 transition">Cancelar</a>
+                <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">{{ button_label }}</button>
             </div>
         </form>
     </div>
 </div>
 
-<script>
-    // Lógica para pré-visualização da imagem
-    const imageInput = document.getElementById('imagem');
-    const imagePreview = document.getElementById('imagePreview');
-    const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+<div id="imageEditorModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 hidden items-center justify-center z-50 transition-opacity duration-300 ease-out font-['Poppins']" style="opacity: 0;">
+    <div id="modalPanel" class="bg-white p-5 rounded-lg shadow-xl max-w-lg w-full transform transition-all duration-300 ease-out scale-95">
+        <h3 class="text-2xl font-bold text-gray-800 mb-4 text-center font-['Pixelify_Sans']">Ajustar Imagem</h3>
+        
+        <div class="img-container mb-4 h-80 bg-gray-100 rounded-lg overflow-hidden">
+            <img id="imageToCrop" src="" alt="Imagem para cortar">
+        </div>
 
-    if (imageInput) {
-        imageInput.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    imagePreview.src = e.target.result;
-                    imagePreviewContainer.classList.remove('hidden');
-                }
-                
-                reader.readAsDataURL(file);
-            }
-        });
+        <div class="flex justify-center gap-4">
+            <button type="button" id="cancelCrop" class="px-6 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition">Cancelar</button>
+            <button type="button" id="confirmCrop" class="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition">Confirmar e Salvar</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const uploadInput = document.getElementById('uploadImageInput');
+    const modal = document.getElementById('imageEditorModal');
+    const modalPanel = document.getElementById('modalPanel');
+    const imageToCrop = document.getElementById('imageToCrop');
+    const confirmBtn = document.getElementById('confirmCrop');
+    const cancelBtn = document.getElementById('cancelCrop');
+    const hiddenInput = document.getElementById('croppedImageData');
+    const imagePreview = document.getElementById('imagePreview');
+    
+    let cropper;
+
+    function openModal() {
+        modal.classList.remove('hidden');
+        setTimeout(() => { 
+            modal.style.opacity = '1';
+            modalPanel.classList.remove('scale-95');
+        }, 10);
     }
+
+    function closeModal() {
+        modal.style.opacity = '0';
+        modalPanel.classList.add('scale-95');
+        setTimeout(() => { 
+            modal.classList.add('hidden');
+            if (cropper) {
+                cropper.destroy();
+            }
+            uploadInput.value = '';
+        }, 300);
+    }
+
+    uploadInput.addEventListener('change', function (e) {
+        const files = e.target.files;
+        if (files && files.length > 0) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                imageToCrop.src = event.target.result;
+                openModal();
+                
+                cropper = new Cropper(imageToCrop, {
+                    aspectRatio: 1 / 1,
+                    viewMode: 1,
+                });
+            };
+            reader.readAsDataURL(files[0]);
+        }
+    });
+
+    confirmBtn.addEventListener('click', function () {
+        if (!cropper) return;
+
+        const croppedCanvas = cropper.getCroppedCanvas({
+            width: 500,
+            height: 500,
+            imageSmoothingQuality: 'high',
+        });
+        
+        const base64data = croppedCanvas.toDataURL('image/png');
+        hiddenInput.value = base64data;
+        
+        imagePreview.src = base64data;
+        imagePreview.classList.remove('hidden');
+        
+        closeModal();
+    });
+
+    cancelBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+});
 </script>
 {% endblock %}

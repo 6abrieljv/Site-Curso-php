@@ -1,8 +1,8 @@
-{% extends "templates/base.html.twig" %}
+{% extends "templates/admin/base.html.twig" %}
 
 {% block title %}Gerenciar Atlética{% endblock %}
 
-{% block admin_content %}
+{% block content %}
     {# Cabeçalho da Seção #}
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-gray-800 font-['Pixelify_Sans']">Gerenciar Membros da Atlética</h1>
@@ -34,23 +34,23 @@
                     {% for membro in membros %}
                         <tr class="border-b hover:bg-gray-50">
                             <td class="p-4">
-                                <img src="{{ membro.foto ? (public ~ membro.foto) : 'https://placehold.co/60x60/E2E8F0/4A5568?text=Sem+Foto' }}" 
-                                     alt="Foto de {{ membro.nome }}" 
+                                <img src="{{ membro.getFoto() ? (public ~ membro.getFoto()) : 'https://placehold.co/60x60/E2E8F0/4A5568?text=Sem+Foto' }}" 
+                                     alt="Foto de {{ membro.getNome() }}" 
                                      class="w-12 h-12 rounded-full object-cover"
                                      onerror="this.onerror=null;this.src='https://placehold.co/60x60/E2E8F0/4A5568?text=Sem+Foto';">
                             </td>
-                            <td class="p-4 font-medium text-gray-700">{{ membro.nome }}</td>
-                            <td class="p-4 text-gray-600">{{ membro.cargo }}</td>
+                            <td class="p-4 font-medium text-gray-700">{{ membro.getNome() }}</td>
+                            <td class="p-4 text-gray-600">{{ membro.getCargo() }}</td>
                             <td class="p-4 flex space-x-2">
-                                <button class="edit-btn bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded"
-                                        data-id="{{ membro.id }}"
-                                        data-nome="{{ membro.nome }}"
-                                        data-cargo="{{ membro.cargo }}"
-                                        data-instagram-url="{{ membro.instagramUrl }}"
-                                        data-foto="{{ membro.foto ? (public ~ membro.foto) : '' }}">
+                                <button class="edit-btn bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded"
+                                        data-id="{{ membro.getId() }}"
+                                        data-nome="{{ membro.getNome() }}"
+                                        data-cargo="{{ membro.getCargo() }}"
+                                        data-instagram-url="{{ membro.getInstagramUrl() }}"
+                                        data-foto="{{ membro.getFoto() ? (public ~ membro.getFoto()) : '' }}">
                                     Editar
                                 </button>
-                                <form action="{{ base_url }}/admin/atletica/delete/{{ membro.id }}" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar este membro?');">
+                                <form action="{{ base_url }}/admin/atletica/delete/{{ membro.getId() }}" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar este membro?');">
                                     <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
                                         Deletar
                                     </button>
@@ -66,14 +66,8 @@
             </tbody>
         </table>
     </div>
-    
-    {# Paginação (se houver) #}
-    {% if pagination %}
-        {# Adicione seu componente de paginação aqui se tiver um #}
-    {% endif %}
 
-    <!-- MODAL PARA ADICIONAR/EDITAR MEMBRO -->
-    <div id="memberModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 z-50 flex items-center justify-center transition-opacity duration-300 ease-out">
+    <div id="memberModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 z-50 flex items-center justify-center transition-opacity duration-300 ease-out opacity-0">
         <div id="modalPanel" class="relative mx-auto p-6 border w-full max-w-lg shadow-xl rounded-md bg-white transform transition-all duration-300 ease-out scale-95 opacity-0">
             <div class="flex justify-between items-center pb-3 border-b">
                 <h3 id="modalTitle" class="text-2xl leading-6 font-bold text-gray-900 font-['Pixelify_Sans']">Adicionar Novo Membro</h3>
@@ -85,28 +79,25 @@
                 <form id="memberForm" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" id="memberId">
                     
-                    {# CAMPO DE IMAGEM COM PREVIEW #}
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Foto do Membro</label>
-                        <input type="file" name="imagem" id="imagem" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200 cursor-pointer"/>
+                    <div class="mb-4">
+                        <label for="imagem" class="block text-sm font-medium text-gray-700">Foto do Membro</label>
+                        <input type="file" name="imagem" id="imagem" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200 cursor-pointer"/>
                         
-                        <div class="flex items-center mt-4">
-                            {# Preview da Nova Imagem #}
-                            <div id="imagePreviewContainer" class="hidden mr-4">
-                                <img id="imagePreview" src="#" alt="Prévia" class="w-24 h-24 rounded-full object-cover border-4 border-blue-200"/>
-                            </div>
-                            {# Imagem Atual (no modo de edição) #}
-                            <div id="currentImageContainer" class="hidden mr-4">
-                                <img id="currentImage" src="" alt="Imagem Atual" class="w-24 h-24 rounded-full object-cover border-4 border-gray-200"/>
-                                <label class="flex items-center text-xs text-gray-600 mt-1">
-                                    <input type="checkbox" name="remove_current_image" value="1" class="h-4 w-4 rounded">
-                                    <span class="ml-1">Remover</span>
-                                </label>
-                            </div>
+                        <div id="currentImageContainer" class="mt-3 hidden">
+                             <p class="text-sm text-gray-600 mb-1">Imagem atual:</p>
+                             <img id="currentImage" src="" alt="Imagem Atual" class="w-24 h-24 object-cover rounded-md border"/>
+                             <div class="mt-2">
+                                <input type="checkbox" name="remove_current_image" value="1" id="remove_current_image" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                <label for="remove_current_image" class="ml-2 text-sm text-gray-900">Remover imagem atual</label>
+                             </div>
+                        </div>
+                        
+                        <div id="imagePreviewContainer" class="mt-3 hidden">
+                            <img id="imagePreview" src="#" alt="Prévia da nova imagem" class="max-h-48 w-auto rounded-md border border-gray-300 shadow-sm"/>
                         </div>
                     </div>
 
-                    <div class="mt-4 space-y-4">
+                    <div class="space-y-4">
                         <div>
                             <label for="nome" class="block text-sm font-medium text-gray-700">Nome</label>
                             <input type="text" name="nome" id="nome" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" required>
@@ -117,7 +108,7 @@
                         </div>
                         <div>
                             <label for="instagram_url" class="block text-sm font-medium text-gray-700">Link do Instagram</label>
-                            <input type="url" name="instagram_url" id="instagram_url" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">
+                            <input type="url" name="instagram_url" id="instagram_url" placeholder="https://instagram.com/usuario" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">
                         </div>
                     </div>
 
@@ -129,7 +120,9 @@
             </div>
         </div>
     </div>
+{% endblock %}
 
+{% block scripts %}
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('memberModal');
@@ -141,13 +134,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('memberForm');
     const modalTitle = document.getElementById('modalTitle');
     
-    // Elementos do formulário
+    // Form elements
     const memberIdInput = document.getElementById('memberId');
     const nomeInput = document.getElementById('nome');
     const cargoInput = document.getElementById('cargo');
     const instagramInput = document.getElementById('instagram_url');
     
-    // Elementos da imagem
+    // Image elements
     const imageInput = document.getElementById('imagem');
     const imagePreview = document.getElementById('imagePreview');
     const imagePreviewContainer = document.getElementById('imagePreviewContainer');
@@ -174,6 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 300);
     };
 
+    // Open modal for ADD
     addBtn.addEventListener('click', () => {
         form.reset();
         modalTitle.textContent = 'Adicionar Novo Membro';
@@ -183,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
         openModal();
     });
 
+    // Open modal for EDIT
     editBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             form.reset();
@@ -190,13 +185,13 @@ document.addEventListener('DOMContentLoaded', () => {
             modalTitle.textContent = 'Editar Membro';
             form.setAttribute('action', `{{ base_url }}/admin/atletica/edit/${id}`);
             
-            // Preenche o formulário
+            // Populate form fields
             memberIdInput.value = id;
             nomeInput.value = btn.dataset.nome;
             cargoInput.value = btn.dataset.cargo;
             instagramInput.value = btn.dataset.instagramUrl;
             
-            // Lida com a imagem
+            // Handle image display
             imagePreviewContainer.classList.add('hidden');
             if (btn.dataset.foto) {
                 currentImage.src = btn.dataset.foto;
@@ -204,12 +199,11 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 currentImageContainer.classList.add('hidden');
             }
-            
             openModal();
         });
     });
 
-    // Event listeners para fechar o modal
+    // Close modal listeners
     closeBtn.addEventListener('click', closeModal);
     cancelBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => {
@@ -218,14 +212,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Lógica para pré-visualização da imagem
+    // Image preview logic
     imageInput.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = (event) => {
                 imagePreview.src = event.target.result;
+                // Show new image preview and hide current image container
                 imagePreviewContainer.classList.remove('hidden');
+                currentImageContainer.classList.add('hidden'); 
             };
             reader.readAsDataURL(file);
         }
