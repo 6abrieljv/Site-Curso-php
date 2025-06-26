@@ -1,0 +1,171 @@
+{% extends 'templates/admin.html.twig' %}
+
+{% block head %}
+	{{ parent() }}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css"/>
+	<style>
+		/* Garante que a imagem no cropper não exceda o contêiner */
+		.img-container img {
+			display: block;
+			max-width: 100%;
+			max-height: 100%;
+		}
+	</style>
+{% endblock %}
+
+{% block content %}
+<div class="flex-1 p-6 font-['Poppins']">
+    <div class="bg-white p-8 rounded-lg shadow-md max-w-2xl mx-auto">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center font-['Pixelify_Sans']">{{ title }}</h2>
+
+        <form action="{{ action }}" method="POST" enctype="multipart/form-data">
+            
+            <div class="mb-4">
+                <label for="nome" class="block text-sm font-medium text-gray-700">Nome do Membro</label>
+                <input type="text" name="nome" id="nome" value="{{ membro.getNome() }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="cargo" class="block text-sm font-medium text-gray-700">Cargo</label>
+                <input type="text" name="cargo" id="cargo" value="{{ membro.getCargo() }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+            </div>
+
+            <div class="mb-6">
+                <label for="instagram_url" class="block text-sm font-medium text-gray-700">Link do Instagram (URL completa)</label>
+                <input type="url" name="instagram_url" id="instagram_url" value="{{ membro.getInstagramUrl() }}" placeholder="https://instagram.com/usuario" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+            </div>
+
+            <div class="mb-6">
+                <label for="uploadImageInput" class="block text-sm font-medium text-gray-700">Foto do Membro</label>
+                <input type="file" id="uploadImageInput" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200 cursor-pointer" accept="image/*">
+                
+                <input type="hidden" name="image" id="croppedImageData">
+                
+                <div class="mt-4">
+                    <p class="text-xs text-gray-500 mb-1">Pré-visualização:</p>
+                    <img id="imagePreview" src="{{ membro.getFoto() ? public ~ membro.getFoto() : '' }}" alt="Pré-visualização" class="h-32 w-32 object-cover rounded-full border-2 border-gray-300 shadow-sm {{ membro.getFoto() ? '' : 'hidden' }}">
+                </div>
+
+                {% if membro.getId() and membro.getFoto() %}
+                    <div class="mt-2">
+                        <label class="inline-flex items-center">
+                            <input type="checkbox" name="remove_current_image" value="1" class="form-checkbox h-4 w-4 text-blue-600">
+                            <span class="ml-2 text-sm text-gray-600">Remover imagem atual</span>
+                        </label>
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="flex justify-end gap-4 pt-4 border-t mt-6">
+                <a href="{{ base_url }}/admin/atletica" class="px-6 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 transition">Cancelar</a>
+                <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">{{ button_label }}</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="imageEditorModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 hidden items-center justify-center z-50 transition-opacity duration-300 ease-out font-['Poppins']" style="opacity: 0;">
+    <div id="modalPanel" class="bg-white p-5 rounded-lg shadow-xl max-w-lg w-full transform transition-all duration-300 ease-out scale-95">
+        <h3 class="text-2xl font-bold text-gray-800 mb-4 text-center font-['Pixelify_Sans']">Ajustar Imagem</h3>
+        
+        <div class="img-container mb-4 h-80 bg-gray-100 rounded-lg overflow-hidden">
+            <img id="imageToCrop" src="" alt="Imagem para cortar">
+        </div>
+
+        <div class="flex justify-center gap-4">
+            <button type="button" id="cancelCrop" class="px-6 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition">Cancelar</button>
+            <button type="button" id="confirmCrop" class="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition">Confirmar e Salvar</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+	{{ parent() }}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+    // Elementos do DOM
+    const imagemInput = document.getElementById('imagemInput');
+    const uploadContainer = document.getElementById('uploadContainer');
+    const modal = document.getElementById('cropModal');
+    const imageToCrop = document.getElementById('imageToCrop');
+    const confirmBtn = document.getElementById('confirmCrop');
+    const cancelBtn = document.getElementById('cancelCrop');
+    const croppedImageDataInput = document.getElementById('croppedImageData');
+    
+    // Novos elementos para a prévia
+    const previewContainer = document.getElementById('previewContainer');
+    const imagePreview = document.getElementById('imagePreview');
+    const removeImageBtn = document.getElementById('removeImageBtn');
+
+    let cropper;
+
+    // Quando o usuário seleciona uma imagem no input
+    imagemInput.addEventListener('change', (e) => {
+        const files = e.target.files;
+        if (files && files.length > 0) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                imageToCrop.src = reader.result;
+                modal.classList.remove('hidden');
+                
+                if (cropper) {
+                   cropper.destroy();
+                }
+
+                cropper = new Cropper(imageToCrop, {
+                    aspectRatio: 16 / 9,
+                    viewMode: 1,
+                    background: false,
+                });
+            };
+            reader.readAsDataURL(files[0]);
+        }
+    });
+
+    // Quando o usuário confirma o corte
+    confirmBtn.addEventListener('click', () => {
+        if (cropper) {
+            const base64Canvas = cropper.getCroppedCanvas({
+                width: 1280,
+                height: 720,
+            }).toDataURL('image/png');
+            
+            // Coloca os dados no campo oculto
+            croppedImageDataInput.value = base64Canvas;
+            
+            // ATUALIZAÇÃO DA UI: Mostra a prévia
+            imagePreview.src = base64Canvas;
+            previewContainer.classList.remove('hidden');
+            
+            // Esconde o input de arquivo original
+            uploadContainer.classList.add('hidden');
+            
+            // Fecha o modal
+            modal.classList.add('hidden');
+            if (cropper) cropper.destroy();
+        }
+    });
+
+    // Quando o usuário cancela o corte
+    cancelBtn.addEventListener('click', () => {
+        modal.classList.add('hidden');
+        imagemInput.value = ''; 
+        if(cropper) cropper.destroy();
+    });
+
+    // NOVO: Quando o usuário clica em "Trocar imagem"
+    removeImageBtn.addEventListener('click', () => {
+        // Limpa os dados e reseta a UI para o estado inicial
+        croppedImageDataInput.value = '';
+        imagemInput.value = '';
+        previewContainer.classList.add('hidden');
+        uploadContainer.classList.remove('hidden');
+    });
+});
+	</script>
+{% endblock %}

@@ -17,8 +17,8 @@ $router->get('/ltd', [
     }
 ]);
 $router->get('/atletica', [
-    function () {
-        return new Response(200, (new Controllers\AtleticaController())->index());
+    function ($request) {
+        return new Response(200, (new Controllers\AtleticaController())->index($request));
     }
 ]);
 

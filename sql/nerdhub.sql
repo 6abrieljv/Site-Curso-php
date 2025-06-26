@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jun 22, 2025 at 08:01 PM
+-- Host: 127.0.0.1
+-- Generation Time: Jun 26, 2025 at 03:39 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,8 +20,36 @@ SET time_zone = "+00:00";
 --
 -- Database: `nerdhub`
 --
-CREATE DATABASE IF NOT EXISTS `nerdhub` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
-USE `nerdhub`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `atletica_membros`
+--
+
+CREATE TABLE `atletica_membros` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `cargo` varchar(100) NOT NULL,
+  `foto` varchar(255) DEFAULT NULL,
+  `instagram_url` varchar(255) DEFAULT NULL,
+  `data_criacao` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `atletica_membros`
+--
+
+INSERT INTO `atletica_membros` (`id`, `nome`, `cargo`, `foto`, `instagram_url`, `data_criacao`) VALUES
+(1, 'João Lucas', 'Presidente', NULL, '', '2025-06-25 21:07:14'),
+(2, 'Moisés', 'Vice Presidente', NULL, '', '2025-06-26 00:39:47'),
+(3, 'Alynne', 'Secretária', NULL, '', '2025-06-26 00:40:14'),
+(4, 'Katherinne', 'Líd.Marketing', NULL, '', '2025-06-26 00:41:13'),
+(5, 'Cibelle', 'Marketing', NULL, '', '2025-06-26 00:41:56'),
+(6, 'Chagas', 'Financeiro', NULL, '', '2025-06-26 00:42:27'),
+(7, 'Líd. Vôlei', 'Crisler Jr', NULL, '', '2025-06-26 00:43:08'),
+(8, 'Thiago', 'Líd. Futsal', NULL, '', '2025-06-26 00:43:50'),
+(9, 'Gabriel', 'Líd. Basquete', 'uploads/atletica/685ca3e7b95fd_gabriel.jpeg', '', '2025-06-26 00:44:18');
 
 -- --------------------------------------------------------
 
@@ -29,15 +57,12 @@ USE `nerdhub`;
 -- Table structure for table `categoria`
 --
 
-CREATE TABLE IF NOT EXISTS `categoria` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `categoria` (
+  `id` bigint(20) NOT NULL,
   `nome` varchar(100) NOT NULL,
   `cor` varchar(20) NOT NULL DEFAULT '#001A35',
-  `slug` varchar(150) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `nome` (`nome`),
-  UNIQUE KEY `slug` (`slug`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+  `slug` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Dumping data for table `categoria`
@@ -55,20 +80,16 @@ INSERT INTO `categoria` (`id`, `nome`, `cor`, `slug`) VALUES
 -- Table structure for table `noticia`
 --
 
-CREATE TABLE IF NOT EXISTS `noticia` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `noticia` (
+  `id` bigint(20) NOT NULL,
   `usuario_id` bigint(20) NOT NULL,
   `categoria_id` bigint(20) DEFAULT NULL,
   `titulo` varchar(200) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `conteudo` text NOT NULL,
   `imagem` varchar(255) DEFAULT NULL,
-  `data_publicacao` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `slug` (`slug`),
-  KEY `fk_noticia_usuario` (`usuario_id`),
-  KEY `fk_noticia_categoria` (`categoria_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+  `data_publicacao` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Dumping data for table `noticia`
@@ -127,8 +148,8 @@ INSERT INTO `noticia` (`id`, `usuario_id`, `categoria_id`, `titulo`, `slug`, `co
 -- Table structure for table `perfil`
 --
 
-CREATE TABLE IF NOT EXISTS `perfil` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `perfil` (
+  `id` bigint(20) NOT NULL,
   `id_usuario` bigint(20) NOT NULL,
   `nome` varchar(100) NOT NULL,
   `sobrenome` varchar(100) NOT NULL,
@@ -142,10 +163,8 @@ CREATE TABLE IF NOT EXISTS `perfil` (
   `github` varchar(100) DEFAULT NULL,
   `tiktok` varchar(100) DEFAULT NULL,
   `foto` varchar(255) DEFAULT NULL,
-  `cargo` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_usuario` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+  `cargo` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Dumping data for table `perfil`
@@ -153,12 +172,9 @@ CREATE TABLE IF NOT EXISTS `perfil` (
 
 INSERT INTO `perfil` (`id`, `id_usuario`, `nome`, `sobrenome`, `data_nascimento`, `bio`, `instagram`, `facebook`, `twitter`, `linkedin`, `youtube`, `github`, `tiktok`, `foto`, `cargo`) VALUES
 (1, 4, 'Jhenefer Amorim', '', NULL, 'Bem-vindo ao NerdHub!', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 9, 'Mateus Almeida', '', NULL, 'impino pipa e jogo bola', NULL, NULL, NULL, '', NULL, '', NULL, '', 'Coordenador'),
-(4, 10, 'Leo Muniz', '', NULL, '', NULL, NULL, NULL, '', NULL, '', NULL, '', 'Coordenador'),
-(5, 11, 'Dafiny Gabriele', '', NULL, 'blabla bla bla bla', NULL, NULL, NULL, '', NULL, '', NULL, '', 'Coordenadora'),
-(6, 12, 'Pinto Júnior ', '', NULL, '', NULL, NULL, NULL, '', NULL, '', NULL, '', 'Professor'),
-(7, 13, 'Calango Azul Silva', '', NULL, '', NULL, NULL, NULL, '', NULL, '', NULL, NULL, 'Coordenador'),
-(8, 14, 'Roberto Carlos', '', NULL, '', NULL, NULL, NULL, '', NULL, '', NULL, NULL, 'Professor');
+(5, 11, 'Arlisson', 'Wady', NULL, 'Arlison Wady Sousa Martins é Mestre em Ciência da Computação pela Universidade Federal do Maranhão (UFMA) e possui diversas especializações na área de tecnologia e gestão. Atua como professor na Faculdade Estácio desde 2018, lecionando disciplinas como algoritmos, estrutura de dados, engenharia de software, programação orientada a objetos e banco de dados e também atua como líder do projeto de Laboratório de Transformação Digital (LTD).', NULL, NULL, NULL, '', NULL, '', NULL, 'uploads/educadores/img_6859e8dbda3d55.46215707.png', 'Professor'),
+(6, 12, 'Antonio ', 'Reis', NULL, 'Antônio Reis de Sousa é professor no Centro Universitário Estácio São Luís, atuando na área de Tecnologia da Informação. Contribui na formação de alunos em cursos de graduação, aplicando seus conhecimentos em desenvolvimento de software, banco de dados e engenharia da computação.', NULL, NULL, NULL, '', NULL, '', NULL, 'uploads/educadores/img_6859e858005c40.79129706.png', 'Professor'),
+(9, 15, 'Suzane Carvalho', '', NULL, 'Suzane Carvalho dos Santos é professora e coordenadora do curso de Ciência da Computação no Centro Universitário Estácio São Luís. Com vasta experiência na área acadêmica, ela aplica metodologias ativas e tecnologias educacionais para garantir uma aprendizagem significativa aos seus alunos. Além de sua atuação  docente, Suzane contribui para a Comissão Própria de Avaliação (CPA) da instituição.', NULL, NULL, NULL, '', NULL, '', NULL, 'uploads/educadores/img_6859e6e4581026.37667188.png', 'Coordenadora e Professora');
 
 -- --------------------------------------------------------
 
@@ -166,18 +182,15 @@ INSERT INTO `perfil` (`id`, `id_usuario`, `nome`, `sobrenome`, `data_nascimento`
 -- Table structure for table `usuario`
 --
 
-CREATE TABLE IF NOT EXISTS `usuario` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `usuario` (
+  `id` bigint(20) NOT NULL,
   `username` varchar(100) NOT NULL,
   `email` varchar(150) NOT NULL,
   `senha` varchar(255) NOT NULL,
   `data_cadastro` timestamp NOT NULL DEFAULT current_timestamp(),
   `is_admin` tinyint(1) DEFAULT 0,
-  `is_educador` tinyint(1) DEFAULT 0,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+  `is_educador` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Dumping data for table `usuario`
@@ -188,12 +201,85 @@ INSERT INTO `usuario` (`id`, `username`, `email`, `senha`, `data_cadastro`, `is_
 (2, 'Usuário Autor Tres', 'autor3@example.com', '$2y$10$seuHashDeSenhaAqui3', '2025-06-03 01:39:39', 0, 0),
 (3, 'joao', 'jao@gmail.com', '$2y$10$seuHashDeSenhaAqui2', '2025-06-03 01:39:39', 0, 0),
 (4, 'Jhenefer Amorim', 'jhenefer.fdc@gmail.com', '$2y$10$MTS4OU20/FOTyiLnFiKfbe7zFsFyhhEst1/niWraJnTbWFEzvmbJC', '2025-06-18 11:56:43', 0, 0),
-(9, 'Mateus.log', 'mateuslog@gmail.com', '$2y$10$2QfitC7tPAd6uA097bNOSehsJN13FxuzbfJkZx3bBtLiqAoEfg7E.', '2025-06-22 00:40:06', 0, 1),
-(10, 'leo.muniz', 'leo123@gmail.com', '$2y$10$XpO.nRhmKyCiIawsxc3EBOtRU/7znu/6512kqy6XDJIffMeOC.NVS', '2025-06-22 01:11:33', 1, 1),
-(11, 'gabi.core', 'gabi@gmail.com', '$2y$10$idNoEGzAE6nYBBRbiOrZy.Ed3lAIAIJ219VXvWBNU2pIeMxK5Bj9i', '2025-06-22 11:42:53', 1, 1),
-(12, 'pinto.jr', 'pintojr@gmail.com', '$2y$10$pV4QrF0AwUeYKuDFeKrJwOYGOWZAVlivc7TiEAQdj0Yr3vgFTLNiO', '2025-06-22 12:08:21', 0, 1),
-(13, 'Calango.net', 'calangonet@gmail.com', '$2y$10$dWCWcwHQgJMjwGwBbxKI/OdE4Oa8gnF9XhiOTCn7pgds2deoiv8EK', '2025-06-22 12:09:09', 0, 1),
-(14, 'Roberto.pinto', 'robertorosas@gmail.com', '$2y$10$5uGRvYFBiRXGvWDRme5R7OnWn668ELRQQkKo38T2lNikoN4sO0e0S', '2025-06-22 12:10:02', 0, 1);
+(11, 'Arlisson.wady', 'arlison.wady@gmail.com', '$2y$10$GdKLo8plO4LluP0DjPivjugJj8EZtkuGpKmP8SizJ8MHBuFyvIx5a', '2025-06-22 11:42:53', 1, 1),
+(12, 'antonio.reis', 'antonio@gmail.com', '$2y$10$r0P7nt.wdWUgFGcPWhPSMOsxBkacX6aERKDCIpWJE8M2gAM6liW7y', '2025-06-22 12:08:21', 0, 1),
+(15, 'suzane.vidaloca', 'suzane.carvalho@gmail.com', '$2y$10$2gs/5FyoMZOuMJjQrmto4.juHu9cUmKUh9WSfh6TtFuGJ39OpyuGG', '2025-06-22 18:23:22', 0, 1);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `atletica_membros`
+--
+ALTER TABLE `atletica_membros`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `categoria`
+--
+ALTER TABLE `categoria`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nome` (`nome`),
+  ADD UNIQUE KEY `slug` (`slug`);
+
+--
+-- Indexes for table `noticia`
+--
+ALTER TABLE `noticia`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `slug` (`slug`),
+  ADD KEY `fk_noticia_usuario` (`usuario_id`),
+  ADD KEY `fk_noticia_categoria` (`categoria_id`);
+
+--
+-- Indexes for table `perfil`
+--
+ALTER TABLE `perfil`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_usuario` (`id_usuario`);
+
+--
+-- Indexes for table `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `atletica_membros`
+--
+ALTER TABLE `atletica_membros`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `categoria`
+--
+ALTER TABLE `categoria`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `noticia`
+--
+ALTER TABLE `noticia`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
+--
+-- AUTO_INCREMENT for table `perfil`
+--
+ALTER TABLE `perfil`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables

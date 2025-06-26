@@ -11,8 +11,14 @@ public static function upload(array $postData, array $fileData, string $subfolde
         $targetDir = ROOT_PATH . '/public/' . $uploadDir;
 
         if (!is_dir($targetDir)) {
+
+            if (!mkdir($targetDir, 0775, true) && !is_dir($targetDir)) {
+                throw new \RuntimeException(sprintf('O diretório "%s" não pôde ser criado. Verifique as permissões da pasta "public".', $targetDir));
+            }
+
             //echo 'criando pasta';
             mkdir($targetDir, 0775, true);
+
         }
 
         $imagePath = null;
