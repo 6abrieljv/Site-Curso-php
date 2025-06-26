@@ -3,21 +3,34 @@
 namespace App\Controllers;
 
 use App\Utils\View;
-use App\Repositories\AtleticaRepository; // 1. Importa o repositório
+use App\Repositories\AtleticaRepository;
+use App\Database\Pagination; // <-- 1. Importe a classe de Paginação
+use App\HTTP\Request;       // <-- 2. Importe a classe de Request
 
 class AtleticaController 
 {
-    public function index()
+    // 3. Adicione o Request como parâmetro do método index
+    public function index(Request $request) 
     {
-        // 2. Instancia o repositório para buscar os dados
         $atleticaRepository = new AtleticaRepository();
 
-        // 3. Busca todos os membros no banco, ordenados por nome
-        $membros = $atleticaRepository->findAll('nome ASC'); 
+        // 4. Lógica de paginação (igual à de Educadores)
+        $queryParams = $request->getQueryParams();
+        $paginaAtual = $queryParams['page'] ?? 1;
 
-        // 4. Renderiza a view 'atletica' e passa a variável 'membros' para ela
+        // Conta o total de membros para saber quantas páginas teremos
+        $totalMembros = $atleticaRepository->count();
+
+        // Instancia o objeto de paginação (ex: 6 membros por página)
+        $paginacao = new Pagination($totalMembros, $paginaAtual, 3); 
+
+        // Busca no repositório apenas os membros da página correta
+        $membros = $atleticaRepository->findAll('id ASC', $paginacao->getLimit()); 
+
+        // 5. Renderiza a view e passa os membros e os dados da paginação
         return (new View())->render('atletica', [
-            'membros' => $membros
+            'membros' => $membros,
+            'pagination' => $paginacao->getPages()
         ]);
     }
 }
