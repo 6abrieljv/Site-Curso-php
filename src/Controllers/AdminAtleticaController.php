@@ -18,11 +18,6 @@ class AdminAtleticaController
 
     public function __construct()
     {
-        // Adicionar verificação de admin aqui se necessário
-        // if (!isset($_SESSION['user']) || !$_SESSION['user']['is_admin']) {
-        //     header('Location: ' . BASE_URL . '/login');
-        //     exit;
-        // }
         $this->repository = new AtleticaRepository();
         $this->view = new View();
     }
@@ -95,41 +90,46 @@ class AdminAtleticaController
         ]);
     }
 
-    public function update(Request $request, array $params)
-    {
-        $id = (int)$params['id'];
-        $data = $request->getBody();
-        $membro = $this->repository->findById($id);
+   // src/Controllers/AdminAtleticaController.php
 
-        if (!$membro) {
-            Flash::set('message', 'Membro não encontrado.');
-            $response = new Response(302, '');
-            $response->addHeader('Location', BASE_URL . '/admin/atletica');
-            return $response;
-        }
+public function update(Request $request, array $params)
+{
+    $id = (int)$params['id'];
+    $data = $request->getBody();
+    $membro = $this->repository->findById($id);
 
-        $membro->setNome($data['nome']);
-        $membro->setCargo($data['cargo']);
-        $membro->setInstagramUrl($data['instagram_url']);
-
-        $oldImage = $membro->getFoto();
-        $newImage = ImageUploader::upload($data, $_FILES, 'atletica', $oldImage);
-        
-        if ($newImage) {
-            $membro->setFoto($newImage);
-        } elseif (isset($data['remove_current_image']) && $data['remove_current_image'] == '1') {
-            // Se "remover imagem" for marcado e nenhuma nova imagem for enviada
-            ImageUploader::delete($oldImage);
-            $membro->setFoto(null); // Limpa o caminho da foto no banco de dados
-        }
-
-        $this->repository->save($membro);
-        Flash::set('message', 'Membro atualizado com sucesso!');
-        
+    if (!$membro) {
+        Flash::set('message', 'Membro não encontrado.');
         $response = new Response(302, '');
         $response->addHeader('Location', BASE_URL . '/admin/atletica');
         return $response;
     }
+
+    // ... (resto do seu código para atualizar nome, cargo, instagram_url) ...
+
+    $oldImage = $membro->getFoto(); // Pega o caminho da imagem antiga do membro
+
+    // Chama o ImageUploader. Ele vai:
+    // 1. Verificar se há uma nova imagem Base64 ('image' em $data)
+    // 2. Ou se há um novo arquivo em $_FILES['imagem']
+    // 3. E se uma nova imagem for encontrada, ele DELETA a $oldImage automaticamente.
+    $newImage = ImageUploader::upload($data, $_FILES, 'atletica', $oldImage); //
+
+    if ($newImage) {
+        $membro->setFoto($newImage);
+    } elseif (isset($data['remove_current_image']) && $data['remove_current_image'] == '1') {
+        // Se a checkbox "remover imagem" foi marcada e NENHUMA nova imagem foi enviada
+        ImageUploader::delete($oldImage); //
+        $membro->setFoto(null); // Limpa o caminho da foto no banco de dados
+    }
+
+    $this->repository->save($membro); //
+    Flash::set('message', 'Membro atualizado com sucesso!');
+
+    $response = new Response(302, '');
+    $response->addHeader('Location', BASE_URL . '/admin/atletica');
+    return $response;
+}
 
     public function destroy(Request $request, array $params)
     {
