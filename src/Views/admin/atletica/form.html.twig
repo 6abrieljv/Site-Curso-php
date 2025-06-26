@@ -1,8 +1,16 @@
 {% extends 'templates/admin.html.twig' %}
 
 {% block head %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js" defer></script>
+	{{ parent() }}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css"/>
+	<style>
+		/* Garante que a imagem no cropper não exceda o contêiner */
+		.img-container img {
+			display: block;
+			max-width: 100%;
+			max-height: 100%;
+		}
+	</style>
 {% endblock %}
 
 {% block content %}
@@ -73,82 +81,91 @@
 </div>
 {% endblock %}
 
+
 {% block scripts %}
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const uploadInput = document.getElementById('uploadImageInput');
-    const modal = document.getElementById('imageEditorModal');
-    const modalPanel = document.getElementById('modalPanel');
+	{{ parent() }}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+    // Elementos do DOM
+    const imagemInput = document.getElementById('imagemInput');
+    const uploadContainer = document.getElementById('uploadContainer');
+    const modal = document.getElementById('cropModal');
     const imageToCrop = document.getElementById('imageToCrop');
     const confirmBtn = document.getElementById('confirmCrop');
     const cancelBtn = document.getElementById('cancelCrop');
-    const hiddenInput = document.getElementById('croppedImageData');
-    const imagePreview = document.getElementById('imagePreview');
+    const croppedImageDataInput = document.getElementById('croppedImageData');
     
+    // Novos elementos para a prévia
+    const previewContainer = document.getElementById('previewContainer');
+    const imagePreview = document.getElementById('imagePreview');
+    const removeImageBtn = document.getElementById('removeImageBtn');
+
     let cropper;
 
-    function openModal() {
-        modal.classList.remove('hidden');
-        setTimeout(() => { 
-            modal.style.opacity = '1';
-            modalPanel.classList.remove('scale-95');
-        }, 10);
-    }
-
-    function closeModal() {
-        modal.style.opacity = '0';
-        modalPanel.classList.add('scale-95');
-        setTimeout(() => { 
-            modal.classList.add('hidden');
-            if (cropper) {
-                cropper.destroy();
-            }
-            uploadInput.value = '';
-        }, 300);
-    }
-
-    uploadInput.addEventListener('change', function (e) {
+    // Quando o usuário seleciona uma imagem no input
+    imagemInput.addEventListener('change', (e) => {
         const files = e.target.files;
         if (files && files.length > 0) {
             const reader = new FileReader();
-            reader.onload = function (event) {
-                imageToCrop.src = event.target.result;
-                openModal();
+            reader.onload = () => {
+                imageToCrop.src = reader.result;
+                modal.classList.remove('hidden');
                 
+                if (cropper) {
+                   cropper.destroy();
+                }
+
                 cropper = new Cropper(imageToCrop, {
-                    aspectRatio: 1 / 1,
+                    aspectRatio: 16 / 9,
                     viewMode: 1,
+                    background: false,
                 });
             };
             reader.readAsDataURL(files[0]);
         }
     });
 
-    confirmBtn.addEventListener('click', function () {
-        if (!cropper) return;
-
-        const croppedCanvas = cropper.getCroppedCanvas({
-            width: 500,
-            height: 500,
-            imageSmoothingQuality: 'high',
-        });
-        
-        const base64data = croppedCanvas.toDataURL('image/png');
-        hiddenInput.value = base64data;
-        
-        imagePreview.src = base64data;
-        imagePreview.classList.remove('hidden');
-        
-        closeModal();
-    });
-
-    cancelBtn.addEventListener('click', closeModal);
-
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            closeModal();
+    // Quando o usuário confirma o corte
+    confirmBtn.addEventListener('click', () => {
+        if (cropper) {
+            const base64Canvas = cropper.getCroppedCanvas({
+                width: 1280,
+                height: 720,
+            }).toDataURL('image/png');
+            
+            // Coloca os dados no campo oculto
+            croppedImageDataInput.value = base64Canvas;
+            
+            // ATUALIZAÇÃO DA UI: Mostra a prévia
+            imagePreview.src = base64Canvas;
+            previewContainer.classList.remove('hidden');
+            
+            // Esconde o input de arquivo original
+            uploadContainer.classList.add('hidden');
+            
+            // Fecha o modal
+            modal.classList.add('hidden');
+            if (cropper) cropper.destroy();
         }
     });
+
+    // Quando o usuário cancela o corte
+    cancelBtn.addEventListener('click', () => {
+        modal.classList.add('hidden');
+        imagemInput.value = ''; 
+        if(cropper) cropper.destroy();
+    });
+
+    // NOVO: Quando o usuário clica em "Trocar imagem"
+    removeImageBtn.addEventListener('click', () => {
+        // Limpa os dados e reseta a UI para o estado inicial
+        croppedImageDataInput.value = '';
+        imagemInput.value = '';
+        previewContainer.classList.add('hidden');
+        uploadContainer.classList.remove('hidden');
+    });
 });
-</script>
+	</script>
 {% endblock %}
