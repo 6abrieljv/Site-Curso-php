@@ -6,30 +6,35 @@
 {% block content %}
 
 	{# --- 1. NOTÍCIA EM DESTAQUE --- #}
-
-
-	
 	{% if currentPage <= 1 %}
-		<div class="noticias-destaque" style="margin-bottom: 2rem;"> {% if noticias|length > 0 %}
-			{% set noticia_destaque = noticias[0] %}
-			{% include 'templates/partials/_card_noticia.html.twig' with { 'noticia': noticia_destaque, 'destaque': true } %}
-		{% endif %}
-	</div>
+		{# Adicionado 'mb-8' para 'margin-bottom: 2rem;' #}
+		<div class="noticias-destaque mb-8">
+			{% if noticias|length > 0 %}
+				{% set noticia_destaque = noticias[0] %}
+				{% include 'templates/partials/_card_noticia.html.twig' with { 'noticia': noticia_destaque, 'destaque': true } %}
+			{% endif %}
+		</div>
 	{% endif %}
-
-
-	<h2 class="noticias-ultimas-titulo" style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; border-left: 4px solid #c4170c; padding-left: 0.5rem;">
+	{# Adicionado 'text-2xl', 'font-bold', 'mb-4', 'border-l-4', 'border-[#c4170c]', 'pl-2' #}
+	<h2 class="noticias-ultimas-titulo text-2xl font-bold mb-4 border-l-4 border-[#c4170c] pl-2">
 		Últimas notícias
 	</h2>
 
 	{# --- 2. GRELHA DE NOTÍCIAS (SEM O DESTAQUE) --- #}
+	{# Adicionado 'grid', 'grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-3', 'gap-8', 'mb-8' #}
 	<div
-		class="noticias-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+		class="noticias-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
 		{# O filtro |slice(1) começa o loop a partir do SEGUNDO item para não repetir o destaque #}
+		{% if currentPage > 1 %}
+			{% for noticia in noticias %}
+				{% include 'templates/partials/_card_noticia.html.twig' with { 'noticia': noticia } %}
+			{% endfor %}
+		{% endif %}
+
 		{% for noticia in noticias|slice(1) %}
 			{% include 'templates/partials/_card_noticia.html.twig' with { 'noticia': noticia } %}
 		{% endfor %}
-		{# <--- O LOOP TERMINA AQUI #}
+
 	</div>
 
 	{# --- 3. PAGINAÇÃO (FORA DO LOOP) --- #}

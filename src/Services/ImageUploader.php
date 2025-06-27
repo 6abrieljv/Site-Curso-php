@@ -16,6 +16,8 @@ class ImageUploader
      */
     public static function upload(array $postData, array $fileData, string $subfolder, ?string $oldImage = null, ?string $desiredName = null): ?string
     {
+
+        try{
         $uploadDir = 'uploads/' . $subfolder . '/';
         $targetDir = ROOT_PATH . '/public/' . $uploadDir;
 
@@ -63,6 +65,10 @@ class ImageUploader
         // 3. Se uma nova imagem foi salva e uma antiga existia, remove a antiga para não deixar lixo.
         if ($imagePath && $oldImage) {
             self::delete($oldImage);
+        }
+        } catch (\Exception $e) {
+            // Lida com erros de upload, como falha ao mover o arquivo ou problemas de permissão.
+            throw new \RuntimeException('Erro ao fazer upload da imagem: ' . $e->getMessage());
         }
 
         return $imagePath;
