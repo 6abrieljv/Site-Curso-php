@@ -92,7 +92,7 @@
         </div>
         {# Campo oculto que guardará a imagem cortada #}
         {# É crucial que o 'name' deste input seja 'image' para ser compatível com ImageUploader::upload($data, ...) #}
-        <input type="hidden" name="image" id="atleticaCroppedImageData">
+        <input type="hidden" name="cropped_image_data" id="atleticaCroppedImageData">
         {# ========================================================== #}
 
         <div class="flex justify-end mt-8">
@@ -141,7 +141,6 @@
         let cropper;
 
         imagemInput.addEventListener('change', (e) => {
-            console.log ('blablablabla');
             const files = e.target.files;
             if (files && files.length > 0) {
                 const reader = new FileReader();
